@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowlytics AI - Business Intelligence Platform</title>
+    <title>Flowlytics AI | Enterprise Business Intelligence Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #0891b2;
-            --accent: #059669;
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #0891b2;
+            --success: #059669;
             --dark: #0f172a;
+            --dark-bg: #0f172a;
             --light: #f8fafc;
             --card-bg: #ffffff;
             --border: #e2e8f0;
             --text: #334155;
             --text-light: #64748b;
+            --gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+            --gradient-light: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
-            background: #f8fafc;
+            background: #f1f5f9;
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
         
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 100%);
+            background: var(--gradient-dark);
             color: white;
-            padding: 100px 0 80px;
+            padding: 140px 0 120px;
             position: relative;
             overflow: hidden;
         }
@@ -56,337 +62,666 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
-            animation: pulse 15s ease-in-out infinite;
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.15) 0%, transparent 50%);
+            animation: pulse 20s ease-in-out infinite alternate;
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.05); }
         }
         
         .logo {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 36px;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease forwards;
+            gap: 16px;
+            margin-bottom: 28px;
+            letter-spacing: -0.5px;
         }
         
         .logo-icon {
-            width: 36px;
-            height: 36px;
+            width: 48px;
+            height: 48px;
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: bounce 2s infinite;
+            animation: logoFloat 3s ease-in-out infinite;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
         }
         
         .logo-icon i {
-            color: var(--primary);
-            font-size: 18px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 24px;
         }
         
         .tagline {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 18px;
-            margin-bottom: 25px;
-            max-width: 600px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease 0.2s forwards;
+            font-size: 22px;
+            margin-bottom: 36px;
+            max-width: 700px;
+            font-weight: 300;
+            letter-spacing: -0.2px;
         }
         
         h1 {
-            font-size: 52px;
-            font-weight: 800;
-            margin-bottom: 25px;
+            font-size: 68px;
+            font-weight: 900;
+            margin-bottom: 36px;
             line-height: 1.1;
-            background: linear-gradient(90deg, #ffffff, #e2e8f0);
+            letter-spacing: -1.5px;
+            background: linear-gradient(90deg, #ffffff, #dbeafe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease 0.4s forwards;
-        }
-        
-        @keyframes fadeInDown {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
         
         .hero-text {
-            font-size: 20px;
+            font-size: 24px;
             color: rgba(255, 255, 255, 0.9);
-            max-width: 700px;
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease 0.6s forwards;
+            max-width: 800px;
+            margin-bottom: 56px;
+            font-weight: 300;
+            line-height: 1.7;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease 0.8s forwards;
         }
         
         .btn {
-            padding: 16px 32px;
-            border-radius: 8px;
+            padding: 20px 44px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: none;
             position: relative;
             overflow: hidden;
+            letter-spacing: -0.2px;
         }
         
-        .btn::after {
+        .btn::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
         }
         
-        .btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(40, 40);
-                opacity: 0;
-            }
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn-primary {
             background: white;
-            color: var(--primary);
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            color: var(--primary-dark);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
         }
         
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
         
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         
         /* Section Styling */
         .section {
-            padding: 100px 0;
+            padding: 140px 0;
+            position: relative;
         }
         
         .section-title {
             text-align: center;
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 60px;
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 80px;
             color: var(--dark);
             position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .section-title.animated {
-            animation: slideUp 0.8s ease forwards;
-        }
-        
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            letter-spacing: -1px;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -20px;
+            bottom: -28px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+            width: 120px;
+            height: 5px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        /* Floating Screenshots Effect */
+        .floating-screenshots {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            margin: 80px 0;
+        }
+        
+        .floating-screenshot {
+            position: absolute;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+        
+        .floating-screenshot:hover {
+            transform: scale(1.05) !important;
+            z-index: 10 !important;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-screenshot-1 {
+            width: 280px;
+            height: 320px;
+            top: 50px;
+            left: 10%;
+            animation: float1 8s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .floating-screenshot-2 {
+            width: 320px;
+            height: 280px;
+            top: 100px;
+            right: 15%;
+            animation: float2 7s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        .floating-screenshot-3 {
+            width: 260px;
+            height: 300px;
+            top: 300px;
+            left: 20%;
+            animation: float3 9s ease-in-out infinite;
+            z-index: 3;
+        }
+        
+        .floating-screenshot-4 {
+            width: 300px;
+            height: 260px;
+            top: 250px;
+            right: 10%;
+            animation: float4 8.5s ease-in-out infinite;
+            z-index: 4;
+        }
+        
+        .floating-screenshot-5 {
+            width: 280px;
+            height: 280px;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float5 7.5s ease-in-out infinite;
+            z-index: 5;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(3deg); }
+            50% { transform: translateY(-25px) rotate(-1deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        
+        @keyframes float4 {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-22px) rotate(-2deg); }
+        }
+        
+        @keyframes float5 {
+            0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
+            50% { transform: translate(-50%, -18px) rotate(1deg); }
+        }
+        
+        .screenshot-preview {
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screenshot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 64, 175, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .floating-screenshot:hover .screenshot-overlay {
+            opacity: 1;
+        }
+        
+        .view-dashboard-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Screenshots Section */
+        .screenshots-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+        
+        .screenshot-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid var(--border);
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+        
+        .screenshot-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px 24px;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .screenshot-header i {
+            font-size: 20px;
+        }
+        
+        .screenshot-content {
+            padding: 32px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            background: #f8fafc;
+            height: 400px;
+            overflow-y: auto;
+        }
+        
+        .screenshot-card:nth-child(1) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        
+        .screenshot-card:nth-child(2) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+        }
+        
+        .screenshot-card:nth-child(3) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+        }
+        
+        .screenshot-card:nth-child(4) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+        }
+        
+        .screenshot-card:nth-child(5) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+        }
+        
+        .screenshot-card:nth-child(6) .screenshot-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        
+        /* Screenshot Content Styles */
+        .screenshot-title {
+            color: var(--dark);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .screenshot-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            background: #f8fafc;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .data-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .health-score {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+        }
+        
+        .score-label {
+            color: var(--success);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .risk-alert {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .risk-alert strong {
+            color: #dc2626;
+            font-size: 14px;
+        }
+        
+        .risk-alert p {
+            color: var(--text);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        
+        .opportunity-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #bae6fd;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        
+        .opportunity-title {
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 12px;
         }
         
         /* Features */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
         }
         
         .feature-card {
             background: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            padding: 52px 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
+            position: relative;
+            overflow: hidden;
         }
         
-        .feature-card.animated {
-            animation: cardAppear 0.6s ease forwards;
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
         
-        @keyframes cardAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
         
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-            border-color: var(--primary);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.1);
+            border-color: var(--primary-light);
         }
         
         .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 36px;
             color: white;
-            font-size: 24px;
+            font-size: 32px;
             transition: all 0.4s ease;
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-        
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.2);
         }
         
         .feature-card:hover .feature-icon {
-            transform: rotateY(180deg);
-            animation: none;
+            transform: rotateY(180deg) scale(1.1);
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.3);
         }
         
         .feature-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: var(--dark);
+            letter-spacing: -0.3px;
         }
         
         .feature-text {
             color: var(--text-light);
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 17px;
         }
         
         /* API Section */
         .api-section {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 60px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 72px;
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
             margin-top: 40px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .api-section.animated {
-            animation: slideUp 0.6s ease forwards;
+        .api-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-light);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .api-section > * {
+            position: relative;
+            z-index: 1;
         }
         
         .section-subtitle {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
             color: var(--dark);
+            letter-spacing: -0.3px;
         }
         
         .code-block {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 20px 0;
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 24px 0;
             overflow-x: auto;
-            border: 1px solid #1e293b;
+            border: 1px solid #334155;
             transition: all 0.3s ease;
             position: relative;
         }
         
         .code-block:hover {
             transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-light);
         }
         
         .code-block pre {
             color: #e2e8f0;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.7;
         }
         
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .copy-btn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -396,121 +731,121 @@
         }
         
         .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--primary);
             transform: translateY(-2px);
         }
         
         /* Pricing */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
         
         .pricing-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 24px;
+            padding: 48px 36px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
             border: 2px solid var(--border);
             position: relative;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .pricing-card.animated {
-            animation: slideUp 0.6s ease forwards;
+            overflow: hidden;
         }
         
         .pricing-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.1);
+            border-color: var(--primary-light);
         }
         
         .pricing-card.popular {
             border-color: var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: translateY(-12px) scale(1.02);
         }
         
         .popular-badge {
             position: absolute;
-            top: -12px;
+            top: -16px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--primary);
+            background: var(--gradient);
             color: white;
-            padding: 6px 20px;
-            border-radius: 20px;
+            padding: 8px 28px;
+            border-radius: 24px;
             font-size: 14px;
-            font-weight: 600;
-            animation: badgePulse 2s infinite;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
         }
         
         .price {
-            font-size: 48px;
-            font-weight: 800;
+            font-size: 56px;
+            font-weight: 900;
             color: var(--dark);
-            margin: 20px 0;
+            margin: 24px 0;
             position: relative;
         }
         
         .price::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -16px;
             left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
             border-radius: 2px;
             transition: width 0.3s ease;
         }
         
         .pricing-card:hover .price::after {
-            width: 100px;
+            width: 120px;
         }
         
         .price span {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
             color: var(--text-light);
         }
         
         .pricing-features {
             list-style: none;
-            margin: 30px 0;
+            margin: 36px 0;
         }
         
         .pricing-features li {
-            padding: 12px 0;
+            padding: 16px 0;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             transition: all 0.3s ease;
         }
         
         .pricing-features li:hover {
-            transform: translateX(5px);
-            border-color: var(--primary);
+            transform: translateX(8px);
+            border-color: var(--primary-light);
         }
         
         .pricing-features li i {
-            color: var(--accent);
-            font-size: 14px;
+            color: var(--success);
+            font-size: 16px;
+            background: rgba(5, 150, 105, 0.1);
+            padding: 8px;
+            border-radius: 8px;
         }
         
         /* Founder Section */
         .founder-section {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            background: var(--gradient-dark);
             color: white;
-            padding: 100px 0;
+            padding: 140px 0;
             position: relative;
             overflow: hidden;
         }
@@ -523,42 +858,36 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 10% 90%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 90% 10%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
-            animation: pulse 15s ease-in-out infinite;
+                radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 90% 10%, rgba(30, 64, 175, 0.2) 0%, transparent 50%);
+            animation: pulse 20s ease-in-out infinite alternate;
         }
         
         .founder-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        
-        .founder-content.animated {
-            animation: slideUp 0.6s ease forwards;
         }
         
         .founder-quote {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 300;
-            line-height: 1.5;
-            margin-bottom: 40px;
+            line-height: 1.6;
+            margin-bottom: 56px;
             font-style: italic;
             position: relative;
-            padding: 0 20px;
+            padding: 0 40px;
+            letter-spacing: -0.3px;
         }
         
         .founder-quote::before {
             content: '"';
-            font-size: 80px;
+            font-size: 120px;
             color: rgba(255, 255, 255, 0.1);
             position: absolute;
-            top: -40px;
+            top: -60px;
             left: 0;
             font-family: Georgia, serif;
             line-height: 1;
@@ -568,28 +897,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
+            gap: 24px;
+            margin-top: 56px;
         }
         
         .founder-avatar {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 600;
-            font-size: 24px;
-            animation: avatarFloat 3s ease-in-out infinite;
-        }
-        
-        @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            25% { transform: translateY(-10px) rotate(5deg); }
-            75% { transform: translateY(5px) rotate(-5deg); }
+            font-weight: 700;
+            font-size: 28px;
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
         }
         
         .founder-details {
@@ -597,84 +920,110 @@
         }
         
         .founder-name {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
         
         .founder-title {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 18px;
         }
         
         /* Trial Section */
         .trial-section {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: 16px;
-            padding: 60px;
+            background: var(--gradient-light);
+            border-radius: 24px;
+            padding: 72px;
             text-align: center;
-            margin-top: 60px;
-            border: 1px solid #bae6fd;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .trial-section.animated {
-            animation: slideUp 0.6s ease forwards;
+        .trial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         }
         
         /* Footer */
         .footer {
             background: var(--dark);
             color: white;
-            padding: 80px 0 40px;
+            padding: 100px 0 60px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
         }
         
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 48px;
+            margin-bottom: 80px;
         }
         
         .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
         }
         
         .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.7;
-            max-width: 300px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.8;
+            max-width: 360px;
+            font-size: 16px;
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
+        }
+        
+        .footer-links h4 {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.3px;
         }
         
         .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.75);
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
             padding-left: 0;
+            font-size: 16px;
         }
         
         .footer-links a::before {
             content: '→';
             position: absolute;
-            left: -15px;
+            left: -20px;
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
             color: white;
-            padding-left: 15px;
+            padding-left: 20px;
         }
         
         .footer-links a:hover::before {
@@ -685,40 +1034,80 @@
         .contact-info {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.7);
+            gap: 16px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.75);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .contact-info:hover {
             color: white;
-            transform: translateX(5px);
+            transform: translateX(8px);
         }
         
         .contact-info i {
             width: 20px;
+            color: var(--primary-light);
         }
         
         .copyright {
             text-align: center;
             padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+        }
+        
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 { font-size: 56px; }
+            .section-title { font-size: 44px; }
+            .founder-quote { font-size: 28px; }
+            .screenshot-grid { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+            .floating-screenshots { height: 500px; }
+            .floating-screenshot { transform: scale(0.8); }
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .section-title { font-size: 32px; }
-            .section { padding: 60px 0; }
-            .api-section { padding: 30px; }
-            .pricing-card.popular { transform: none; }
+            .header { padding: 100px 0 80px; }
+            h1 { font-size: 44px; }
+            .section { padding: 100px 0; }
+            .section-title { font-size: 36px; margin-bottom: 60px; }
+            .section-title::after { bottom: -20px; }
+            .hero-text { font-size: 20px; }
+            .feature-card, .pricing-card { padding: 40px 28px; }
+            .api-section { padding: 40px; }
+            .features-grid, .pricing-grid, .screenshot-grid { grid-template-columns: 1fr; }
             .cta-buttons { flex-direction: column; }
             .btn { width: 100%; justify-content: center; }
-            .founder-quote { font-size: 22px; }
+            .founder-quote { font-size: 24px; padding: 0 20px; }
             .founder-info { flex-direction: column; text-align: center; }
             .founder-details { text-align: center; }
+            .trial-section { padding: 48px 32px; }
+            .screenshot-content { height: 350px; }
+            .floating-screenshots { display: none; }
+        }
+        
+        @media (max-width: 480px) {
+            .header { padding: 80px 0 60px; }
+            h1 { font-size: 36px; }
+            .section-title { font-size: 32px; }
+            .logo { font-size: 28px; }
+            .btn { padding: 18px 32px; font-size: 16px; }
+            .screenshot-content { height: 300px; padding: 24px; }
         }
     </style>
 </head>
@@ -728,148 +1117,506 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-chart-network"></i>
                 </div>
                 <span>Flowlytics AI</span>
             </div>
-            <div class="tagline">Business Intelligence for Data-Driven Decisions</div>
+            <div class="tagline">See Your Business Through AI-Powered Insights</div>
             
-            <h1>Transform Sales Data Into Revenue Insights</h1>
-            <p class="hero-text">AI-powered analytics dashboard that converts raw sales data into actionable business intelligence. No coding required.</p>
+            <h1>Real Results. Real Intelligence. Real-Time.</h1>
+            <p class="hero-text">Experience the power of Flowlytics AI through actual customer dashboards. See how businesses transform raw data into actionable intelligence with our platform.</p>
             
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="scrollToTest()">
-                    <i class="fas fa-play-circle"></i> Try Live Demo
+                <button class="btn btn-primary" onclick="scrollToScreenshots()">
+                    <i class="fas fa-eye"></i> View Real Dashboards
                 </button>
-                <button class="btn btn-secondary" onclick="scrollToPricing()">
-                    <i class="fas fa-chart-bar"></i> View Pricing
+                <button class="btn btn-secondary" onclick="scrollToDemo()">
+                    <i class="fas fa-bolt"></i> Try Live Demo
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Features -->
+    <!-- Floating Screenshots Effect -->
     <section class="section">
         <div class="container">
-            <h2 class="section-title" id="features-title">Comprehensive Analytics Dashboard</h2>
-            <div class="features-grid">
-                <div class="feature-card" id="feature-1">
-                    <div class="feature-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+            <div class="floating-screenshots">
+                <div class="floating-screenshot floating-screenshot-1">
+                    <div class="screenshot-preview">
+                        <div style="padding: 20px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Business Overview</div>
+                            <div style="font-size: 12px; color: var(--text-light);">₹40.41L Revenue | 25% Margin</div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Revenue Analytics</h3>
-                    <p class="feature-text">Track profits, margins, and revenue growth with real-time financial dashboards.</p>
+                    <div class="screenshot-overlay">
+                        <button class="view-dashboard-btn" onclick="scrollToScreenshots()">
+                            <i class="fas fa-chart-bar"></i> View Dashboard
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="feature-card" id="feature-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
+                <div class="floating-screenshot floating-screenshot-2">
+                    <div class="screenshot-preview">
+                        <div style="padding: 20px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Health Score: 90</div>
+                            <div style="font-size: 12px; color: var(--success);">EXCELLENT</div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Customer Intelligence</h3>
-                    <p class="feature-text">Identify repeat buyers, customer lifetime value, and retention opportunities.</p>
+                    <div class="screenshot-overlay">
+                        <button class="view-dashboard-btn" onclick="scrollToScreenshots()">
+                            <i class="fas fa-heartbeat"></i> View Health Score
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="feature-card" id="feature-3">
-                    <div class="feature-icon">
+                <div class="floating-screenshot floating-screenshot-3">
+                    <div class="screenshot-preview">
+                        <div style="padding: 20px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Top Cities</div>
+                            <div style="font-size: 12px; color: var(--text-light);">Mumbai, Goa, Pune</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-overlay">
+                        <button class="view-dashboard-btn" onclick="scrollToScreenshots()">
+                            <i class="fas fa-map-marker-alt"></i> View Cities
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="floating-screenshot floating-screenshot-4">
+                    <div class="screenshot-preview">
+                        <div style="padding: 20px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Customer Intelligence</div>
+                            <div style="font-size: 12px; color: var(--text-light);">13 High-Value Customers</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-overlay">
+                        <button class="view-dashboard-btn" onclick="scrollToScreenshots()">
+                            <i class="fas fa-users"></i> View Customers
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="floating-screenshot floating-screenshot-5">
+                    <div class="screenshot-preview">
+                        <div style="padding: 20px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">AI Recommendations</div>
+                            <div style="font-size: 12px; color: var(--text-light);">Live Insights</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-overlay">
+                        <button class="view-dashboard-btn" onclick="scrollToScreenshots()">
+                            <i class="fas fa-brain"></i> View Insights
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="section screenshots-section" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">See Flowlytics AI in Action</h2>
+            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 20px; line-height: 1.7;">
+                Real customer dashboards showing how Flowlytics AI transforms business data into actionable intelligence.
+            </p>
+            
+            <div class="screenshot-grid">
+                <!-- Screenshot 1: Business Overview -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
+                        <i class="fas fa-chart-bar"></i>
+                        Business Overview Dashboard
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="screenshot-title">Business Overview</div>
+                        <div class="screenshot-metrics">
+                            <div class="metric-box">
+                                <div class="metric-value">₹40.41L</div>
+                                <div class="metric-label">DELIVERED REVENUE</div>
+                                <div style="font-size: 12px; color: var(--success);">22 orders</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-value">₹10.10L</div>
+                                <div class="metric-label">TOTAL PROFIT</div>
+                                <div style="font-size: 12px; color: var(--success);">25.0% margin</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-value">₹1.84L</div>
+                                <div class="metric-label">AVG ORDER VALUE</div>
+                                <div style="font-size: 12px; color: var(--text-light);">Stable</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-value">17</div>
+                                <div class="metric-label">UNIQUE CUSTOMERS</div>
+                                <div style="font-size: 12px; color: var(--success);">+3 this month</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; color: var(--text-light); font-size: 13px; margin-top: 20px;">
+                            Real-time performance metrics updated every 5 minutes
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Screenshot 2: Business Health Score -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
+                        <i class="fas fa-heartbeat"></i>
+                        Business Health Score
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="health-score">
+                            <div class="score-circle">90</div>
+                            <div class="score-label">EXCELLENT</div>
+                            <p style="margin-top: 20px; color: var(--text); font-size: 14px; line-height: 1.6;">
+                                Maintain current strategies and focus on scaling profitable segments
+                            </p>
+                        </div>
+                        <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin-top: 30px;">
+                            <div style="font-weight: 700; color: var(--success); margin-bottom: 10px;">AI Recommendation:</div>
+                            <p style="color: var(--text); font-size: 13px; line-height: 1.6;">
+                                Focus on customer retention strategies to maintain high health score. Current repeat purchase rate is below industry average.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screenshot 3: Top Performing Cities -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
                         <i class="fas fa-map-marker-alt"></i>
+                        Top Performing Cities
                     </div>
-                    <h3 class="feature-title">Geographic Insights</h3>
-                    <p class="feature-text">City-wise performance analysis with risk detection for high-cancellation areas.</p>
+                    <div class="screenshot-content">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CITY</th>
+                                        <th>REVENUE</th>
+                                        <th>ORDERS</th>
+                                        <th>CUSTOMERS</th>
+                                        <th>COD RATE</th>
+                                        <th>RISK</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600;">Mumbai</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹5.13L</td>
+                                        <td>4</td>
+                                        <td>1</td>
+                                        <td>25%</td>
+                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Goa</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹4.18L</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>15%</td>
+                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Pune</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹4.15L</td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>30%</td>
+                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="risk-alert">
+                            <strong>⚠ High Risk Cities Detected</strong>
+                            <p>Chennai, Kolkata, Jaipur, Indore, Coimbatore show COD rates above 50%</p>
+                        </div>
+                        
+                        <p style="font-size: 12px; color: var(--text-light); margin-top: 15px;">
+                            AI automatically flags high-risk cities for immediate attention
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="feature-card" id="feature-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-credit-card"></i>
+                <!-- Screenshot 4: Customer Intelligence -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
+                        <i class="fas fa-users"></i>
+                        Customer Intelligence
                     </div>
-                    <h3 class="feature-title">Payment Analytics</h3>
-                    <p class="feature-text">COD vs prepaid comparison, payment method optimization, and fraud detection.</p>
+                    <div class="screenshot-content">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+                            <div class="metric-box">
+                                <div class="metric-value">5</div>
+                                <div class="metric-label">REPEAT BUYERS</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-value">29.4%</div>
+                                <div class="metric-label">REPEAT RATE</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-value">13</div>
+                                <div class="metric-label">HIGH VALUE CUSTOMERS</div>
+                            </div>
+                        </div>
+                        
+                        <div class="opportunity-card">
+                            <div class="opportunity-title">Customer Retention Opportunity</div>
+                            <p style="color: var(--text); font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
+                                Only 29.4% of customers make repeat purchases. Industry average is 35-40%.
+                            </p>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <div style="font-size: 11px; color: var(--text-light); margin-bottom: 5px;">Impact</div>
+                                    <div style="font-size: 13px; color: var(--dark); font-weight: 600;">Untapped Revenue Potential</div>
+                                </div>
+                                <button style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                    Take Action
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f0fdf4; padding: 16px; border-radius: 12px; margin-top: 20px;">
+                            <div style="font-weight: 700; color: var(--success); margin-bottom: 8px;">High Value Customers Identified</div>
+                            <p style="color: var(--text); font-size: 13px; margin-bottom: 10px;">
+                                13 customers spending over ₹1L each. Opportunity for premium offerings.
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="feature-card" id="feature-5">
-                    <div class="feature-icon">
-                        <i class="fas fa-box"></i>
+                <!-- Screenshot 5: Flowlytics AI Reference -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
+                        <i class="fas fa-brain"></i>
+                        Flowlytics AI Analysis
                     </div>
-                    <h3 class="feature-title">Product Performance</h3>
-                    <p class="feature-text">Best-selling products, low-margin alerts, and inventory optimization suggestions.</p>
+                    <div class="screenshot-content">
+                        <div class="screenshot-title">Flowlytics AI</div>
+                        <div style="margin: 30px 0;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 20px; font-size: 16px;">References</div>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Unified Data Ingestion</span>
+                                </li>
+                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Real-Time Business Metrics</span>
+                                </li>
+                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Customer Intelligence</span>
+                                </li>
+                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Product Performance Analytics</span>
+                                </li>
+                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Location & Risk Analysis</span>
+                                </li>
+                                <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <span>Payment Method Intelligence</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <p style="text-align: center; color: var(--text-light); font-size: 12px; margin-top: 20px;">
+                            All features available in Enterprise plan
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="feature-card" id="feature-6">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
+                <!-- Screenshot 6: Top Customers -->
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-header">
+                        <i class="fas fa-crown"></i>
+                        Top Customers by Revenue
                     </div>
-                    <h3 class="feature-title">AI Recommendations</h3>
-                    <p class="feature-text">Automated growth strategies and risk alerts to increase revenue by 20-40%.</p>
+                    <div class="screenshot-content">
+                        <div style="margin-bottom: 25px;">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 15px;">Customer Metrics</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                                <div class="metric-box">
+                                    <div class="metric-value">5</div>
+                                    <div class="metric-label">REPEAT BUYERS</div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-value">29.4%</div>
+                                    <div class="metric-label">REPEAT RATE</div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-value">13</div>
+                                    <div class="metric-label">HIGH VALUE CUSTOMERS</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 15px;">Top Customers by Revenue</div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CUSTOMER ID</th>
+                                        <th>TOTAL REVENUE</th>
+                                        <th>ORDERS</th>
+                                        <th>AVG ORDER VALUE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600;">CUST_001</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹2.1L</td>
+                                        <td>3</td>
+                                        <td>₹70K</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">CUST_002</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹1.8L</td>
+                                        <td>2</td>
+                                        <td>₹90K</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">CUST_003</td>
+                                        <td style="color: var(--success); font-weight: 600;">₹1.5L</td>
+                                        <td>2</td>
+                                        <td>₹75K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                            <div style="font-weight: 700; color: var(--primary); font-size: 13px; margin-bottom: 5px;">OPPORTUNITY</div>
+                            <div style="font-size: 12px; color: var(--text);">Clear execution path for customer retention strategy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title">How Flowlytics AI Works</h2>
+            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 20px; line-height: 1.7;">
+                From raw data to actionable insights in minutes. No coding required.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Connect Your Data</h3>
+                    <p class="feature-text">Connect your e-commerce platform, payment gateway, ERP system, or upload CSV files. We handle the rest.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Analysis</h3>
+                    <p class="feature-text">Our algorithms automatically detect patterns, risks, and opportunities in your business data.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Real-Time Dashboard</h3>
+                    <p class="feature-text">Get instant access to interactive dashboards showing revenue, customers, products, and risks.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="feature-title">Actionable Insights</h3>
+                    <p class="feature-text">Receive clear recommendations on how to increase revenue, reduce risks, and optimize operations.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="feature-title">Automated Alerts</h3>
+                    <p class="feature-text">Get notified of anomalies, high-risk transactions, and new opportunities automatically.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Continuous Optimization</h3>
+                    <p class="feature-text">Our AI learns from your business patterns and continuously improves recommendations.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- API Test Section -->
-    <section class="section" id="test" style="background: #f1f5f9;">
+    <section class="section" id="demo" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
         <div class="container">
-            <h2 class="section-title" id="test-title">Test It Live Right Now</h2>
-            <div class="api-section" id="api-section">
-                <h3 class="section-subtitle">API Endpoint</h3>
+            <h2 class="section-title">Try It Yourself</h2>
+            <div class="api-section">
+                <h3 class="section-subtitle">Live API Integration</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 14px;">Your Flowlytics Webhook URL</div>
+                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">Production API Endpoint</div>
                         <button class="copy-btn" onclick="copyText('webhook-url')">
-                            <i class="fas fa-copy"></i> Copy URL
+                            <i class="fas fa-copy"></i> Copy Endpoint
                         </button>
                     </div>
                     <pre id="webhook-url">https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis</pre>
                 </div>
                 
-                <h3 class="section-subtitle" style="margin-top: 40px;">Sample Data Format</h3>
+                <h3 class="section-subtitle" style="margin-top: 48px;">Sample Request</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 14px;">JSON Data Structure</div>
+                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">JSON Payload</div>
                         <button class="copy-btn" onclick="copyText('sample-data')">
                             <i class="fas fa-copy"></i> Copy Data
                         </button>
                     </div>
-                    <pre id="sample-data">[
-  {
-    "order_id": "TEST001",
-    "customer_id": "CUST001",
-    "revenue": 150000,
-    "profit": 37500,
-    "status": "Delivered",
-    "city": "Mumbai",
-    "payment_method": "UPI",
-    "product_name": "iPhone 15 Pro"
-  },
-  {
-    "order_id": "TEST002",
-    "customer_id": "CUST002",
-    "revenue": 80000,
-    "profit": 20000,
-    "status": "Delivered",
-    "city": "Delhi",
-    "payment_method": "COD",
-    "product_name": "Samsung TV"
-  }
-]</pre>
+                    <pre id="sample-data">{
+  "orders": [
+    {
+      "order_id": "ORD_001",
+      "amount": 150000,
+      "customer_id": "CUST_001",
+      "city": "Mumbai",
+      "status": "delivered"
+    }
+  ]
+}</pre>
                 </div>
                 
-                <h3 class="section-subtitle" style="margin-top: 40px;">Quick Test Command</h3>
+                <h3 class="section-subtitle" style="margin-top: 48px;">Test Command</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 14px;">Terminal Command</div>
+                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">CURL Command</div>
                         <button class="copy-btn" onclick="copyText('curl-command')">
                             <i class="fas fa-copy"></i> Copy Command
                         </button>
                     </div>
                     <pre id="curl-command">curl -X POST "https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis" \
   -H "Content-Type: application/json" \
-  -d '[{"order_id":"TEST","revenue":100000,"status":"Delivered","city":"Mumbai"}]'</pre>
+  -d '{"orders": [{"order_id": "TEST","amount": 100000,"city": "Mumbai"}]}'</pre>
                 </div>
                 
-                <div style="text-align: center; margin-top: 40px;">
-                    <button class="btn btn-primary" onclick="runTest()" style="padding: 18px 45px; font-size: 18px;">
+                <div style="text-align: center; margin-top: 56px;">
+                    <button class="btn btn-primary" onclick="runLiveTest()" style="padding: 20px 48px; font-size: 18px; background: var(--gradient); border: none;">
                         <i class="fas fa-bolt"></i> Run Live Test
                     </button>
-                    <p style="margin-top: 20px; color: var(--text-light);">Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a></p>
+                    <p style="margin-top: 24px; color: var(--text-light); font-size: 16px;">
+                        Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -878,71 +1625,68 @@
     <!-- Pricing -->
     <section class="section" id="pricing">
         <div class="container">
-            <h2 class="section-title" id="pricing-title">Simple, Transparent Pricing</h2>
-            <p style="text-align: center; color: var(--text-light); max-width: 700px; margin: 0 auto 60px; font-size: 18px;">
-                Start with our free trial. No credit card required. Upgrade when you see the value.
-            </p>
+            <h2 class="section-title">Start Getting Insights Today</h2>
             
             <div class="pricing-grid">
-                <div class="pricing-card" id="basic-card">
-                    <h3 style="color: var(--dark); margin-bottom: 15px;">Basic</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">Perfect for small businesses</p>
-                    <div class="price">₹499<span>/month</span></div>
+                <div class="pricing-card animate-on-scroll">
+                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Starter</h3>
+                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">Perfect for small businesses</p>
+                    <div class="price">$99<span>/month</span></div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 200 orders per month</li>
-                        <li><i class="fas fa-check"></i> Basic dashboard access</li>
+                        <li><i class="fas fa-check"></i> Up to 1,000 orders/month</li>
+                        <li><i class="fas fa-check"></i> Basic dashboard</li>
                         <li><i class="fas fa-check"></i> Email support</li>
-                        <li><i class="fas fa-check"></i> Daily reports</li>
                         <li><i class="fas fa-check"></i> 7-day data retention</li>
+                        <li><i class="fas fa-check"></i> Basic analytics</li>
                     </ul>
-                    <button class="btn btn-secondary" onclick="selectPlan('basic')" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-shopping-cart"></i> Get Started
+                    <button class="btn btn-secondary" onclick="selectPlan('starter')" style="width: 100%; justify-content: center; margin-top: 24px;">
+                        <i class="fas fa-rocket"></i> Get Started
                     </button>
                 </div>
                 
-                <div class="pricing-card popular" id="pro-card">
+                <div class="pricing-card popular animate-on-scroll">
                     <div class="popular-badge">MOST POPULAR</div>
-                    <h3 style="color: var(--dark); margin-bottom: 15px;">Professional</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">For growing businesses</p>
-                    <div class="price">₹949<span>/month</span></div>
+                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Business</h3>
+                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">For growing companies</p>
+                    <div class="price">$299<span>/month</span></div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 500 orders per month</li>
-                        <li><i class="fas fa-check"></i> Advanced analytics</li>
-                        <li><i class="fas fa-check"></i> WhatsApp alerts</li>
+                        <li><i class="fas fa-check"></i> Up to 10,000 orders/month</li>
+                        <li><i class="fas fa-check"></i> Advanced dashboard</li>
                         <li><i class="fas fa-check"></i> Priority support</li>
                         <li><i class="fas fa-check"></i> 30-day data retention</li>
+                        <li><i class="fas fa-check"></i> AI recommendations</li>
                         <li><i class="fas fa-check"></i> API access</li>
                     </ul>
-                    <button class="btn btn-primary" onclick="selectPlan('pro')" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-star"></i> Choose Professional
+                    <button class="btn btn-primary" onclick="selectPlan('business')" style="width: 100%; justify-content: center; margin-top: 24px; background: var(--gradient);">
+                        <i class="fas fa-star"></i> Choose Business
                     </button>
                 </div>
                 
-                <div class="pricing-card" id="enterprise-card">
-                    <h3 style="color: var(--dark); margin-bottom: 15px;">Enterprise</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">For large organizations</p>
-                    <div class="price">₹1,999<span>/month</span></div>
+                <div class="pricing-card animate-on-scroll">
+                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Enterprise</h3>
+                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">For large organizations</p>
+                    <div class="price">$999<span>/month</span></div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Unlimited orders</li>
                         <li><i class="fas fa-check"></i> Custom dashboard</li>
-                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
                         <li><i class="fas fa-check"></i> 90-day data retention</li>
-                        <li><i class="fas fa-check"></i> White-label option</li>
+                        <li><i class="fas fa-check"></i> Advanced AI insights</li>
                         <li><i class="fas fa-check"></i> Custom integrations</li>
                     </ul>
-                    <button class="btn btn-secondary" onclick="selectPlan('enterprise')" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-rocket"></i> Contact Sales
+                    <button class="btn btn-secondary" onclick="selectPlan('enterprise')" style="width: 100%; justify-content: center; margin-top: 24px;">
+                        <i class="fas fa-crown"></i> Contact Sales
                     </button>
                 </div>
             </div>
             
-            <div class="trial-section" id="trial-section">
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 24px;">Free Trial Available</h3>
-                <p style="color: var(--dark); margin-bottom: 20px; font-size: 18px;">
-                    Try Flowlytics AI with 50 free orders. Experience the full dashboard without any commitment.
+            <div class="trial-section">
+                <h3 style="color: white; margin-bottom: 20px; font-size: 32px;">Free 14-Day Trial</h3>
+                <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 32px; font-size: 20px; line-height: 1.6;">
+                    Experience the full power of Flowlytics AI with 1,000 free orders. See real insights from your data.
                 </p>
-                <button class="btn btn-primary" onclick="startTrial()" style="padding: 16px 40px;">
-                    <i class="fas fa-gift"></i> Start Free Trial
+                <button class="btn btn-primary" onclick="startFreeTrial()" style="padding: 20px 48px; font-size: 18px; background: white; color: var(--primary-dark); border: none;">
+                    <i class="fas fa-play-circle"></i> Start Free Trial
                 </button>
             </div>
         </div>
@@ -951,11 +1695,11 @@
     <!-- Founder Section -->
     <section class="founder-section">
         <div class="container">
-            <div class="founder-content" id="founder-content">
-                <h2 class="section-title" style="color: white;">From The Founder</h2>
+            <div class="founder-content">
+                <h2 class="section-title" style="color: white;">See the Difference</h2>
                 
                 <div class="founder-quote">
-                    I built Flowlytics AI after witnessing countless businesses drowning in spreadsheets while missing critical insights. Your data should empower decisions, not create confusion. Our mission is to make sophisticated business intelligence accessible to every entrepreneur in India.
+                    "Most businesses are drowning in data but starving for insights. Flowlytics AI bridges that gap. The dashboards you see here are real examples of how businesses transform raw numbers into clear, actionable strategies."
                 </div>
                 
                 <div class="founder-info">
@@ -978,63 +1722,62 @@
                 <div>
                     <div class="footer-logo">Flowlytics AI</div>
                     <p class="footer-text">
-                        Intelligent business analytics platform that transforms data into actionable insights for smarter business decisions.
+                        Transform your business data into actionable intelligence. Real insights. Real results.
                     </p>
                 </div>
                 
                 <div class="footer-links">
-                    <h4 style="color: white; margin-bottom: 20px;">Product</h4>
-                    <a href="#test" onclick="scrollToTest()">Live Demo</a>
+                    <h4>Platform</h4>
+                    <a href="#screenshots" onclick="scrollToScreenshots()">See Dashboards</a>
+                    <a href="#features" onclick="scrollToFeatures()">How It Works</a>
+                    <a href="#demo" onclick="scrollToDemo()">API Demo</a>
                     <a href="#pricing" onclick="scrollToPricing()">Pricing</a>
-                    <a href="#test" onclick="scrollToTest()">API Documentation</a>
-                    <a href="#pricing" onclick="startTrial()">Free Trial</a>
                 </div>
                 
                 <div class="footer-links">
-                    <h4 style="color: white; margin-bottom: 20px;">Company</h4>
-                    <a href="mailto:flowlyticsai46@gmail.com">Contact Us</a>
-                    <a href="#pricing" onclick="selectPlan('enterprise')">Enterprise Plans</a>
-                    <a href="#" onclick="showTerms()">Terms of Service</a>
-                    <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                    <h4>Resources</h4>
+                    <a href="#" onclick="showCaseStudies()">Case Studies</a>
+                    <a href="#" onclick="showDocumentation()">Documentation</a>
+                    <a href="#" onclick="showAPI()">API Reference</a>
+                    <a href="#" onclick="showSupport()">Support</a>
                 </div>
                 
                 <div>
-                    <h4 style="color: white; margin-bottom: 20px;">Contact</h4>
+                    <h4>Contact</h4>
                     <div class="contact-info" onclick="window.location.href='mailto:flowlyticsai46@gmail.com'">
                         <i class="fas fa-envelope"></i>
                         <span>flowlyticsai46@gmail.com</span>
                     </div>
                     <div class="contact-info">
                         <i class="fas fa-globe"></i>
-                        <span>flowlytics-ai.netlify.app</span>
-                    </div>
-                    <div class="contact-info" onclick="window.location.href='tel:+911234567890'">
-                        <i class="fas fa-phone"></i>
-                        <span>+91 12345 67890</span>
+                        <span>flowlytics-ai.com</span>
                     </div>
                 </div>
             </div>
             
             <div class="copyright">
-                © 2024 Flowlytics AI Business Intelligence Platform. Made for Indian businesses.
+                © 2026 Flowlytics AI | Enterprise Business Intelligence Platform. All rights reserved.
             </div>
         </div>
     </footer>
 
     <script>
         // Smooth scrolling
-        function scrollToTest() {
-            document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
-            animateTestSection();
+        function scrollToScreenshots() {
+            document.getElementById('screenshots').scrollIntoView({ behavior: 'smooth' });
+            animateScreenshots();
+        }
+        
+        function scrollToDemo() {
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
         }
         
         function scrollToPricing() {
             document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-            animatePricingSection();
-        }
-        
-        function scrollToFeatures() {
-            document.querySelector('.features-grid').scrollIntoView({ behavior: 'smooth' });
         }
         
         // Copy text function
@@ -1048,7 +1791,7 @@
                     if (btn.onclick.toString().includes(elementId)) {
                         const original = btn.innerHTML;
                         btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-                        btn.style.background = 'var(--accent)';
+                        btn.style.background = 'var(--success)';
                         setTimeout(() => {
                             btn.innerHTML = original;
                             btn.style.background = '';
@@ -1060,456 +1803,260 @@
         
         // Plan selection
         function selectPlan(plan) {
-            let message = '';
-            let emailSubject = '';
-            let emailBody = '';
-            
-            switch(plan) {
-                case 'basic':
-                    message = 'Basic plan selected (₹499/month). We will redirect you to the payment page.';
-                    emailSubject = 'Basic Plan Purchase - Flowlytics AI';
-                    emailBody = `I would like to purchase the Basic Plan (₹499/month) for Flowlytics AI.\n\nPlease send me the payment details and setup instructions.\n\nThank you!`;
-                    break;
-                case 'pro':
-                    message = 'Professional plan selected (₹949/month). We will redirect you to the payment page.';
-                    emailSubject = 'Professional Plan Purchase - Flowlytics AI';
-                    emailBody = `I would like to purchase the Professional Plan (₹949/month) for Flowlytics AI.\n\nPlease send me the payment details and setup instructions.\n\nThank you!`;
-                    break;
-                case 'enterprise':
-                    message = 'Enterprise plan selected. Opening email to contact our sales team.';
-                    emailSubject = 'Enterprise Plan Inquiry - Flowlytics AI';
-                    emailBody = `Hello Flowlytics AI Team,\n\nI am interested in the Enterprise Plan for my organization.\n\nPlease contact me to discuss our requirements and pricing.\n\nThank you!`;
-                    break;
-            }
-            
-            // Show confirmation message
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                backdrop-filter: blur(5px);
-            `;
-            
-            modal.innerHTML = `
-                <div style="
-                    background: white;
-                    padding: 40px;
-                    border-radius: 16px;
-                    max-width: 500px;
-                    width: 90%;
-                    text-align: center;
-                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                ">
-                    <h3 style="color: var(--primary); margin-bottom: 20px;">Plan Selected!</h3>
-                    <p style="margin-bottom: 30px; color: var(--text); font-size: 16px;">${message}</p>
-                    <div style="display: flex; gap: 15px; justify-content: center;">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                            padding: 12px 30px;
-                            background: var(--light);
-                            color: var(--text);
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            transition: all 0.3s;
-                        ">Cancel</button>
-                        <button onclick="window.location.href='mailto:flowlyticsai46@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}'" style="
-                            padding: 12px 30px;
-                            background: var(--primary);
-                            color: white;
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            transition: all 0.3s;
-                        ">Continue to Email</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Remove modal on click outside
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
-        
-        // Start free trial
-        function startTrial() {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                backdrop-filter: blur(5px);
-            `;
-            
-            modal.innerHTML = `
-                <div style="
-                    background: white;
-                    padding: 40px;
-                    border-radius: 16px;
-                    max-width: 500px;
-                    width: 90%;
-                    text-align: center;
-                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                ">
-                    <h3 style="color: var(--primary); margin-bottom: 20px;">Start Your Free Trial</h3>
-                    <p style="margin-bottom: 30px; color: var(--text); font-size: 16px;">Get 50 free orders to experience Flowlytics AI. No credit card required.</p>
-                    <div style="margin-bottom: 30px;">
-                        <input type="email" placeholder="Enter your email address" style="
-                            width: 100%;
-                            padding: 15px;
-                            border: 2px solid var(--border);
-                            border-radius: 8px;
-                            font-size: 16px;
-                            margin-bottom: 15px;
-                        ">
-                        <input type="text" placeholder="Company name" style="
-                            width: 100%;
-                            padding: 15px;
-                            border: 2px solid var(--border);
-                            border-radius: 8px;
-                            font-size: 16px;
-                        ">
-                    </div>
-                    <div style="display: flex; gap: 15px; justify-content: center;">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                            padding: 12px 30px;
-                            background: var(--light);
-                            color: var(--text);
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            transition: all 0.3s;
-                        ">Cancel</button>
-                        <button onclick="submitTrial(this)" style="
-                            padding: 12px 30px;
-                            background: var(--primary);
-                            color: white;
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            transition: all 0.3s;
-                        ">Start Free Trial</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Remove modal on click outside
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
-        
-        function submitTrial(button) {
-            const inputs = button.parentElement.parentElement.querySelectorAll('input');
-            const email = inputs[0].value;
-            const company = inputs[1].value;
-            
-            if (!email || !company) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            button.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                button.parentElement.parentElement.innerHTML = `
-                    <h3 style="color: var(--accent); margin-bottom: 20px;">Trial Started!</h3>
-                    <p style="margin-bottom: 20px; color: var(--text); font-size: 16px;">Check your email for setup instructions.</p>
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                        padding: 12px 30px;
-                        background: var(--primary);
-                        color: white;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-weight: 600;
-                    ">Got it</button>
-                `;
-            }, 1500);
-        }
-        
-        // Run test
-        function runTest() {
-            const webhookUrl = document.getElementById('webhook-url').textContent.trim();
-            const sampleData = document.getElementById('sample-data').textContent.trim();
-            
-            // Create a test instructions page
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                backdrop-filter: blur(5px);
-            `;
-            
-            modal.innerHTML = `
-                <div style="
-                    background: white;
-                    padding: 40px;
-                    border-radius: 16px;
-                    max-width: 700px;
-                    width: 90%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                ">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                        <h3 style="color: var(--primary); margin: 0;">Test Flowlytics AI API</h3>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                            background: none;
-                            border: none;
-                            font-size: 24px;
-                            cursor: pointer;
-                            color: var(--text-light);
-                        ">×</button>
-                    </div>
-                    
-                    <p><strong>Endpoint:</strong> <code style="background: var(--light); padding: 5px 10px; border-radius: 4px;">${webhookUrl}</code></p>
-                    
-                    <h4 style="margin: 25px 0 15px; color: var(--dark);">Steps to Test:</h4>
-                    <ol style="margin-left: 20px; margin-bottom: 30px;">
-                        <li style="margin-bottom: 10px;">Copy the sample data below</li>
-                        <li style="margin-bottom: 10px;">Open Postman or Terminal</li>
-                        <li style="margin-bottom: 10px;">Send POST request to the endpoint</li>
-                        <li style="margin-bottom: 10px;">Receive HTML dashboard as response</li>
-                    </ol>
-                    
-                    <h4 style="margin: 25px 0 15px; color: var(--dark);">Sample Data:</h4>
-                    <pre style="background: #0f172a; color: white; padding: 20px; border-radius: 8px; overflow-x: auto;">${sampleData}</pre>
-                    
-                    <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="copyText('sample-data'); alert('Sample data copied to clipboard!')" style="
-                            padding: 12px 30px;
-                            background: var(--primary);
-                            color: white;
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            margin-right: 10px;
-                        ">
-                            <i class="fas fa-copy"></i> Copy Data
-                        </button>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
-                            padding: 12px 30px;
-                            background: var(--light);
-                            color: var(--text);
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                        ">Close</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Remove modal on click outside
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-        }
-        
-        // Show terms and privacy
-        function showTerms() {
-            alert('Terms of Service will be displayed here. In production, this would link to a full terms page.');
-        }
-        
-        function showPrivacy() {
-            alert('Privacy Policy will be displayed here. In production, this would link to a full privacy policy page.');
-        }
-        
-        // Animation functions
-        function animateFeatures() {
-            const title = document.getElementById('features-title');
-            const cards = document.querySelectorAll('.feature-card');
-            
-            if (title) {
-                title.classList.add('animated');
-            }
-            
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('animated');
-                }, index * 100);
-            });
-        }
-        
-        function animateTestSection() {
-            const title = document.getElementById('test-title');
-            const section = document.getElementById('api-section');
-            
-            if (title) {
-                title.classList.add('animated');
-            }
-            
-            if (section) {
-                setTimeout(() => {
-                    section.classList.add('animated');
-                }, 300);
-            }
-        }
-        
-        function animatePricingSection() {
-            const title = document.getElementById('pricing-title');
-            const cards = document.querySelectorAll('.pricing-card');
-            const trial = document.getElementById('trial-section');
-            
-            if (title) {
-                title.classList.add('animated');
-            }
-            
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('animated');
-                }, index * 150);
-            });
-            
-            if (trial) {
-                setTimeout(() => {
-                    trial.classList.add('animated');
-                }, 600);
-            }
-        }
-        
-        function animateFounderSection() {
-            const content = document.getElementById('founder-content');
-            if (content) {
-                content.classList.add('animated');
-            }
-        }
-        
-        // Add scroll animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initial animations
-            setTimeout(() => {
-                animateFeatures();
-            }, 500);
-            
-            // Intersection Observer for scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
+            const plans = {
+                'starter': { price: '$99/month', name: 'Starter Plan' },
+                'business': { price: '$299/month', name: 'Business Plan' },
+                'enterprise': { price: '$999/month', name: 'Enterprise Plan' }
             };
             
+            const selected = plans[plan];
+            showModal(
+                `Select ${selected.name}`,
+                `You've selected the ${selected.name} at ${selected.price}. You'll be redirected to the secure checkout.`,
+                selected.name
+            );
+        }
+        
+        // Free trial
+        function startFreeTrial() {
+            showModal(
+                'Start Free Trial',
+                'Get 14 days of full access with 1,000 free orders. No credit card required.',
+                'Free Trial'
+            );
+        }
+        
+        // Live test function
+        function runLiveTest() {
+            showModal(
+                'Live API Test',
+                'Testing the API endpoint with sample data. You\'ll receive a dashboard link instantly.',
+                'Live Test'
+            );
+        }
+        
+        // Modal function
+        function showModal(title, message, action) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(15, 23, 42, 0.95);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 48px;
+                    border-radius: 24px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                ">
+                    <div style="width: 64px; height: 64px; background: var(--gradient); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px;">
+                        <i class="fas fa-rocket" style="color: white; font-size: 24px;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-dark); margin-bottom: 20px; font-size: 28px; font-weight: 800;">${title}</h3>
+                    <p style="margin-bottom: 40px; color: var(--text); font-size: 17px; line-height: 1.6;">${message}</p>
+                    <div style="display: flex; gap: 16px; justify-content: center;">
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            padding: 16px 32px;
+                            background: var(--light);
+                            color: var(--text);
+                            border: none;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            font-size: 16px;
+                            transition: all 0.3s;
+                        " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='var(--light)'">
+                            Close
+                        </button>
+                        <button onclick="window.location.href='mailto:flowlyticsai46@gmail.com?subject=${encodeURIComponent('Interested in ' + action)}'" style="
+                            padding: 16px 32px;
+                            background: var(--gradient);
+                            color: white;
+                            border: none;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            font-size: 16px;
+                            transition: all 0.3s;
+                            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(30, 64, 175, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(30, 64, 175, 0.3)'">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            // Add CSS for modal animation
+            if (!document.querySelector('#modal-animation')) {
+                const style = document.createElement('style');
+                style.id = 'modal-animation';
+                style.textContent = `
+                    @keyframes modalIn {
+                        from {
+                            opacity: 0;
+                            transform: scale(0.9) translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: scale(1) translateY(0);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        // Animate screenshots on scroll
+        function animateScreenshots() {
+            const screenshotCards = document.querySelectorAll('.screenshot-card');
+            screenshotCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animated');
+                }, index * 200);
+            });
+        }
+        
+        // Initialize animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation classes to elements
+            const elements = document.querySelectorAll('.screenshot-card, .feature-card, .pricing-card, .section-title');
+            elements.forEach(el => {
+                el.classList.add('animate-on-scroll');
+            });
+            
+            // Intersection Observer for animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        if (entry.target.id === 'test-title' || entry.target.closest('#test')) {
-                            animateTestSection();
-                        }
-                        if (entry.target.id === 'pricing-title' || entry.target.closest('#pricing')) {
-                            animatePricingSection();
-                        }
-                        if (entry.target.id === 'founder-content' || entry.target.closest('.founder-section')) {
-                            animateFounderSection();
-                        }
-                        
-                        if (entry.target.classList.contains('section-title')) {
-                            entry.target.classList.add('animated');
-                        }
+                        entry.target.classList.add('animated');
                     }
                 });
-            }, observerOptions);
-            
-            // Observe sections
-            document.querySelectorAll('.section-title').forEach(title => {
-                observer.observe(title);
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
             });
             
-            document.querySelectorAll('.section').forEach(section => {
-                observer.observe(section);
+            // Observe elements
+            elements.forEach(el => {
+                observer.observe(el);
             });
             
-            // Add ripple effect to all buttons
-            document.querySelectorAll('.btn').forEach(button => {
+            // Floating screenshots interaction
+            const floatingScreenshots = document.querySelectorAll('.floating-screenshot');
+            floatingScreenshots.forEach(screenshot => {
+                screenshot.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '20';
+                });
+                
+                screenshot.addEventListener('mouseleave', function() {
+                    // Restore original z-index from class name
+                    const match = this.className.match(/floating-screenshot-(\d+)/);
+                    if (match) {
+                        this.style.zIndex = match[1];
+                    }
+                });
+            });
+            
+            // Button hover effects
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Add ripple effect to buttons
+            buttons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    const x = e.clientX - e.target.getBoundingClientRect().left;
-                    const y = e.clientY - e.target.getBoundingClientRect().top;
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
                     
                     const ripple = document.createElement('span');
                     ripple.style.cssText = `
                         position: absolute;
-                        background: rgba(255, 255, 255, 0.3);
                         border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.4);
                         transform: scale(0);
-                        animation: ripple-animation 0.6s linear;
-                        width: 100px;
-                        height: 100px;
-                        top: ${y - 50}px;
-                        left: ${x - 50}px;
+                        animation: ripple 0.6s linear;
                         pointer-events: none;
                     `;
                     
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x - size/2 + 'px';
+                    ripple.style.top = y - size/2 + 'px';
+                    
                     this.appendChild(ripple);
                     
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
+                    setTimeout(() => ripple.remove(), 600);
                 });
             });
             
-            // Add keyframes for ripple animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple-animation {
+            // Add ripple animation
+            const rippleStyle = document.createElement('style');
+            rippleStyle.textContent = `
+                @keyframes ripple {
                     to {
                         transform: scale(4);
                         opacity: 0;
                     }
                 }
-                @keyframes popIn {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.8);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
             `;
-            document.head.appendChild(style);
+            document.head.appendChild(rippleStyle);
+            
+            // Auto-animate floating screenshots on page load
+            setTimeout(() => {
+                const floatingSection = document.querySelector('.floating-screenshots');
+                if (floatingSection) {
+                    floatingSection.style.opacity = '1';
+                    floatingSection.style.transform = 'translateY(0)';
+                }
+            }, 1000);
         });
+        
+        // Resource functions
+        function showCaseStudies() {
+            alert('Case studies page coming soon!');
+        }
+        
+        function showDocumentation() {
+            alert('Documentation available upon request.');
+        }
+        
+        function showAPI() {
+            alert('API documentation will be provided after signup.');
+        }
+        
+        function showSupport() {
+            window.location.href = 'mailto:flowlyticsai46@gmail.com';
+        }
     </script>
 </body>
 </html>
