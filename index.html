@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowlytics AI - Instant Business Intelligence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        
+        body { background: #0f172a; color: white; line-height: 1.6; }
+        
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, #1a237e, #0f172a);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00bcd4, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00bcd4, #4caf50);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.4);
+        }
+        
+        /* Features */
+        .features {
+            padding: 80px 20px;
+            background: #1e293b;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #00bcd4;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: #334155;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #00bcd4;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 20px;
+            background: #0f172a;
+            text-align: center;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+        
+        .step {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .step-number {
+            background: #00bcd4;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        /* Test Section */
+        .test-section {
+            padding: 80px 20px;
+            background: #1e293b;
+            text-align: center;
+        }
+        
+        .code-block {
+            background: #0f172a;
+            border: 2px solid #00bcd4;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: left;
+            max-width: 800px;
+            margin: 30px auto;
+            overflow-x: auto;
+        }
+        
+        pre {
+            color: #4caf50;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 80px 20px;
+            background: #0f172a;
+            text-align: center;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+        
+        .pricing-card {
+            background: #1e293b;
+            padding: 40px 30px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            border: 2px solid #334155;
+        }
+        
+        .pricing-card.featured {
+            border-color: #00bcd4;
+            transform: scale(1.05);
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00bcd4;
+            margin: 20px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0a0f1a;
+            padding: 50px 20px;
+            text-align: center;
+            color: #94a3b8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .subtitle { font-size: 18px; }
+            .cta-button { display: block; margin: 15px auto; }
+            .steps, .pricing-cards { flex-direction: column; }
+            .pricing-card.featured { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="logo">Flowlytics AI</div>
+        <div class="tagline">Intelligent Analytics for Smarter Decisions</div>
+        <h1>From Sales Data to Smart Decisions in 30 Seconds</h1>
+        <p class="subtitle">Transform raw sales data into beautiful dashboards with AI-powered insights. No coding, no spreadsheets.</p>
+        
+        <div style="margin: 40px 0;">
+            <button class="cta-button" onclick="scrollToTest()">🚀 Try Free Now</button>
+            <button class="cta-button" onclick="scrollToDemo()">📊 See Live Demo</button>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2 class="section-title">AI-Powered Business Intelligence</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Revenue Analytics</h3>
+                <p>Real-time profit tracking, margin analysis, and growth forecasting</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Customer Intelligence</h3>
+                <p>Identify repeat buyers, high-value customers, and retention opportunities</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Location Tracking</h3>
+                <p>City-wise performance analysis with risk detection for COD areas</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Payment Insights</h3>
+                <p>Analyze COD vs prepaid performance and optimize payment methods</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Product Analytics</h3>
+                <p>Discover best-selling products and low-margin items instantly</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Recommendations</h3>
+                <p>Automated insights to increase revenue by 20-40%</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2 class="section-title">Simple 3-Step Process</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Send Your Data</h3>
+                <p>Post your sales data to our API endpoint</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Get Instant Analysis</h3>
+                <p>AI processes and generates insights in seconds</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>View Dashboard</h3>
+                <p>Receive beautiful, interactive dashboard</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Section -->
+    <section class="test-section" id="test">
+        <h2 class="section-title">Try It Free Right Now</h2>
+        <p style="font-size: 18px; max-width: 700px; margin: 0 auto 30px;">Copy this code and run in Terminal or Postman</p>
+        
+        <div class="code-block">
+            <h3 style="color: #00bcd4; margin-bottom: 15px;">Your API Endpoint:</h3>
+            <pre>https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis</pre>
+            
+            <h3 style="color: #00bcd4; margin: 25px 0 15px;">Sample Data to Send:</h3>
+            <pre>[
+  {
+    "order_id": "TEST1",
+    "customer_id": "CUST001",
+    "revenue": 150000,
+    "profit": 37500,
+    "status": "Delivered",
+    "city": "Mumbai",
+    "payment_method": "UPI",
+    "product_name": "iPhone 15 Pro"
+  },
+  {
+    "order_id": "TEST2",
+    "customer_id": "CUST002",
+    "revenue": 80000,
+    "profit": 20000,
+    "status": "Delivered",
+    "city": "Delhi",
+    "payment_method": "COD",
+    "product_name": "Samsung TV"
+  }
+]</pre>
+            
+            <h3 style="color: #00bcd4; margin: 25px 0 15px;">Terminal Command:</h3>
+            <pre>curl -X POST "https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis" \
+  -H "Content-Type: application/json" \
+  -d '[{"order_id":"TEST","revenue":100000,"status":"Delivered","city":"Mumbai"}]'</pre>
+        </div>
+        
+        <button class="cta-button" onclick="copyCode()">📋 Copy Test Code</button>
+        <p style="margin-top: 20px; color: #94a3b8;">Or email your data to: hello@flowlytics.ai</p>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Free Trial</h3>
+                <div class="price">₹0</div>
+                <ul style="text-align: left; margin: 25px 0; list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">✓ 50 orders free</li>
+                    <li style="margin-bottom: 10px;">✓ Full dashboard access</li>
+                    <li style="margin-bottom: 10px;">✓ 7-day trial</li>
+                    <li style="margin-bottom: 10px;">✓ Email support</li>
+                </ul>
+                <button class="cta-button" onclick="scrollToTest()">Try Free</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <h3>Pro Plan</h3>
+                <div class="price">₹2,999<span style="font-size: 18px;">/month</span></div>
+                <ul style="text-align: left; margin: 25px 0; list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">✓ 500 orders/month</li>
+                    <li style="margin-bottom: 10px;">✓ Advanced analytics</li>
+                    <li style="margin-bottom: 10px;">✓ WhatsApp alerts</li>
+                    <li style="margin-bottom: 10px;">✓ Priority support</li>
+                    <li style="margin-bottom: 10px;">✓ API access</li>
+                </ul>
+                <button class="cta-button" onclick="contactUs()">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div style="margin-bottom: 30px;">
+            <div style="font-size: 28px; font-weight: bold; color: #00bcd4; margin-bottom: 10px;">Flowlytics AI</div>
+            <div style="font-size: 16px;">Business Intelligence Platform</div>
+        </div>
+        
+        <div style="margin: 25px 0;">
+            <button class="cta-button" style="background: #334155; padding: 12px 30px; font-size: 16px;" 
+                    onclick="window.location.href='mailto:hello@flowlytics.ai'">
+                ✉️ Email: hello@flowlytics.ai
+            </button>
+            <button class="cta-button" style="background: #25D366; padding: 12px 30px; font-size: 16px;" 
+                    onclick="window.location.href='https://wa.me/919999999999'">
+                💬 WhatsApp Support
+            </button>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 14px; color: #64748b;">
+            © 2025 Flowlytics AI. All rights reserved.<br>
+            Deployed on Railway • Powered by AI
+        </div>
+    </footer>
+
+    <script>
+        function scrollToTest() {
+            document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToDemo() {
+            document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function contactUs() {
+            window.location.href = 'mailto:hello@flowlytics.ai?subject=Pro Plan Inquiry';
+        }
+        
+        function copyCode() {
+            const code = `curl -X POST "https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis" \\
+  -H "Content-Type: application/json" \\
+  -d '[{"order_id":"TEST","revenue":100000,"status":"Delivered","city":"Mumbai"}]'`;
+            
+            navigator.clipboard.writeText(code);
+            alert('Code copied! Paste in terminal to test.');
+        }
+        
+        // Demo data
+        window.demoData = [
+            {"order_id":"DEMO1","revenue":250000,"profit":62500,"status":"Delivered","city":"Mumbai"},
+            {"order_id":"DEMO2","revenue":150000,"profit":37500,"status":"Delivered","city":"Delhi"},
+            {"order_id":"DEMO3","revenue":50000,"profit":12500,"status":"Cancelled","city":"Chennai"}
+        ];
+    </script>
+</body>
+</html>
