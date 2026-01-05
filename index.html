@@ -58,6 +58,12 @@
             background: 
                 radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .logo {
@@ -67,6 +73,9 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.8s ease forwards;
         }
         
         .logo-icon {
@@ -77,6 +86,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
         .logo-icon i {
@@ -89,6 +104,9 @@
             font-size: 18px;
             margin-bottom: 25px;
             max-width: 600px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.8s ease 0.2s forwards;
         }
         
         h1 {
@@ -99,6 +117,16 @@
             background: linear-gradient(90deg, #ffffff, #e2e8f0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.8s ease 0.4s forwards;
+        }
+        
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero-text {
@@ -106,12 +134,18 @@
             color: rgba(255, 255, 255, 0.9);
             max-width: 700px;
             margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.8s ease 0.6s forwards;
         }
         
         .cta-buttons {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.8s ease 0.8s forwards;
         }
         
         .btn {
@@ -126,6 +160,37 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
         }
         
         .btn-primary {
@@ -162,6 +227,19 @@
             margin-bottom: 60px;
             color: var(--dark);
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .section-title.animated {
+            animation: slideUp 0.8s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .section-title::after {
@@ -190,12 +268,25 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border: 1px solid var(--border);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        
+        .feature-card.animated {
+            animation: cardAppear 0.6s ease forwards;
+        }
+        
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
             border-color: var(--primary);
         }
         
@@ -210,6 +301,18 @@
             margin-bottom: 25px;
             color: white;
             font-size: 24px;
+            transition: all 0.4s ease;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg);
+            animation: none;
         }
         
         .feature-title {
@@ -232,6 +335,13 @@
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border);
             margin-top: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .api-section.animated {
+            animation: slideUp 0.6s ease forwards;
         }
         
         .section-subtitle {
@@ -248,6 +358,13 @@
             margin: 20px 0;
             overflow-x: auto;
             border: 1px solid #1e293b;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .code-block:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
         
         .code-block pre {
@@ -275,11 +392,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
         }
         
         .copy-btn:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
         
         /* Pricing */
@@ -297,17 +415,22 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border: 2px solid var(--border);
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .pricing-card.animated {
+            animation: slideUp 0.6s ease forwards;
         }
         
         .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
         .pricing-card.popular {
             border-color: var(--primary);
-            transform: scale(1.02);
         }
         
         .popular-badge {
@@ -321,6 +444,12 @@
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
         }
         
         .price {
@@ -328,6 +457,23 @@
             font-weight: 800;
             color: var(--dark);
             margin: 20px 0;
+            position: relative;
+        }
+        
+        .price::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .pricing-card:hover .price::after {
+            width: 100px;
         }
         
         .price span {
@@ -347,6 +493,12 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-features li:hover {
+            transform: translateX(5px);
+            border-color: var(--primary);
         }
         
         .pricing-features li i {
@@ -373,6 +525,7 @@
             background: 
                 radial-gradient(circle at 10% 90%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 90% 10%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
         }
         
         .founder-content {
@@ -381,6 +534,13 @@
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .founder-content.animated {
+            animation: slideUp 0.6s ease forwards;
         }
         
         .founder-quote {
@@ -423,6 +583,13 @@
             color: white;
             font-weight: 600;
             font-size: 24px;
+            animation: avatarFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
         }
         
         .founder-details {
@@ -448,6 +615,13 @@
             text-align: center;
             margin-top: 60px;
             border: 1px solid #bae6fd;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .trial-section.animated {
+            animation: slideUp 0.6s ease forwards;
         }
         
         /* Footer */
@@ -485,11 +659,27 @@
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
+        }
+        
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
             color: white;
+            padding-left: 15px;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: 0;
         }
         
         .contact-info {
@@ -498,6 +688,12 @@
             gap: 12px;
             margin-bottom: 15px;
             color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info:hover {
+            color: white;
+            transform: translateX(5px);
         }
         
         .contact-info i {
@@ -555,9 +751,9 @@
     <!-- Features -->
     <section class="section">
         <div class="container">
-            <h2 class="section-title">Comprehensive Analytics Dashboard</h2>
+            <h2 class="section-title" id="features-title">Comprehensive Analytics Dashboard</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" id="feature-1">
                     <div class="feature-icon">
                         <i class="fas fa-money-bill-wave"></i>
                     </div>
@@ -565,7 +761,7 @@
                     <p class="feature-text">Track profits, margins, and revenue growth with real-time financial dashboards.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" id="feature-2">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -573,7 +769,7 @@
                     <p class="feature-text">Identify repeat buyers, customer lifetime value, and retention opportunities.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" id="feature-3">
                     <div class="feature-icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
@@ -581,7 +777,7 @@
                     <p class="feature-text">City-wise performance analysis with risk detection for high-cancellation areas.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" id="feature-4">
                     <div class="feature-icon">
                         <i class="fas fa-credit-card"></i>
                     </div>
@@ -589,7 +785,7 @@
                     <p class="feature-text">COD vs prepaid comparison, payment method optimization, and fraud detection.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" id="feature-5">
                     <div class="feature-icon">
                         <i class="fas fa-box"></i>
                     </div>
@@ -597,7 +793,7 @@
                     <p class="feature-text">Best-selling products, low-margin alerts, and inventory optimization suggestions.</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card" id="feature-6">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
@@ -611,8 +807,8 @@
     <!-- API Test Section -->
     <section class="section" id="test" style="background: #f1f5f9;">
         <div class="container">
-            <h2 class="section-title">Test It Live Right Now</h2>
-            <div class="api-section">
+            <h2 class="section-title" id="test-title">Test It Live Right Now</h2>
+            <div class="api-section" id="api-section">
                 <h3 class="section-subtitle">API Endpoint</h3>
                 <div class="code-block">
                     <div class="code-header">
@@ -673,7 +869,7 @@
                     <button class="btn btn-primary" onclick="runTest()" style="padding: 18px 45px; font-size: 18px;">
                         <i class="fas fa-bolt"></i> Run Live Test
                     </button>
-                    <p style="margin-top: 20px; color: var(--text-light);">Or email your data to: flowlytics_ai@gmail.com</p>
+                    <p style="margin-top: 20px; color: var(--text-light);">Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a></p>
                 </div>
             </div>
         </div>
@@ -682,13 +878,13 @@
     <!-- Pricing -->
     <section class="section" id="pricing">
         <div class="container">
-            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <h2 class="section-title" id="pricing-title">Simple, Transparent Pricing</h2>
             <p style="text-align: center; color: var(--text-light); max-width: 700px; margin: 0 auto 60px; font-size: 18px;">
                 Start with our free trial. No credit card required. Upgrade when you see the value.
             </p>
             
             <div class="pricing-grid">
-                <div class="pricing-card">
+                <div class="pricing-card" id="basic-card">
                     <h3 style="color: var(--dark); margin-bottom: 15px;">Basic</h3>
                     <p style="color: var(--text-light); margin-bottom: 20px;">Perfect for small businesses</p>
                     <div class="price">₹499<span>/month</span></div>
@@ -704,7 +900,7 @@
                     </button>
                 </div>
                 
-                <div class="pricing-card popular">
+                <div class="pricing-card popular" id="pro-card">
                     <div class="popular-badge">MOST POPULAR</div>
                     <h3 style="color: var(--dark); margin-bottom: 15px;">Professional</h3>
                     <p style="color: var(--text-light); margin-bottom: 20px;">For growing businesses</p>
@@ -722,7 +918,7 @@
                     </button>
                 </div>
                 
-                <div class="pricing-card">
+                <div class="pricing-card" id="enterprise-card">
                     <h3 style="color: var(--dark); margin-bottom: 15px;">Enterprise</h3>
                     <p style="color: var(--text-light); margin-bottom: 20px;">For large organizations</p>
                     <div class="price">₹1,999<span>/month</span></div>
@@ -740,12 +936,12 @@
                 </div>
             </div>
             
-            <div class="trial-section">
+            <div class="trial-section" id="trial-section">
                 <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 24px;">Free Trial Available</h3>
                 <p style="color: var(--dark); margin-bottom: 20px; font-size: 18px;">
                     Try Flowlytics AI with 50 free orders. Experience the full dashboard without any commitment.
                 </p>
-                <button class="btn btn-primary" onclick="scrollToTest()" style="padding: 16px 40px;">
+                <button class="btn btn-primary" onclick="startTrial()" style="padding: 16px 40px;">
                     <i class="fas fa-gift"></i> Start Free Trial
                 </button>
             </div>
@@ -755,7 +951,7 @@
     <!-- Founder Section -->
     <section class="founder-section">
         <div class="container">
-            <div class="founder-content">
+            <div class="founder-content" id="founder-content">
                 <h2 class="section-title" style="color: white;">From The Founder</h2>
                 
                 <div class="founder-quote">
@@ -788,35 +984,39 @@
                 
                 <div class="footer-links">
                     <h4 style="color: white; margin-bottom: 20px;">Product</h4>
-                    <a href="#test">Live Demo</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="#test">API Documentation</a>
-                    <a href="#pricing">Free Trial</a>
+                    <a href="#test" onclick="scrollToTest()">Live Demo</a>
+                    <a href="#pricing" onclick="scrollToPricing()">Pricing</a>
+                    <a href="#test" onclick="scrollToTest()">API Documentation</a>
+                    <a href="#pricing" onclick="startTrial()">Free Trial</a>
                 </div>
                 
                 <div class="footer-links">
                     <h4 style="color: white; margin-bottom: 20px;">Company</h4>
-                    <a href="mailto:flowlytics_ai@gmail.com">Contact Us</a>
-                    <a href="#pricing">Enterprise Plans</a>
-                    <a href="#pricing">Terms of Service</a>
-                    <a href="#pricing">Privacy Policy</a>
+                    <a href="mailto:flowlyticsai46@gmail.com">Contact Us</a>
+                    <a href="#pricing" onclick="selectPlan('enterprise')">Enterprise Plans</a>
+                    <a href="#" onclick="showTerms()">Terms of Service</a>
+                    <a href="#" onclick="showPrivacy()">Privacy Policy</a>
                 </div>
                 
                 <div>
                     <h4 style="color: white; margin-bottom: 20px;">Contact</h4>
-                    <div class="contact-info">
+                    <div class="contact-info" onclick="window.location.href='mailto:flowlyticsai46@gmail.com'">
                         <i class="fas fa-envelope"></i>
-                        <span>flowlytics_ai@gmail.com</span>
+                        <span>flowlyticsai46@gmail.com</span>
                     </div>
                     <div class="contact-info">
                         <i class="fas fa-globe"></i>
                         <span>flowlytics-ai.netlify.app</span>
                     </div>
+                    <div class="contact-info" onclick="window.location.href='tel:+911234567890'">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 12345 67890</span>
+                    </div>
                 </div>
             </div>
             
             <div class="copyright">
-                Flowlytics AI Business Intelligence Platform. Made for Indian businesses.
+                © 2024 Flowlytics AI Business Intelligence Platform. Made for Indian businesses.
             </div>
         </div>
     </footer>
@@ -825,10 +1025,16 @@
         // Smooth scrolling
         function scrollToTest() {
             document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+            animateTestSection();
         }
         
         function scrollToPricing() {
             document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+            animatePricingSection();
+        }
+        
+        function scrollToFeatures() {
+            document.querySelector('.features-grid').scrollIntoView({ behavior: 'smooth' });
         }
         
         // Copy text function
@@ -842,8 +1048,10 @@
                     if (btn.onclick.toString().includes(elementId)) {
                         const original = btn.innerHTML;
                         btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+                        btn.style.background = 'var(--accent)';
                         setTimeout(() => {
                             btn.innerHTML = original;
+                            btn.style.background = '';
                         }, 2000);
                     }
                 });
@@ -854,26 +1062,199 @@
         function selectPlan(plan) {
             let message = '';
             let emailSubject = '';
+            let emailBody = '';
             
             switch(plan) {
                 case 'basic':
                     message = 'Basic plan selected (₹499/month). We will redirect you to the payment page.';
                     emailSubject = 'Basic Plan Purchase - Flowlytics AI';
+                    emailBody = `I would like to purchase the Basic Plan (₹499/month) for Flowlytics AI.\n\nPlease send me the payment details and setup instructions.\n\nThank you!`;
                     break;
                 case 'pro':
                     message = 'Professional plan selected (₹949/month). We will redirect you to the payment page.';
                     emailSubject = 'Professional Plan Purchase - Flowlytics AI';
+                    emailBody = `I would like to purchase the Professional Plan (₹949/month) for Flowlytics AI.\n\nPlease send me the payment details and setup instructions.\n\nThank you!`;
                     break;
                 case 'enterprise':
                     message = 'Enterprise plan selected. Opening email to contact our sales team.';
                     emailSubject = 'Enterprise Plan Inquiry - Flowlytics AI';
-                    window.location.href = `mailto:flowlytics_ai@gmail.com?subject=${encodeURIComponent(emailSubject)}`;
-                    return;
+                    emailBody = `Hello Flowlytics AI Team,\n\nI am interested in the Enterprise Plan for my organization.\n\nPlease contact me to discuss our requirements and pricing.\n\nThank you!`;
+                    break;
             }
             
-            alert(message);
-            // In production, redirect to payment page
-            // window.location.href = `/checkout?plan=${plan}`;
+            // Show confirmation message
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 40px;
+                    border-radius: 16px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                ">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Plan Selected!</h3>
+                    <p style="margin-bottom: 30px; color: var(--text); font-size: 16px;">${message}</p>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            padding: 12px 30px;
+                            background: var(--light);
+                            color: var(--text);
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s;
+                        ">Cancel</button>
+                        <button onclick="window.location.href='mailto:flowlyticsai46@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}'" style="
+                            padding: 12px 30px;
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s;
+                        ">Continue to Email</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Remove modal on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        // Start free trial
+        function startTrial() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 40px;
+                    border-radius: 16px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                ">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Start Your Free Trial</h3>
+                    <p style="margin-bottom: 30px; color: var(--text); font-size: 16px;">Get 50 free orders to experience Flowlytics AI. No credit card required.</p>
+                    <div style="margin-bottom: 30px;">
+                        <input type="email" placeholder="Enter your email address" style="
+                            width: 100%;
+                            padding: 15px;
+                            border: 2px solid var(--border);
+                            border-radius: 8px;
+                            font-size: 16px;
+                            margin-bottom: 15px;
+                        ">
+                        <input type="text" placeholder="Company name" style="
+                            width: 100%;
+                            padding: 15px;
+                            border: 2px solid var(--border);
+                            border-radius: 8px;
+                            font-size: 16px;
+                        ">
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            padding: 12px 30px;
+                            background: var(--light);
+                            color: var(--text);
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s;
+                        ">Cancel</button>
+                        <button onclick="submitTrial(this)" style="
+                            padding: 12px 30px;
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s;
+                        ">Start Free Trial</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Remove modal on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        function submitTrial(button) {
+            const inputs = button.parentElement.parentElement.querySelectorAll('input');
+            const email = inputs[0].value;
+            const company = inputs[1].value;
+            
+            if (!email || !company) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            button.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                button.parentElement.parentElement.innerHTML = `
+                    <h3 style="color: var(--accent); margin-bottom: 20px;">Trial Started!</h3>
+                    <p style="margin-bottom: 20px; color: var(--text); font-size: 16px;">Check your email for setup instructions.</p>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                        padding: 12px 30px;
+                        background: var(--primary);
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-weight: 600;
+                    ">Got it</button>
+                `;
+            }, 1500);
         }
         
         // Run test
@@ -881,85 +1262,253 @@
             const webhookUrl = document.getElementById('webhook-url').textContent.trim();
             const sampleData = document.getElementById('sample-data').textContent.trim();
             
-            alert('Opening test instructions. Please copy the sample data and send POST request to the provided endpoint.');
-            
             // Create a test instructions page
-            const testWindow = window.open('', '_blank');
-            testWindow.document.write(`
-                <html>
-                <head>
-                    <title>Flowlytics AI - Test Instructions</title>
-                    <style>
-                        body { font-family: sans-serif; padding: 40px; background: #f8fafc; }
-                        .container { max-width: 800px; margin: 0 auto; }
-                        pre { background: #0f172a; color: white; padding: 20px; border-radius: 8px; overflow-x: auto; }
-                        code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h2>Test Flowlytics AI API</h2>
-                        <p><strong>Endpoint:</strong> <code>${webhookUrl}</code></p>
-                        
-                        <h3>Steps to Test:</h3>
-                        <ol>
-                            <li>Copy the sample data below</li>
-                            <li>Open Postman or Terminal</li>
-                            <li>Send POST request to the endpoint</li>
-                            <li>Receive HTML dashboard as response</li>
-                        </ol>
-                        
-                        <h3>Sample Data:</h3>
-                        <pre>${sampleData}</pre>
-                        
-                        <button onclick="window.close()" style="padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer;">Close</button>
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 40px;
+                    border-radius: 16px;
+                    max-width: 700px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <h3 style="color: var(--primary); margin: 0;">Test Flowlytics AI API</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            background: none;
+                            border: none;
+                            font-size: 24px;
+                            cursor: pointer;
+                            color: var(--text-light);
+                        ">×</button>
                     </div>
-                </body>
-                </html>
-            `);
+                    
+                    <p><strong>Endpoint:</strong> <code style="background: var(--light); padding: 5px 10px; border-radius: 4px;">${webhookUrl}</code></p>
+                    
+                    <h4 style="margin: 25px 0 15px; color: var(--dark);">Steps to Test:</h4>
+                    <ol style="margin-left: 20px; margin-bottom: 30px;">
+                        <li style="margin-bottom: 10px;">Copy the sample data below</li>
+                        <li style="margin-bottom: 10px;">Open Postman or Terminal</li>
+                        <li style="margin-bottom: 10px;">Send POST request to the endpoint</li>
+                        <li style="margin-bottom: 10px;">Receive HTML dashboard as response</li>
+                    </ol>
+                    
+                    <h4 style="margin: 25px 0 15px; color: var(--dark);">Sample Data:</h4>
+                    <pre style="background: #0f172a; color: white; padding: 20px; border-radius: 8px; overflow-x: auto;">${sampleData}</pre>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button onclick="copyText('sample-data'); alert('Sample data copied to clipboard!')" style="
+                            padding: 12px 30px;
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            margin-right: 10px;
+                        ">
+                            <i class="fas fa-copy"></i> Copy Data
+                        </button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            padding: 12px 30px;
+                            background: var(--light);
+                            color: var(--text);
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                        ">Close</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Remove modal on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        // Show terms and privacy
+        function showTerms() {
+            alert('Terms of Service will be displayed here. In production, this would link to a full terms page.');
+        }
+        
+        function showPrivacy() {
+            alert('Privacy Policy will be displayed here. In production, this would link to a full privacy policy page.');
+        }
+        
+        // Animation functions
+        function animateFeatures() {
+            const title = document.getElementById('features-title');
+            const cards = document.querySelectorAll('.feature-card');
+            
+            if (title) {
+                title.classList.add('animated');
+            }
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animated');
+                }, index * 100);
+            });
+        }
+        
+        function animateTestSection() {
+            const title = document.getElementById('test-title');
+            const section = document.getElementById('api-section');
+            
+            if (title) {
+                title.classList.add('animated');
+            }
+            
+            if (section) {
+                setTimeout(() => {
+                    section.classList.add('animated');
+                }, 300);
+            }
+        }
+        
+        function animatePricingSection() {
+            const title = document.getElementById('pricing-title');
+            const cards = document.querySelectorAll('.pricing-card');
+            const trial = document.getElementById('trial-section');
+            
+            if (title) {
+                title.classList.add('animated');
+            }
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animated');
+                }, index * 150);
+            });
+            
+            if (trial) {
+                setTimeout(() => {
+                    trial.classList.add('animated');
+                }, 600);
+            }
+        }
+        
+        function animateFounderSection() {
+            const content = document.getElementById('founder-content');
+            if (content) {
+                content.classList.add('animated');
+            }
         }
         
         // Add scroll animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate elements on scroll
+            // Initial animations
+            setTimeout(() => {
+                animateFeatures();
+            }, 500);
+            
+            // Intersection Observer for scroll animations
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -100px 0px'
             };
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        if (entry.target.id === 'test-title' || entry.target.closest('#test')) {
+                            animateTestSection();
+                        }
+                        if (entry.target.id === 'pricing-title' || entry.target.closest('#pricing')) {
+                            animatePricingSection();
+                        }
+                        if (entry.target.id === 'founder-content' || entry.target.closest('.founder-section')) {
+                            animateFounderSection();
+                        }
+                        
+                        if (entry.target.classList.contains('section-title')) {
+                            entry.target.classList.add('animated');
+                        }
                     }
                 });
             }, observerOptions);
             
-            // Observe feature cards
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
+            // Observe sections
+            document.querySelectorAll('.section-title').forEach(title => {
+                observer.observe(title);
             });
             
-            // Observe pricing cards
-            document.querySelectorAll('.pricing-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
             });
             
-            // Observe founder section
-            const founderSection = document.querySelector('.founder-section');
-            if (founderSection) {
-                founderSection.style.opacity = '0';
-                founderSection.style.transform = 'translateY(20px)';
-                founderSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(founderSection);
-            }
+            // Add ripple effect to all buttons
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const x = e.clientX - e.target.getBoundingClientRect().left;
+                    const y = e.clientY - e.target.getBoundingClientRect().top;
+                    
+                    const ripple = document.createElement('span');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple-animation 0.6s linear;
+                        width: 100px;
+                        height: 100px;
+                        top: ${y - 50}px;
+                        left: ${x - 50}px;
+                        pointer-events: none;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Add keyframes for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple-animation {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                @keyframes popIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.8);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
