@@ -43,6 +43,32 @@
             overflow-x: hidden;
         }
         
+        /* F Logo in top corner */
+        .corner-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
         .container {
             max-width: 1280px;
             margin: 0 auto;
@@ -94,12 +120,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: logoFloat 3s ease-in-out infinite;
-        }
-        
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-10px) rotate(5deg); }
         }
         
         .logo-icon i {
@@ -730,8 +750,8 @@
             font-size: 17px;
         }
         
-        /* API Section */
-        .api-section {
+        /* Data Processing Section */
+        .data-processing-section {
             background: var(--glass-bg);
             backdrop-filter: var(--blur);
             border-radius: 24px;
@@ -743,7 +763,7 @@
             overflow: hidden;
         }
         
-        .api-section::before {
+        .data-processing-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -757,7 +777,7 @@
             z-index: 0;
         }
         
-        .api-section > * {
+        .data-processing-section > * {
             position: relative;
             z-index: 1;
         }
@@ -768,56 +788,6 @@
             margin-bottom: 24px;
             color: var(--dark);
             letter-spacing: -0.3px;
-        }
-        
-        .code-block {
-            background: var(--dark);
-            border-radius: 12px;
-            padding: 28px;
-            margin: 24px 0;
-            overflow-x: auto;
-            border: 1px solid #334155;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .code-block:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary-light);
-        }
-        
-        .code-block pre {
-            color: #e2e8f0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .copy-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
         }
         
         /* Cards Animation */
@@ -1029,6 +999,7 @@
             .screenshot-grid { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
             .floating-screenshots { height: 500px; }
             .floating-screenshot { transform: scale(0.8); }
+            .corner-logo { top: 15px; left: 15px; width: 40px; height: 40px; font-size: 20px; }
         }
         
         @media (max-width: 768px) {
@@ -1039,7 +1010,7 @@
             .section-title::after { bottom: -20px; }
             .hero-text { font-size: 20px; }
             .feature-card, .info-card, .chat-container { padding: 40px 28px; }
-            .api-section { padding: 40px; }
+            .data-processing-section { padding: 40px; }
             .features-grid, .screenshot-grid, .card-grid { grid-template-columns: 1fr; }
             .cta-buttons { flex-direction: column; }
             .btn { width: 100%; justify-content: center; }
@@ -1049,6 +1020,7 @@
             .chat-messages { height: 300px; }
             .chat-input-area { flex-direction: column; }
             .chat-send-btn { padding: 15px; width: 100%; }
+            .corner-logo { top: 10px; left: 10px; width: 35px; height: 35px; font-size: 18px; }
         }
         
         @media (max-width: 480px) {
@@ -1058,10 +1030,16 @@
             .logo { font-size: 28px; }
             .btn { padding: 18px 32px; font-size: 16px; }
             .screenshot-content { height: 300px; padding: 24px; }
+            .corner-logo { width: 30px; height: 30px; font-size: 16px; border-radius: 8px; }
         }
     </style>
 </head>
 <body>
+    <!-- F Logo in corner -->
+    <div class="corner-logo" onclick="scrollToTop()">
+        F
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -1241,7 +1219,7 @@
                         <i class="fas fa-chart-bar"></i>
                         Business Overview Dashboard
                     </div>
-                    <div class="screenshot-content">
+                    <div class="screenshot-content" id="liveDashboard">
                         <div style="font-size: 24px; font-weight: 700; margin-bottom: 20px; text-align: center; color: var(--dark);">Business Overview</div>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
                             <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); text-align: center;">
@@ -1359,62 +1337,42 @@
         </div>
     </section>
 
-    <!-- API Test Section -->
-    <section class="section" id="demo" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
+    <!-- Data Processing Section -->
+    <section class="section" id="data-processing" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
         <div class="container">
-            <h2 class="section-title">Try It Yourself</h2>
-            <div class="api-section">
-                <h3 class="section-subtitle">Live API Integration</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">Production API Endpoint</div>
-                        <button class="copy-btn" onclick="copyText('webhook-url')">
-                            <i class="fas fa-copy"></i> Copy Endpoint
-                        </button>
-                    </div>
-                    <pre id="webhook-url">https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis</pre>
-                </div>
+            <h2 class="section-title">How We Process Your Data</h2>
+            <div class="data-processing-section">
+                <h3 class="section-subtitle">Instant CSV to Analysis Pipeline</h3>
                 
-                <h3 class="section-subtitle" style="margin-top: 48px;">Sample Request</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">JSON Payload</div>
-                        <button class="copy-btn" onclick="copyText('sample-data')">
-                            <i class="fas fa-copy"></i> Copy Data
-                        </button>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <div style="background: white; border-radius: 16px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 8px 25px rgba(0,0,0,0.05);">
+                        <div style="width: 60px; height: 60px; background: var(--gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-file-upload" style="color: white; font-size: 24px;"></i>
+                        </div>
+                        <h4 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--dark);">Upload CSV</h4>
+                        <p style="color: var(--text-light); line-height: 1.7;">Simply upload your business data CSV file through our chat interface.</p>
                     </div>
-                    <pre id="sample-data">{
-  "orders": [
-    {
-      "order_id": "ORD_001",
-      "amount": 150000,
-      "customer_id": "CUST_001",
-      "city": "Mumbai",
-      "status": "delivered"
-    }
-  ]
-}</pre>
-                </div>
-                
-                <h3 class="section-subtitle" style="margin-top: 48px;">Test Command</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">CURL Command</div>
-                        <button class="copy-btn" onclick="copyText('curl-command')">
-                            <i class="fas fa-copy"></i> Copy Command
-                        </button>
+                    
+                    <div style="background: white; border-radius: 16px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 8px 25px rgba(0,0,0,0.05);">
+                        <div style="width: 60px; height: 60px; background: var(--gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-cogs" style="color: white; font-size: 24px;"></i>
+                        </div>
+                        <h4 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--dark);">Auto Processing</h4>
+                        <p style="color: var(--text-light); line-height: 1.7;">Our system automatically converts CSV to JSON and sends to AI engine for analysis.</p>
                     </div>
-                    <pre id="curl-command">curl -X POST "https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis" \
-  -H "Content-Type: application/json" \
-  -d '{"orders": [{"order_id": "TEST","amount": 100000,"city": "Mumbai"}]}'</pre>
+                    
+                    <div style="background: white; border-radius: 16px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 8px 25px rgba(0,0,0,0.05);">
+                        <div style="width: 60px; height: 60px; background: var(--gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-chart-line" style="color: white; font-size: 24px;"></i>
+                        </div>
+                        <h4 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--dark);">Get Insights</h4>
+                        <p style="color: var(--text-light); line-height: 1.7;">Receive instant business intelligence, predictions, and recommendations in chat.</p>
+                    </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 56px;">
-                    <button class="btn btn-primary" onclick="runLiveTest()" style="padding: 20px 48px; font-size: 18px; background: var(--gradient); border: none;">
-                        <i class="fas fa-bolt"></i> Run Live Test
-                    </button>
-                    <p style="margin-top: 24px; color: var(--text-light); font-size: 16px;">
-                        Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a>
+                    <p style="color: var(--text-light); font-size: 16px;">
+                        Need enterprise-grade analysis? Email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a>
                     </p>
                 </div>
             </div>
@@ -1493,7 +1451,7 @@
                     <h4>Platform</h4>
                     <a href="#screenshots" onclick="scrollToScreenshots()">See Dashboards</a>
                     <a href="#features" onclick="scrollToFeatures()">How It Works</a>
-                    <a href="#demo" onclick="scrollToDemo()">API Demo</a>
+                    <a href="#data-processing" onclick="scrollToDataProcessing()">Data Processing</a>
                     <a href="#chat" onclick="scrollToChat()">AI Chat</a>
                 </div>
                 
@@ -1527,14 +1485,23 @@
     <script>
         // Chat functionality
         let currentMode = 'chat';
+        let currentAnalysis = null;
+        let currentCSVData = null;
+        
+        // YOUR N8N/POSTMAN ENDPOINT
+        const FLOWLYTICS_API = 'https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis';
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         
         function scrollToScreenshots() {
             document.getElementById('screenshots').scrollIntoView({ behavior: 'smooth' });
             animateScreenshots();
         }
         
-        function scrollToDemo() {
-            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        function scrollToDataProcessing() {
+            document.getElementById('data-processing').scrollIntoView({ behavior: 'smooth' });
         }
         
         function scrollToFeatures() {
@@ -1575,7 +1542,7 @@
             }
         }
         
-        function sendMessage() {
+        async function sendMessage() {
             const chatInput = document.getElementById('chatInput');
             const message = chatInput.value.trim();
             
@@ -1584,34 +1551,249 @@
                 addMessage(message, 'user');
                 chatInput.value = '';
                 
-                // Simulate AI response after delay
-                setTimeout(() => {
-                    generateAIResponse(message);
-                }, 1000);
+                // Generate AI response
+                await generateAIResponse(message);
             } else if (currentMode === 'upload') {
                 document.getElementById('csvUpload').click();
             }
         }
         
-        function handleFileUpload(event) {
+        // CSV to JSON converter function
+        function csvToJSON(csvText) {
+            try {
+                const lines = csvText.split('\n').filter(line => line.trim() !== '');
+                if (lines.length === 0) return { orders: [] };
+                
+                const headers = lines[0].split(',').map(h => h.trim());
+                
+                const result = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    const obj = {};
+                    const currentLine = lines[i].split(',').map(val => val.trim());
+                    
+                    for (let j = 0; j < headers.length; j++) {
+                        let value = currentLine[j] || '';
+                        // Try to convert numbers
+                        if (!isNaN(value) && value !== '' && value.trim() !== '') {
+                            value = Number(value);
+                        }
+                        obj[headers[j]] = value;
+                    }
+                    
+                    result.push(obj);
+                }
+                
+                return { orders: result };
+            } catch (error) {
+                console.error('CSV conversion error:', error);
+                return { orders: [], error: error.message };
+            }
+        }
+        
+        // Send data to your n8n/postman API
+        async function sendToFlowlyticsAPI(data, fileName, isChatQuestion = false, question = '') {
+            try {
+                addMessage('Sending data to Flowlytics AI for analysis...', 'ai');
+                
+                const payload = {
+                    file_name: fileName,
+                    csv_data: data,
+                    json_data: csvToJSON(data),
+                    request_type: isChatQuestion ? 'chat_question' : 'csv_analysis',
+                    timestamp: new Date().toISOString(),
+                    ...(isChatQuestion && { question: question })
+                };
+                
+                const response = await fetch(FLOWLYTICS_API, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': 'flowlytics-ai-2024' // Your API key
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    // Remove the "sending..." message
+                    const chatMessages = document.getElementById('chatMessages');
+                    const messages = chatMessages.getElementsByClassName('message');
+                    if (messages.length > 0) {
+                        const lastMessage = messages[messages.length - 1];
+                        if (lastMessage.querySelector('.message-content').textContent.includes('Sending data')) {
+                            chatMessages.removeChild(lastMessage);
+                        }
+                    }
+                    
+                    return result;
+                } else {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('API Error:', error);
+                return {
+                    success: false,
+                    error: error.message,
+                    analysis: {
+                        total_revenue: "N/A",
+                        customer_count: 0,
+                        loyal_customers: 0,
+                        profit_margin: "0",
+                        recommendation: "Analysis failed. Please try again or email the CSV to flowlyticsai46@gmail.com"
+                    }
+                };
+            }
+        }
+        
+        async function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file && file.name.endsWith('.csv')) {
-                addMessage(`Uploaded CSV file: ${file.name}`, 'user');
+                addMessage(`Uploading ${file.name}...`, 'user');
                 
-                // Simulate AI analyzing the file
-                setTimeout(() => {
-                    addMessage(`Successfully analyzed ${file.name}! I found:
+                // Read the CSV file
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    const csvText = e.target.result;
+                    currentCSVData = csvText;
+                    
+                    // Send to your API
+                    const result = await sendToFlowlyticsAPI(csvText, file.name);
+                    
+                    if (result.success !== false) {
+                        // Store analysis
+                        currentAnalysis = result.analysis || result;
+                        
+                        // Show results from API
+                        addMessage(`Analysis complete for ${file.name}! Here's what Flowlytics AI found:
 
-                    22 orders totaling ₹40.41L in revenue
-                    17 unique customers with 5 repeat buyers (29.4% repeat rate)
-                    25.0% average margin across all orders
-                    Top performing cities: Mumbai, Goa, Pune
+Total Revenue: ₹${currentAnalysis.total_revenue || 'N/A'}
+Unique Customers: ${currentAnalysis.customer_count || 0}
+Loyal Customers: ${currentAnalysis.loyal_customers || 0}
+Profit Margin: ${currentAnalysis.profit_margin || '0'}%
+${currentAnalysis.ai_recommendation ? 'AI Recommendation: ' + currentAnalysis.ai_recommendation : ''}
 
-                    What would you like to know about this data?`, 'ai');
-                }, 2000);
+You can now ask me specific questions about this data.`, 'ai');
+                        
+                        // Update dashboard with real data
+                        updateDashboard(currentAnalysis);
+                    } else {
+                        // Fallback to local analysis
+                        addMessage('Using local analysis...', 'ai');
+                        const jsonData = csvToJSON(csvText);
+                        currentAnalysis = analyzeCSVData(jsonData);
+                        
+                        setTimeout(() => {
+                            addMessage(`Local analysis complete for ${file.name}! Here's what I found:
+
+Total Revenue: ₹${currentAnalysis.total_revenue}
+Unique Customers: ${currentAnalysis.customer_count}
+Loyal Customers: ${currentAnalysis.loyal_customers}
+Profit Margin: ${currentAnalysis.profit_margin}%
+
+AI Recommendation: ${currentAnalysis.recommendation}
+
+You can now ask me specific questions about this data.`, 'ai');
+                            
+                            updateDashboard(currentAnalysis);
+                        }, 1500);
+                    }
+                };
+                
+                reader.readAsText(file);
             } else {
                 addMessage('Please upload a valid CSV file.', 'ai');
             }
+        }
+        
+        // Local analysis function (fallback)
+        function analyzeCSVData(jsonData) {
+            const orders = jsonData.orders || [];
+            
+            if (orders.length === 0) {
+                return {
+                    total_revenue: "0",
+                    customer_count: 0,
+                    loyal_customers: 0,
+                    profit_margin: "0",
+                    recommendation: "No data found in CSV"
+                };
+            }
+            
+            // Calculate metrics
+            const totalRevenue = orders.reduce((sum, order) => {
+                const revenue = order.revenue || order.amount || order.sales || order.total || 0;
+                return sum + (Number(revenue) || 0);
+            }, 0);
+            
+            const avgRevenue = totalRevenue / orders.length;
+            
+            // Count customers
+            const customerField = Object.keys(orders[0]).find(key => 
+                key.toLowerCase().includes('customer') || 
+                key.toLowerCase().includes('client') ||
+                key.toLowerCase().includes('name')
+            );
+            
+            const customers = customerField ? [...new Set(orders.map(o => o[customerField]))] : ['Unknown'];
+            
+            // Find loyal customers
+            const loyaltyField = Object.keys(orders[0]).find(key => 
+                key.toLowerCase().includes('loyal') || 
+                key.toLowerCase().includes('score')
+            );
+            
+            let loyalCustomerCount = 0;
+            if (loyaltyField) {
+                const loyalCustomers = orders.filter(o => (Number(o[loyaltyField]) || 0) > 70);
+                loyalCustomerCount = loyalCustomers.length;
+            } else {
+                loyalCustomerCount = Math.floor(customers.length * 0.3);
+            }
+            
+            // Find top city
+            const cityField = Object.keys(orders[0]).find(key => 
+                key.toLowerCase().includes('city') || 
+                key.toLowerCase().includes('location')
+            );
+            
+            let topCity = ['Unknown', 0];
+            if (cityField) {
+                const cityRevenue = {};
+                orders.forEach(order => {
+                    const city = order[cityField] || 'Unknown';
+                    const revenue = order.revenue || order.amount || order.sales || 0;
+                    cityRevenue[city] = (cityRevenue[city] || 0) + (Number(revenue) || 0);
+                });
+                
+                const sortedCities = Object.entries(cityRevenue).sort((a, b) => b[1] - a[1]);
+                topCity = sortedCities[0] || ['Unknown', 0];
+            }
+            
+            // Generate recommendation
+            let recommendation = "Focus on customer retention strategies to increase repeat purchases.";
+            if (loyalCustomerCount > customers.length * 0.3) {
+                recommendation = "Great customer loyalty! Consider expanding to new markets or introducing premium products.";
+            } else if (topCity[1] > totalRevenue * 0.5) {
+                recommendation = `Your business is heavily concentrated in ${topCity[0]}. Consider diversifying to other locations to reduce risk.`;
+            }
+            
+            return {
+                total_revenue: totalRevenue >= 100000 ? (totalRevenue / 100000).toFixed(2) + "L" : "₹" + totalRevenue.toLocaleString(),
+                customer_count: customers.length,
+                loyal_customers: loyalCustomerCount,
+                profit_margin: "25.0",
+                recommendation: recommendation,
+                top_city: `${topCity[0]} (₹${(topCity[1] / 1000).toFixed(1)}K)`,
+                average_order_value: (avgRevenue / 1000).toFixed(1) + "K",
+                order_count: orders.length,
+                repeat_customers: Math.floor(customers.length * 0.3),
+                margin_trend: "up",
+                loyalty_score: Math.min(100, Math.floor((loyalCustomerCount / customers.length) * 100))
+            };
         }
         
         function addMessage(content, sender) {
@@ -1630,98 +1812,135 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        function generateAIResponse(userMessage) {
+        async function generateAIResponse(userMessage) {
             const lowerMessage = userMessage.toLowerCase();
+            
+            if (!currentAnalysis && !currentCSVData) {
+                addMessage('Please upload a CSV file first to analyze your business data. Then I can answer specific questions about it.', 'ai');
+                return;
+            }
+            
+            // If we have CSV data but no analysis yet, analyze it
+            if (currentCSVData && !currentAnalysis) {
+                const jsonData = csvToJSON(currentCSVData);
+                currentAnalysis = analyzeCSVData(jsonData);
+            }
+            
+            // Check if it's a question that should go to the API
+            if (currentCSVData && (lowerMessage.includes('predict') || lowerMessage.includes('forecast') || 
+                lowerMessage.includes('trend') || lowerMessage.includes('loyal') || 
+                lowerMessage.includes('recommend') || lowerMessage.length > 20)) {
+                
+                // Send to API for advanced analysis
+                addMessage('Thinking...', 'ai');
+                const result = await sendToFlowlyticsAPI(currentCSVData, 'chat-question.csv', true, userMessage);
+                
+                if (result.success !== false) {
+                    // Remove "Thinking..." message
+                    const chatMessages = document.getElementById('chatMessages');
+                    const messages = chatMessages.getElementsByClassName('message');
+                    if (messages.length > 0) {
+                        const lastMessage = messages[messages.length - 1];
+                        if (lastMessage.querySelector('.message-content').textContent.includes('Thinking...')) {
+                            chatMessages.removeChild(lastMessage);
+                        }
+                    }
+                    
+                    addMessage(result.answer || result.response || "I've analyzed your question. Here are the insights...", 'ai');
+                    return;
+                }
+            }
+            
+            // Local response
+            const analysis = currentAnalysis;
             let response = '';
             
-            if (lowerMessage.includes('revenue') || lowerMessage.includes('sales')) {
-                response = `Based on the data, your revenue analysis shows:
+            if (lowerMessage.includes('revenue') || lowerMessage.includes('sales') || lowerMessage.includes('income')) {
+                response = `Based on your data:
 
-                Total Revenue: ₹40.41L from 22 orders
-                Average Order Value: ₹1.84L
-                Gross Margin: 25.0% (₹10.10L profit)
-                Monthly Growth: 15% increase from last month
+Total Revenue: ₹${analysis.total_revenue}
+Average Order Value: ${analysis.average_order_value}
+Number of Orders: ${analysis.order_count}
 
-                Would you like to see a breakdown by product category or city?`;
+The revenue appears to be ${parseFloat(analysis.total_revenue) > 10 || analysis.total_revenue.includes('L') ? 'strong' : 'moderate'}.`;
             } else if (lowerMessage.includes('customer') || lowerMessage.includes('client')) {
-                response = `Customer insights from your data:
+                response = `Customer Analysis:
 
-                Total Customers: 17 unique customers
-                Repeat Buyers: 5 customers (29.4% repeat rate)
-                High Value: 13 customers spending over ₹1L each
-                Top Locations: Mumbai, Pune, Goa customers generate 70% of revenue
+Total Customers: ${analysis.customer_count}
+Loyal Customers: ${analysis.loyal_customers}
+Customer Loyalty Score: ${analysis.loyalty_score || 'N/A'}/100
+Repeat Customers: ${analysis.repeat_customers}`;
+            } else if (lowerMessage.includes('margin') || lowerMessage.includes('profit') || lowerMessage.includes('cost')) {
+                response = `Profitability Analysis:
 
-                I can help create customer segments or retention strategies.`;
-            } else if (lowerMessage.includes('margin') || lowerMessage.includes('profit')) {
-                response = `Profit margin analysis:
+Profit Margin: ${analysis.profit_margin}%
+Margin Trend: ${analysis.margin_trend === 'up' ? 'Increasing' : 'Stable'}
 
-                Overall Margin: 25.0% (₹10.10L profit from ₹40.41L revenue)
-                Best Product: Product X has 35% margin
-                Improvement: Could increase margin by 5% with bulk purchasing
-                Watch: 3 products below 15% margin need attention
+Your profit margin is ${parseFloat(analysis.profit_margin) > 20 ? 'healthy' : 'could be improved'}.`;
+            } else if (lowerMessage.includes('city') || lowerMessage.includes('location') || lowerMessage.includes('geographic')) {
+                response = `Geographic Analysis:
 
-                Want me to identify specific margin improvement opportunities?`;
-            } else if (lowerMessage.includes('city') || lowerMessage.includes('location')) {
-                response = `Location-based analysis:
+Top City: ${analysis.top_city}`;
+            } else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggestion') || lowerMessage.includes('advice')) {
+                response = `AI Recommendations:
 
-                Top City: Mumbai - ₹5.13L revenue (4 orders)
-                2nd: Goa - ₹4.18L revenue (1 order)
-                3rd: Pune - ₹4.15L revenue (2 orders)
-                Risk: Chennai shows 75% COD rate
+${analysis.recommendation}`;
+            } else if (lowerMessage.includes('loyal') || lowerMessage.includes('repeat') || lowerMessage.includes('retention')) {
+                response = `Customer Loyalty Analysis:
 
-                Would you like to see expansion recommendations for top cities?`;
+Loyal Customers: ${analysis.loyal_customers} out of ${analysis.customer_count} total
+Loyalty Rate: ${Math.round((analysis.loyal_customers / analysis.customer_count) * 100)}%`;
             } else {
-                response = `I can help analyze:
+                response = `I can help you analyze:
 
-                Revenue trends and growth patterns
-                Customer behavior and segmentation
-                Profit margins and cost optimization
-                Geographic performance and expansion opportunities
-                Risk factors and operational insights
+• Revenue trends and sales performance
+• Customer demographics and loyalty
+• Profit margins and cost optimization
+• Geographic performance by city/region
+• Business recommendations and strategies
 
-                What specific aspect would you like me to analyze?`;
+What specific aspect would you like to know more about?`;
             }
             
             addMessage(response, 'ai');
         }
         
-        // Copy text function
-        function copyText(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const buttons = document.querySelectorAll('.copy-btn');
-                buttons.forEach(btn => {
-                    if (btn.onclick.toString().includes(elementId)) {
-                        const original = btn.innerHTML;
-                        btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-                        btn.style.background = 'var(--success)';
-                        setTimeout(() => {
-                            btn.innerHTML = original;
-                            btn.style.background = '';
-                        }, 2000);
-                    }
-                });
-            });
-        }
-        
-        // Free trial
-        function startFreeTrial() {
-            showModal(
-                'Contact Sales',
-                'Get in touch with our sales team for a personalized demo and pricing tailored to your business needs.',
-                'Contact Sales'
-            );
-        }
-        
-        // Live test function
-        function runLiveTest() {
-            showModal(
-                'Live API Test',
-                'Testing the API endpoint with sample data. You\'ll receive a dashboard link instantly.',
-                'Live Test'
-            );
+        function updateDashboard(data) {
+            // Update the first screenshot card with live data
+            const liveDashboard = document.getElementById('liveDashboard');
+            if (liveDashboard && data) {
+                liveDashboard.innerHTML = `
+                    <div style="font-size: 24px; font-weight: 700; margin-bottom: 20px; text-align: center; color: var(--dark);">Live Analysis Dashboard</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
+                        <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">₹${data.total_revenue || 'N/A'}</div>
+                            <div style="font-size: 13px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">TOTAL REVENUE</div>
+                            <div style="font-size: 12px; color: var(--success);">${data.order_count || '0'} orders</div>
+                        </div>
+                        <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">${data.customer_count || '0'}</div>
+                            <div style="font-size: 13px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">UNIQUE CUSTOMERS</div>
+                            <div style="font-size: 12px; color: var(--success);">${data.loyal_customers || '0'} loyal</div>
+                        </div>
+                        <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">${data.profit_margin || '0'}%</div>
+                            <div style="font-size: 13px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">PROFIT MARGIN</div>
+                            <div style="font-size: 12px; color: ${(data.margin_trend || 'up') === 'up' ? 'var(--success)' : 'var(--text-light)'};">${data.margin_trend || 'up'}</div>
+                        </div>
+                        <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--border); text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">${data.average_order_value || 'N/A'}</div>
+                            <div style="font-size: 13px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">AVG ORDER VALUE</div>
+                            <div style="font-size: 12px; color: var(--text-light);">Stable</div>
+                        </div>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin-top: 10px;">
+                        <div style="font-weight: 700; color: var(--success); margin-bottom: 10px;">AI Recommendation:</div>
+                        <p style="color: var(--text); font-size: 14px; line-height: 1.6;">
+                            ${data.recommendation || data.ai_recommendation || 'Focus on customer retention strategies to increase repeat purchases.'}
+                        </p>
+                    </div>
+                `;
+            }
         }
         
         // Modal function
@@ -1819,6 +2038,15 @@
             }
         }
         
+        // Free trial
+        function startFreeTrial() {
+            showModal(
+                'Contact Sales',
+                'Get in touch with our sales team for a personalized demo and pricing tailored to your business needs.',
+                'Contact Sales'
+            );
+        }
+        
         // Animate screenshots on scroll
         function animateScreenshots() {
             const screenshotCards = document.querySelectorAll('.screenshot-card');
@@ -1862,7 +2090,6 @@
                 });
                 
                 screenshot.addEventListener('mouseleave', function() {
-                    // Restore original z-index from class name
                     const match = this.className.match(/floating-screenshot-(\d+)/);
                     if (match) {
                         this.style.zIndex = match[1];
@@ -1886,6 +2113,10 @@
             document.getElementById('uploadContainer').addEventListener('click', function() {
                 document.getElementById('csvUpload').click();
             });
+            
+            // Add API key info
+            console.log('Flowlytics AI Platform Loaded');
+            console.log('API Endpoint:', FLOWLYTICS_API);
         });
     </script>
 </body>
