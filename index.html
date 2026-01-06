@@ -864,6 +864,137 @@
             background: rgba(30, 64, 175, 0.05);
         }
         
+        /* Pricing Modal Styles */
+        .pricing-modal {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 1000px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 32px;
+            border: 2px solid rgba(30, 64, 175, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.15);
+        }
+        
+        .pricing-card.popular {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--gradient);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .pricing-name {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .pricing-period {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .pricing-feature {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+        }
+        
+        .pricing-feature i {
+            color: var(--success);
+            font-size: 14px;
+        }
+        
+        .pricing-button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .pricing-button.primary {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .pricing-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+        
+        .pricing-button.secondary {
+            background: rgba(30, 64, 175, 0.08);
+            color: var(--primary);
+        }
+        
+        .pricing-button.secondary:hover {
+            background: rgba(30, 64, 175, 0.12);
+            transform: translateY(-2px);
+        }
+        
         /* REST OF YOUR ORIGINAL STYLES */
         .screenshots-section {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -1260,6 +1391,7 @@
             .corner-logo { top: 15px; left: 15px; width: 40px; height: 40px; font-size: 20px; }
             .ai-assistant-container { flex-direction: column; height: auto; }
             .ai-sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
+            .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
         }
         
         @media (max-width: 768px) {
@@ -1279,6 +1411,8 @@
             .floating-screenshots { display: none; }
             .corner-logo { top: 10px; left: 10px; width: 35px; height: 35px; font-size: 18px; }
             .ai-assistant-container { margin-top: 20px; }
+            .pricing-modal { padding: 24px; }
+            .pricing-grid { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 480px) {
@@ -1289,6 +1423,8 @@
             .btn { padding: 18px 32px; font-size: 16px; }
             .screenshot-content { height: 300px; padding: 24px; }
             .corner-logo { width: 30px; height: 30px; font-size: 16px; border-radius: 8px; }
+            .pricing-card { padding: 24px; }
+            .pricing-price { font-size: 36px; }
         }
     </style>
 </head>
@@ -1815,12 +1951,87 @@
         </div>
     </div>
 
+    <!-- Pricing Plans Modal -->
+    <div class="modal-overlay" id="pricingModal" style="display: none;">
+        <div class="pricing-modal">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="font-size: 32px; font-weight: 800; margin-bottom: 16px; color: var(--dark);">Choose Your Flowlytics AI Plan</div>
+                <div style="color: #64748b; font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                    Select the perfect plan for your business intelligence needs
+                </div>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Starter</div>
+                        <div class="pricing-price">₹9,999<span style="font-size: 16px; color: var(--text-light);">/month</span></div>
+                        <div class="pricing-period">Ideal for small businesses</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Up to 10,000 records/month</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Basic CSV Analysis</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> 5 Dashboard Templates</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Email Support</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Weekly Reports</li>
+                    </ul>
+                    <button class="pricing-button secondary" onclick="selectPlan('Starter')">Select Starter</button>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="pricing-header">
+                        <div class="pricing-name">Professional</div>
+                        <div class="pricing-price">₹24,999<span style="font-size: 16px; color: var(--text-light);">/month</span></div>
+                        <div class="pricing-period">Perfect for growing businesses</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Up to 100,000 records/month</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Advanced CSV Analysis</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Unlimited Dashboards</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Priority Support</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Daily Reports & Alerts</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> API Access</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Custom Integrations</li>
+                    </ul>
+                    <button class="pricing-button primary" onclick="selectPlan('Professional')">Select Professional</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Enterprise</div>
+                        <div class="pricing-price">Custom</div>
+                        <div class="pricing-period">For large organizations</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Unlimited Records</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Full AI Suite Access</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Custom Dashboard Builder</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> 24/7 Dedicated Support</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Real-time Analytics</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> On-premise Deployment</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> Custom AI Models</li>
+                        <li class="pricing-feature"><i class="fas fa-check"></i> SLA Guarantee</li>
+                    </ul>
+                    <button class="pricing-button secondary" onclick="selectPlan('Enterprise')">Contact Sales</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button onclick="closePricingModal()" style="padding: 12px 32px; background: transparent; color: #64748b; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; cursor: pointer; font-size: 16px;">
+                    Maybe Later
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // API Configuration
-        const FLOWLYTICS_API = 'https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis';
+        // API Configuration - CHANGE THIS TO YOUR ACTUAL API ENDPOINT
+        const FLOWLYTICS_API = 'https://your-api-endpoint.com/webhook/flowlytics-analysis';
         let currentAnalysis = null;
         let currentFileData = null;
         let aiChatHistory = [];
+        let userMessageCount = 0; // Counter for user messages
         
         // Navigation Functions
         function scrollToTop() {
@@ -1867,6 +2078,7 @@
             
             currentAnalysis = null;
             currentFileData = null;
+            userMessageCount = 0; // Reset message counter on new chat
         }
         
         function clearAIChat() {
@@ -1906,6 +2118,14 @@
                 addAIMessage(message, 'user');
                 input.value = '';
                 input.style.height = 'auto';
+                
+                // Increment message counter
+                userMessageCount++;
+                
+                // Check if we should show pricing (after 3 messages)
+                if (userMessageCount === 3) {
+                    showPricingModal();
+                }
                 
                 showAITyping();
                 
@@ -1979,6 +2199,34 @@
             if (typing) typing.remove();
         }
         
+        // Pricing Modal Functions
+        function showPricingModal() {
+            document.getElementById('pricingModal').style.display = 'flex';
+            
+            // Add a message about pricing
+            setTimeout(() => {
+                addAIMessage("I see you're interested in business analysis! Check out our pricing plans to get full access to all features.", 'assistant');
+            }, 500);
+        }
+        
+        function closePricingModal() {
+            document.getElementById('pricingModal').style.display = 'none';
+        }
+        
+        function selectPlan(planName) {
+            closePricingModal();
+            addAIMessage(`Great choice! You've selected the ${planName} plan. Our sales team will contact you shortly to complete the setup.`, 'assistant');
+            
+            // Redirect to contact form or show success message
+            setTimeout(() => {
+                showModal(
+                    'Plan Selected', 
+                    `You've selected the ${planName} plan. Our team will contact you within 24 hours to set up your account.`, 
+                    'Contact Sales'
+                );
+            }, 1000);
+        }
+        
         // AI Message Processing
         function processAIMessage(message) {
             const lowerMsg = message.toLowerCase();
@@ -2024,6 +2272,11 @@
             if (lowerMsg.includes('upload') || lowerMsg.includes('csv') || lowerMsg.includes('file')) {
                 showUploadModal();
                 addAIMessage("I have opened the file upload dialog. Select a CSV file for instant analysis.", 'assistant');
+                return;
+            }
+            
+            if (lowerMsg.includes('pricing') || lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('plan')) {
+                showPricingModal();
                 return;
             }
             
