@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowlytics AI | Affordable Pricing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #0891b2;
+            --success: #059669;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --text: #334155;
+            --text-light: #64748b;
+            --gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-light: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .tagline {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            border: 2px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .pricing-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+        
+        .pricing-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30, 64, 175, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .pricing-card.popular {
+            border-color: var(--primary);
+            background: white;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .pricing-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .pricing-price span {
+            font-size: 20px;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .pricing-period {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .save-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .pricing-feature {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+        
+        .pricing-feature i {
+            color: var(--success);
+            font-size: 14px;
+        }
+        
+        .pricing-button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pricing-button.primary {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .pricing-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
+        }
+        
+        .pricing-button.secondary {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .pricing-button.secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        
+        .guarantee {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .guarantee-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .guarantee-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        
+        .guarantee-text {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-section {
+            margin: 60px 0;
+        }
+        
+        .faq-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--dark);
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        
+        .faq-answer {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-light);
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-item:hover {
+            color: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-title {
+                font-size: 28px;
+            }
+            .pricing-price {
+                font-size: 40px;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+                <span>Flowlytics AI</span>
+            </div>
+            <p class="tagline">AI-Powered Business Intelligence for Everyone</p>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to AI Assistant
+            </a>
+        </div>
+        
+        <!-- Pricing Title -->
+        <h1 class="pricing-title">Simple, Affordable Pricing</h1>
+        <p class="pricing-subtitle">
+            Get started for less than a cup of coffee per day. No hidden fees, cancel anytime.
+        </p>
+        
+        <!-- Pricing Cards -->
+        <div class="pricing-grid">
+            <!-- Basic Plan - ₹499 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <div class="pricing-name">Basic</div>
+                    <div class="pricing-price">₹499<span>/month</span></div>
+                    <div class="pricing-period">Perfect for startups & freelancers</div>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Up to 5,000 records/month</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Basic CSV Analysis</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> 3 Dashboard Templates</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Email Support</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Weekly Reports</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> 1 User</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Basic AI Insights</li>
+                </ul>
+                <button class="pricing-button secondary" onclick="selectPlan('Basic', '499')">
+                    <i class="fas fa-shopping-cart"></i> Get Started - ₹499/month
+                </button>
+            </div>
+            
+            <!-- Pro Plan - ₹999 -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <div class="pricing-header">
+                    <div class="pricing-name">Pro</div>
+                    <div class="pricing-price">₹999<span>/month</span></div>
+                    <div class="pricing-period">Best for growing businesses</div>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Up to 25,000 records/month</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Advanced CSV Analysis</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> 10 Dashboard Templates</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Priority Email Support</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Daily Reports</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Up to 3 Users</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Advanced AI Insights</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> API Access</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Custom Charts</li>
+                </ul>
+                <button class="pricing-button primary" onclick="selectPlan('Pro', '999')">
+                    <i class="fas fa-rocket"></i> Get Pro - ₹999/month
+                </button>
+            </div>
+            
+            <!-- Enterprise Plan - ₹1999 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">₹1,999<span>/month</span></div>
+                    <div class="pricing-period">For serious businesses</div>
+                </div>
+                <ul class="pricing-features">
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Unlimited records</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Full CSV Automation</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Custom Dashboards</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> WhatsApp & Phone Support</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Real-time Analytics</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Up to 10 Users</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Predictive Analytics</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Full API Access</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> White-label Reports</li>
+                    <li class="pricing-feature"><i class="fas fa-check"></i> Custom AI Models</li>
+                </ul>
+                <button class="pricing-button secondary" onclick="selectPlan('Enterprise', '1999')">
+                    <i class="fas fa-crown"></i> Go Enterprise - ₹1,999/month
+                </button>
+            </div>
+        </div>
+        
+        <!-- Annual Savings -->
+        <div class="guarantee">
+            <div class="guarantee-icon">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <h3 class="guarantee-title">Save 20% with Annual Billing</h3>
+            <p class="guarantee-text">
+                Pay annually and save big! Get 2 months free when you choose yearly billing.
+            </p>
+            <div style="margin-top: 20px;">
+                <span style="background: #fef3c7; color: #92400e; padding: 8px 16px; border-radius: 12px; font-weight: 600;">
+                    Pro Yearly: ₹799/month (Save ₹200/month!)
+                </span>
+            </div>
+        </div>
+        
+        <!-- Money Back Guarantee -->
+        <div class="guarantee">
+            <div class="guarantee-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="guarantee-title">30-Day Money-Back Guarantee</h3>
+            <p class="guarantee-text">
+                Not satisfied? Get a full refund within 30 days. No questions asked.
+            </p>
+        </div>
+        
+        <!-- Payment Methods -->
+        <div style="text-align: center; margin: 40px 0;">
+            <h3 style="margin-bottom: 15px; color: var(--text-light); font-size: 16px;">We Accept</h3>
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <i class="fab fa-cc-visa"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-cc-mastercard"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-cc-amex"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h2 class="faq-title">Common Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Can I upgrade/downgrade anytime?</div>
+                    <p class="faq-answer">Yes! Change your plan anytime. We'll prorate the difference.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is there a free trial?</div>
+                    <p class="faq-answer">Try our Pro plan free for 7 days. No credit card needed.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What payment methods?</div>
+                    <p class="faq-answer">Credit cards, debit cards, UPI, net banking, PayPal.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I cancel anytime?</div>
+                    <p class="faq-answer">Yes! Cancel anytime from your dashboard. No penalties.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact -->
+        <div class="contact-info">
+            <a href="mailto:flowlyticsai46@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i> flowlyticsai46@gmail.com
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 Flowlytics AI | Made in India 🇮🇳 | Affordable AI for Indian Businesses</p>
+        </div>
+    </div>
+
+    <script>
+        function selectPlan(planName, price) {
+            // Direct email payment option
+            const email = 'flowlyticsai46@gmail.com';
+            const subject = `Purchase ${planName} Plan - ₹${price}/month`;
+            const body = `Hi Flowlytics AI Team,\n\nI want to purchase the ${planName} Plan (₹${price}/month).\n\nPlease send me payment details.\n\nMy details:\n- Name: \n- Company: \n- Phone: \n- Preferred Payment Method: \n\nThank you!`;
+            
+            // Show confirmation
+            const confirmPurchase = confirm(`You selected ${planName} Plan - ₹${price}/month\n\nWe'll open your email app to complete the purchase. Click OK to continue.`);
+            
+            if (confirmPurchase) {
+                // Open email client
+                window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Show success message
+                setTimeout(() => {
+                    alert(`✅ Payment email sent! Check your email app.\n\nWe'll send payment instructions to your email within 24 hours.\n\nThank you for choosing Flowlytics AI!`);
+                }, 1000);
+            }
+        }
+        
+        // Show special offer popup after 3 seconds
+        setTimeout(() => {
+            const showOffer = confirm("🔥 SPECIAL LAUNCH OFFER! 🔥\n\nGet 50% OFF on your first month!\n\nLimited time offer for early users.\n\nApply at checkout!");
+            if (showOffer) {
+                localStorage.setItem('couponCode', 'LAUNCH50');
+            }
+        }, 3000);
+        
+        // Track pricing page visit
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Pricing page loaded - ' + new Date().toLocaleString());
+        });
+    </script>
+</body>
+</html>
