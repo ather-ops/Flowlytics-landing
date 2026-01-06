@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1e40af;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e3a8a;
-            --secondary: #2563eb;
-            --accent: #0891b2;
-            --success: #059669;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
             --dark: #0f172a;
             --dark-bg: #0f172a;
             --light: #f8fafc;
@@ -20,9 +20,10 @@
             --border: #e2e8f0;
             --text: #334155;
             --text-light: #64748b;
-            --gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
-            --gradient-light: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+            --gradient-light: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+            --neon-glow: 0 0 20px rgba(99, 102, 241, 0.5);
         }
         
         * {
@@ -33,7 +34,7 @@
         }
         
         body {
-            background: #f1f5f9;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
@@ -62,68 +63,96 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.15) 0%, transparent 50%);
-            animation: pulse 20s ease-in-out infinite alternate;
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.2) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite alternate;
         }
         
         @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.8; transform: scale(1.05); }
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
         }
         
-        .logo {
-            font-size: 36px;
-            font-weight: 800;
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 28px;
-            letter-spacing: -0.5px;
+            gap: 24px;
+            margin-bottom: 40px;
         }
         
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: white;
-            border-radius: 12px;
+        .f-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: logoFloat 3s ease-in-out infinite;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+            box-shadow: var(--neon-glow);
+            position: relative;
+            overflow: hidden;
         }
         
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+        .f-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s ease-in-out infinite;
         }
         
-        .logo-icon i {
-            background: var(--gradient);
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes logoGlow {
+            0% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(99, 102, 241, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 60px rgba(99, 102, 241, 0.5); }
+        }
+        
+        .f-logo i {
+            font-size: 40px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            background: linear-gradient(90deg, #ffffff, #e0e7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 24px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
         
         .tagline {
             color: rgba(255, 255, 255, 0.9);
             font-size: 22px;
-            margin-bottom: 36px;
-            max-width: 700px;
             font-weight: 300;
             letter-spacing: -0.2px;
         }
         
         h1 {
-            font-size: 68px;
+            font-size: 72px;
             font-weight: 900;
             margin-bottom: 36px;
             line-height: 1.1;
-            letter-spacing: -1.5px;
+            letter-spacing: -2px;
             background: linear-gradient(90deg, #ffffff, #dbeafe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
         }
         
         .hero-text {
@@ -143,7 +172,7 @@
         
         .btn {
             padding: 20px 44px;
-            border-radius: 12px;
+            border-radius: 16px;
             font-weight: 600;
             font-size: 18px;
             text-decoration: none;
@@ -176,12 +205,12 @@
         .btn-primary {
             background: white;
             color: var(--primary-dark);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.3);
         }
         
         .btn-secondary {
@@ -193,7 +222,7 @@
         
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
             border-color: rgba(255, 255, 255, 0.5);
         }
         
@@ -205,8 +234,8 @@
         
         .section-title {
             text-align: center;
-            font-size: 52px;
-            font-weight: 800;
+            font-size: 56px;
+            font-weight: 900;
             margin-bottom: 80px;
             color: var(--dark);
             position: relative;
@@ -223,6 +252,7 @@
             height: 5px;
             background: var(--gradient);
             border-radius: 3px;
+            box-shadow: var(--neon-glow);
         }
         
         /* Floating Screenshots Effect */
@@ -236,18 +266,18 @@
         .floating-screenshot {
             position: absolute;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25);
             overflow: hidden;
             border: 1px solid var(--border);
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 1;
         }
         
         .floating-screenshot:hover {
-            transform: scale(1.05) !important;
+            transform: scale(1.1) !important;
             z-index: 10 !important;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.4), var(--neon-glow);
         }
         
         .floating-screenshot-1 {
@@ -297,28 +327,28 @@
         }
         
         @keyframes float1 {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
         }
         
         @keyframes float2 {
-            0%, 100% { transform: translateY(0) rotate(3deg); }
-            50% { transform: translateY(-25px) rotate(-1deg); }
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-35px) rotate(-5deg); }
         }
         
         @keyframes float3 {
-            0%, 100% { transform: translateY(0) rotate(-1deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-25px) rotate(3deg); }
         }
         
         @keyframes float4 {
-            0%, 100% { transform: translateY(0) rotate(2deg); }
-            50% { transform: translateY(-22px) rotate(-2deg); }
+            0%, 100% { transform: translateY(0) rotate(4deg); }
+            50% { transform: translateY(-32px) rotate(-4deg); }
         }
         
         @keyframes float5 {
             0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
-            50% { transform: translate(-50%, -18px) rotate(1deg); }
+            50% { transform: translate(-50%, -28px) rotate(2deg); }
         }
         
         .screenshot-preview {
@@ -335,12 +365,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(30, 64, 175, 0.9);
+            background: rgba(99, 102, 241, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
         
         .floating-screenshot:hover .screenshot-overlay {
@@ -351,19 +381,20 @@
             background: white;
             color: var(--primary);
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
+            font-size: 16px;
         }
         
         .view-dashboard-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
         }
         
         /* Screenshots Section */
@@ -374,45 +405,45 @@
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 32px;
+            gap: 40px;
             margin-top: 40px;
         }
         
         .screenshot-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             border: 1px solid var(--border);
         }
         
         .screenshot-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2), var(--neon-glow);
         }
         
         .screenshot-header {
             background: var(--gradient);
             color: white;
-            padding: 20px 24px;
-            font-weight: 600;
-            font-size: 18px;
+            padding: 24px 32px;
+            font-weight: 700;
+            font-size: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
         
         .screenshot-header i {
-            font-size: 20px;
+            font-size: 24px;
         }
         
         .screenshot-content {
-            padding: 32px;
+            padding: 40px;
             font-family: 'Monaco', 'Courier New', monospace;
             background: #f8fafc;
-            height: 400px;
+            height: 420px;
             overflow-y: auto;
         }
         
@@ -443,149 +474,168 @@
         /* Screenshot Content Styles */
         .screenshot-title {
             color: var(--dark);
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 24px;
             text-align: center;
         }
         
         .screenshot-metrics {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 24px;
+            margin-bottom: 32px;
         }
         
         .metric-box {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
             border: 1px solid var(--border);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .metric-value {
-            font-size: 28px;
-            font-weight: 800;
+            font-size: 32px;
+            font-weight: 900;
             color: var(--dark);
             margin-bottom: 8px;
         }
         
         .metric-label {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
         
         .table-container {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
             border: 1px solid var(--border);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 14px;
         }
         
         .data-table th {
             text-align: left;
-            padding: 12px;
+            padding: 16px;
             background: #f8fafc;
             color: var(--text-light);
-            font-weight: 600;
-            font-size: 11px;
+            font-weight: 700;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             border-bottom: 2px solid var(--border);
         }
         
         .data-table td {
-            padding: 14px 12px;
+            padding: 18px 16px;
             border-bottom: 1px solid var(--border);
         }
         
         .health-score {
             text-align: center;
-            padding: 40px 20px;
+            padding: 48px 24px;
         }
         
         .score-circle {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 24px;
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 36px;
-            font-weight: 800;
-            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+            font-size: 48px;
+            font-weight: 900;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+            animation: pulseScore 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseScore {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .score-label {
             color: var(--success);
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 16px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         
         .risk-alert {
             background: #fee2e2;
-            border-left: 4px solid #dc2626;
-            padding: 16px;
-            border-radius: 8px;
-            margin-top: 20px;
+            border-left: 6px solid #dc2626;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 24px;
+            animation: pulseAlert 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseAlert {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .risk-alert strong {
             color: #dc2626;
-            font-size: 14px;
+            font-size: 16px;
         }
         
         .risk-alert p {
             color: var(--text);
-            font-size: 13px;
+            font-size: 14px;
             margin-top: 8px;
         }
         
         .opportunity-card {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 2px solid #bae6fd;
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 20px;
+            border: 3px solid #bae6fd;
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 24px;
         }
         
         .opportunity-title {
             color: var(--dark);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 12px;
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 16px;
         }
         
         /* Features */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 40px;
+            gap: 48px;
             margin-bottom: 80px;
         }
         
         .feature-card {
             background: var(--card-bg);
-            padding: 52px 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+            padding: 56px 44px;
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
@@ -596,10 +646,11 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 6px;
             background: var(--gradient);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.5s ease;
+            box-shadow: var(--neon-glow);
         }
         
         .feature-card:hover::before {
@@ -607,35 +658,35 @@
         }
         
         .feature-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.1);
+            transform: translateY(-15px);
+            box-shadow: 0 35px 70px rgba(99, 102, 241, 0.15);
             border-color: var(--primary-light);
         }
         
         .feature-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: var(--gradient);
-            border-radius: 18px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
             color: white;
-            font-size: 32px;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.2);
+            font-size: 40px;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
         }
         
         .feature-card:hover .feature-icon {
             transform: rotateY(180deg) scale(1.1);
-            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.3);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.4);
         }
         
         .feature-title {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 24px;
             color: var(--dark);
             letter-spacing: -0.3px;
         }
@@ -643,15 +694,15 @@
         .feature-text {
             color: var(--text-light);
             line-height: 1.8;
-            font-size: 17px;
+            font-size: 18px;
         }
         
         /* API Section */
         .api-section {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 72px;
-            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 32px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
             margin-top: 40px;
             position: relative;
@@ -663,9 +714,23 @@
             position: absolute;
             top: 0;
             right: 0;
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-light);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .api-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 300px;
             height: 300px;
-            background: var(--gradient-light);
+            background: var(--gradient);
             border-radius: 50%;
             filter: blur(80px);
             opacity: 0.1;
@@ -678,27 +743,27 @@
         }
         
         .section-subtitle {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 24px;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 32px;
             color: var(--dark);
             letter-spacing: -0.3px;
         }
         
         .code-block {
             background: var(--dark);
-            border-radius: 12px;
-            padding: 28px;
-            margin: 24px 0;
+            border-radius: 20px;
+            padding: 32px;
+            margin: 32px 0;
             overflow-x: auto;
-            border: 1px solid #334155;
-            transition: all 0.3s ease;
+            border: 2px solid #334155;
+            transition: all 0.4s ease;
             position: relative;
         }
         
         .code-block:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), var(--neon-glow);
             border-color: var(--primary-light);
         }
         
@@ -706,235 +771,128 @@
             color: #e2e8f0;
             font-family: 'Monaco', 'Courier New', monospace;
             font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
         
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         .copy-btn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
         
         .copy-btn:hover {
             background: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
         }
         
-        /* Pricing */
-        .pricing-grid {
+        /* Info Cards Section */
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 40px;
             margin-top: 60px;
         }
         
-        .pricing-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 48px 36px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 56px 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
             border: 2px solid var(--border);
             position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.1);
-            border-color: var(--primary-light);
-        }
-        
-        .pricing-card.popular {
-            border-color: var(--primary);
-            transform: scale(1.02);
-        }
-        
-        .pricing-card.popular:hover {
-            transform: translateY(-12px) scale(1.02);
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: -16px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient);
-            color: white;
-            padding: 8px 28px;
-            border-radius: 24px;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
-        }
-        
-        .price {
-            font-size: 56px;
-            font-weight: 900;
-            color: var(--dark);
-            margin: 24px 0;
-            position: relative;
-        }
-        
-        .price::after {
-            content: '';
-            position: absolute;
-            bottom: -16px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        
-        .pricing-card:hover .price::after {
-            width: 120px;
-        }
-        
-        .price span {
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-        
-        .pricing-features {
-            list-style: none;
-            margin: 36px 0;
-        }
-        
-        .pricing-features li {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .pricing-features li:hover {
-            transform: translateX(8px);
-            border-color: var(--primary-light);
-        }
-        
-        .pricing-features li i {
-            color: var(--success);
-            font-size: 16px;
-            background: rgba(5, 150, 105, 0.1);
-            padding: 8px;
-            border-radius: 8px;
-        }
-        
-        /* Founder Section */
-        .founder-section {
-            background: var(--gradient-dark);
-            color: white;
-            padding: 140px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .founder-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 90% 10%, rgba(30, 64, 175, 0.2) 0%, transparent 50%);
-            animation: pulse 20s ease-in-out infinite alternate;
-        }
-        
-        .founder-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            margin: 0 auto;
             text-align: center;
         }
         
-        .founder-quote {
-            font-size: 32px;
-            font-weight: 300;
-            line-height: 1.6;
-            margin-bottom: 56px;
-            font-style: italic;
-            position: relative;
-            padding: 0 40px;
-            letter-spacing: -0.3px;
+        .info-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 35px 70px rgba(99, 102, 241, 0.15);
+            border-color: var(--primary-light);
         }
         
-        .founder-quote::before {
-            content: '"';
-            font-size: 120px;
-            color: rgba(255, 255, 255, 0.1);
-            position: absolute;
-            top: -60px;
-            left: 0;
-            font-family: Georgia, serif;
-            line-height: 1;
+        .info-card:nth-child(1):hover {
+            animation: cardFloat1 0.8s ease-in-out;
         }
         
-        .founder-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 56px;
+        .info-card:nth-child(2):hover {
+            animation: cardFloat2 0.8s ease-in-out;
         }
         
-        .founder-avatar {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-light);
+        .info-card:nth-child(3):hover {
+            animation: cardFloat3 0.8s ease-in-out;
+        }
+        
+        @keyframes cardFloat1 {
+            0%, 100% { transform: translateY(-15px) rotate(-2deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
+        }
+        
+        @keyframes cardFloat2 {
+            0%, 100% { transform: translateY(-15px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(3deg); }
+        }
+        
+        @keyframes cardFloat3 {
+            0%, 100% { transform: translateY(-15px) rotate(2deg); }
+            50% { transform: translateY(-25px) rotate(-2deg); }
+        }
+        
+        .card-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 40px;
             color: white;
-            font-weight: 700;
-            font-size: 28px;
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+            font-size: 48px;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            transition: all 0.5s ease;
         }
         
-        .founder-details {
-            text-align: left;
+        .info-card:hover .card-icon {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.4);
         }
         
-        .founder-name {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .card-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--dark);
+            letter-spacing: -0.3px;
         }
         
-        .founder-title {
-            color: rgba(255, 255, 255, 0.85);
+        .card-text {
+            color: var(--text-light);
+            line-height: 1.8;
             font-size: 18px;
+            margin-bottom: 32px;
         }
         
         /* Trial Section */
         .trial-section {
             background: var(--gradient-light);
-            border-radius: 24px;
-            padding: 72px;
+            border-radius: 32px;
+            padding: 80px;
             text-align: center;
             margin-top: 80px;
             position: relative;
@@ -948,14 +906,20 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: shineBackground 3s ease-in-out infinite;
+        }
+        
+        @keyframes shineBackground {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         /* Footer */
         .footer {
             background: var(--dark);
             color: white;
-            padding: 100px 0 60px;
+            padding: 120px 0 80px;
             position: relative;
         }
         
@@ -965,42 +929,46 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 6px;
             background: var(--gradient);
+            box-shadow: var(--neon-glow);
         }
         
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 48px;
+            gap: 60px;
             margin-bottom: 80px;
         }
         
         .footer-logo {
-            font-size: 28px;
-            font-weight: 800;
+            font-size: 32px;
+            font-weight: 900;
             margin-bottom: 24px;
             letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .footer-text {
             color: rgba(255, 255, 255, 0.75);
             line-height: 1.8;
             max-width: 360px;
-            font-size: 16px;
+            font-size: 17px;
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
         
         .footer-links h4 {
             color: white;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 28px;
             letter-spacing: -0.3px;
         }
         
@@ -1010,20 +978,21 @@
             transition: all 0.3s ease;
             position: relative;
             padding-left: 0;
-            font-size: 16px;
+            font-size: 17px;
         }
         
         .footer-links a::before {
             content: '→';
             position: absolute;
-            left: -20px;
+            left: -24px;
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
             color: white;
-            padding-left: 20px;
+            padding-left: 28px;
+            transform: translateX(10px);
         }
         
         .footer-links a:hover::before {
@@ -1035,35 +1004,37 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             color: rgba(255, 255, 255, 0.75);
             transition: all 0.3s ease;
             cursor: pointer;
+            font-size: 16px;
         }
         
         .contact-info:hover {
             color: white;
-            transform: translateX(8px);
+            transform: translateX(10px);
         }
         
         .contact-info i {
-            width: 20px;
+            width: 24px;
             color: var(--primary-light);
+            font-size: 20px;
         }
         
         .copyright {
             text-align: center;
-            padding-top: 40px;
+            padding-top: 60px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.6);
-            font-size: 15px;
+            font-size: 16px;
         }
         
         /* Animation Classes */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .animate-on-scroll.animated {
@@ -1071,14 +1042,47 @@
             transform: translateY(0);
         }
         
+        /* Card Sequence Animation */
+        .card-grid .info-card:nth-child(1) { transition-delay: 0.1s; }
+        .card-grid .info-card:nth-child(2) { transition-delay: 0.2s; }
+        .card-grid .info-card:nth-child(3) { transition-delay: 0.3s; }
+        
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
         /* Responsive Design */
-        @media (max-width: 1024px) {
-            h1 { font-size: 56px; }
-            .section-title { font-size: 44px; }
-            .founder-quote { font-size: 28px; }
+        @media (max-width: 1200px) {
+            h1 { font-size: 64px; }
+            .section-title { font-size: 48px; }
             .screenshot-grid { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+        }
+        
+        @media (max-width: 1024px) {
+            .header { padding: 120px 0 100px; }
+            h1 { font-size: 56px; }
+            .logo { font-size: 40px; }
+            .f-logo { width: 70px; height: 70px; }
+            .f-logo i { font-size: 36px; }
+            .section-title { font-size: 44px; }
             .floating-screenshots { height: 500px; }
-            .floating-screenshot { transform: scale(0.8); }
+            .floating-screenshot { transform: scale(0.85); }
+            .api-section { padding: 60px; }
         }
         
         @media (max-width: 768px) {
@@ -1088,26 +1092,27 @@
             .section-title { font-size: 36px; margin-bottom: 60px; }
             .section-title::after { bottom: -20px; }
             .hero-text { font-size: 20px; }
-            .feature-card, .pricing-card { padding: 40px 28px; }
+            .feature-card, .info-card { padding: 48px 32px; }
             .api-section { padding: 40px; }
-            .features-grid, .pricing-grid, .screenshot-grid { grid-template-columns: 1fr; }
+            .features-grid, .screenshot-grid, .card-grid { grid-template-columns: 1fr; }
             .cta-buttons { flex-direction: column; }
             .btn { width: 100%; justify-content: center; }
-            .founder-quote { font-size: 24px; padding: 0 20px; }
-            .founder-info { flex-direction: column; text-align: center; }
-            .founder-details { text-align: center; }
-            .trial-section { padding: 48px 32px; }
-            .screenshot-content { height: 350px; }
+            .trial-section { padding: 60px 40px; }
+            .screenshot-content { height: 380px; }
             .floating-screenshots { display: none; }
+            .logo-container { flex-direction: column; text-align: center; gap: 20px; }
+            .logo-text { align-items: center; }
         }
         
         @media (max-width: 480px) {
             .header { padding: 80px 0 60px; }
             h1 { font-size: 36px; }
             .section-title { font-size: 32px; }
-            .logo { font-size: 28px; }
-            .btn { padding: 18px 32px; font-size: 16px; }
-            .screenshot-content { height: 300px; padding: 24px; }
+            .logo { font-size: 36px; }
+            .btn { padding: 20px 32px; font-size: 16px; }
+            .screenshot-content { height: 320px; padding: 32px; }
+            .trial-section { padding: 48px 24px; }
+            .api-section { padding: 32px 24px; }
         }
     </style>
 </head>
@@ -1115,13 +1120,15 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <div class="logo-icon">
+            <div class="logo-container">
+                <div class="f-logo">
                     <i class="fas fa-chart-network"></i>
                 </div>
-                <span>Flowlytics AI</span>
+                <div class="logo-text">
+                    <div class="logo">Flowlytics AI</div>
+                    <div class="tagline">See Your Business Through AI-Powered Insights</div>
+                </div>
             </div>
-            <div class="tagline">See Your Business Through AI-Powered Insights</div>
             
             <h1>Real Results. Real Intelligence. Real-Time.</h1>
             <p class="hero-text">Experience the power of Flowlytics AI through actual customer dashboards. See how businesses transform raw data into actionable intelligence with our platform.</p>
@@ -1143,9 +1150,9 @@
             <div class="floating-screenshots">
                 <div class="floating-screenshot floating-screenshot-1">
                     <div class="screenshot-preview">
-                        <div style="padding: 20px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Business Overview</div>
-                            <div style="font-size: 12px; color: var(--text-light);">₹40.41L Revenue | 25% Margin</div>
+                        <div style="padding: 24px;">
+                            <div style="font-weight: 900; color: var(--dark); margin-bottom: 12px; font-size: 18px;">Business Overview</div>
+                            <div style="font-size: 13px; color: var(--text-light);">₹40.41L Revenue | 25% Margin</div>
                         </div>
                     </div>
                     <div class="screenshot-overlay">
@@ -1157,9 +1164,9 @@
                 
                 <div class="floating-screenshot floating-screenshot-2">
                     <div class="screenshot-preview">
-                        <div style="padding: 20px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Health Score: 90</div>
-                            <div style="font-size: 12px; color: var(--success);">EXCELLENT</div>
+                        <div style="padding: 24px;">
+                            <div style="font-weight: 900; color: var(--dark); margin-bottom: 12px; font-size: 18px;">Health Score: 90</div>
+                            <div style="font-size: 13px; color: var(--success); font-weight: 600;">EXCELLENT</div>
                         </div>
                     </div>
                     <div class="screenshot-overlay">
@@ -1171,9 +1178,9 @@
                 
                 <div class="floating-screenshot floating-screenshot-3">
                     <div class="screenshot-preview">
-                        <div style="padding: 20px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Top Cities</div>
-                            <div style="font-size: 12px; color: var(--text-light);">Mumbai, Goa, Pune</div>
+                        <div style="padding: 24px;">
+                            <div style="font-weight: 900; color: var(--dark); margin-bottom: 12px; font-size: 18px;">Top Cities</div>
+                            <div style="font-size: 13px; color: var(--text-light);">Mumbai, Goa, Pune</div>
                         </div>
                     </div>
                     <div class="screenshot-overlay">
@@ -1185,9 +1192,9 @@
                 
                 <div class="floating-screenshot floating-screenshot-4">
                     <div class="screenshot-preview">
-                        <div style="padding: 20px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">Customer Intelligence</div>
-                            <div style="font-size: 12px; color: var(--text-light);">13 High-Value Customers</div>
+                        <div style="padding: 24px;">
+                            <div style="font-weight: 900; color: var(--dark); margin-bottom: 12px; font-size: 18px;">Customer Intelligence</div>
+                            <div style="font-size: 13px; color: var(--text-light);">13 High-Value Customers</div>
                         </div>
                     </div>
                     <div class="screenshot-overlay">
@@ -1199,9 +1206,9 @@
                 
                 <div class="floating-screenshot floating-screenshot-5">
                     <div class="screenshot-preview">
-                        <div style="padding: 20px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 10px;">AI Recommendations</div>
-                            <div style="font-size: 12px; color: var(--text-light);">Live Insights</div>
+                        <div style="padding: 24px;">
+                            <div style="font-weight: 900; color: var(--dark); margin-bottom: 12px; font-size: 18px;">AI Recommendations</div>
+                            <div style="font-size: 13px; color: var(--text-light);">Live Insights</div>
                         </div>
                     </div>
                     <div class="screenshot-overlay">
@@ -1218,7 +1225,7 @@
     <section class="section screenshots-section" id="screenshots">
         <div class="container">
             <h2 class="section-title">See Flowlytics AI in Action</h2>
-            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 20px; line-height: 1.7;">
+            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 22px; line-height: 1.7;">
                 Real customer dashboards showing how Flowlytics AI transforms business data into actionable intelligence.
             </p>
             
@@ -1235,25 +1242,25 @@
                             <div class="metric-box">
                                 <div class="metric-value">₹40.41L</div>
                                 <div class="metric-label">DELIVERED REVENUE</div>
-                                <div style="font-size: 12px; color: var(--success);">22 orders</div>
+                                <div style="font-size: 14px; color: var(--success); font-weight: 600;">22 orders</div>
                             </div>
                             <div class="metric-box">
                                 <div class="metric-value">₹10.10L</div>
                                 <div class="metric-label">TOTAL PROFIT</div>
-                                <div style="font-size: 12px; color: var(--success);">25.0% margin</div>
+                                <div style="font-size: 14px; color: var(--success); font-weight: 600;">25.0% margin</div>
                             </div>
                             <div class="metric-box">
                                 <div class="metric-value">₹1.84L</div>
                                 <div class="metric-label">AVG ORDER VALUE</div>
-                                <div style="font-size: 12px; color: var(--text-light);">Stable</div>
+                                <div style="font-size: 14px; color: var(--text-light); font-weight: 600;">Stable</div>
                             </div>
                             <div class="metric-box">
                                 <div class="metric-value">17</div>
                                 <div class="metric-label">UNIQUE CUSTOMERS</div>
-                                <div style="font-size: 12px; color: var(--success);">+3 this month</div>
+                                <div style="font-size: 14px; color: var(--success); font-weight: 600;">+3 this month</div>
                             </div>
                         </div>
-                        <p style="text-align: center; color: var(--text-light); font-size: 13px; margin-top: 20px;">
+                        <p style="text-align: center; color: var(--text-light); font-size: 14px; margin-top: 32px; font-weight: 500;">
                             Real-time performance metrics updated every 5 minutes
                         </p>
                     </div>
@@ -1269,13 +1276,13 @@
                         <div class="health-score">
                             <div class="score-circle">90</div>
                             <div class="score-label">EXCELLENT</div>
-                            <p style="margin-top: 20px; color: var(--text); font-size: 14px; line-height: 1.6;">
+                            <p style="margin-top: 24px; color: var(--text); font-size: 16px; line-height: 1.6;">
                                 Maintain current strategies and focus on scaling profitable segments
                             </p>
                         </div>
-                        <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin-top: 30px;">
-                            <div style="font-weight: 700; color: var(--success); margin-bottom: 10px;">AI Recommendation:</div>
-                            <p style="color: var(--text); font-size: 13px; line-height: 1.6;">
+                        <div style="background: #f0fdf4; padding: 24px; border-radius: 16px; margin-top: 32px;">
+                            <div style="font-weight: 800; color: var(--success); margin-bottom: 12px; font-size: 18px;">AI Recommendation:</div>
+                            <p style="color: var(--text); font-size: 15px; line-height: 1.6;">
                                 Focus on customer retention strategies to maintain high health score. Current repeat purchase rate is below industry average.
                             </p>
                         </div>
@@ -1303,28 +1310,28 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="font-weight: 600;">Mumbai</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹5.13L</td>
+                                        <td style="font-weight: 800;">Mumbai</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹5.13L</td>
                                         <td>4</td>
                                         <td>1</td>
                                         <td>25%</td>
-                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                        <td><span style="color: var(--success); font-weight: 600;">●0.0%</span></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: 600;">Goa</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹4.18L</td>
+                                        <td style="font-weight: 800;">Goa</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹4.18L</td>
                                         <td>1</td>
                                         <td>1</td>
                                         <td>15%</td>
-                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                        <td><span style="color: var(--success); font-weight: 600;">●0.0%</span></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: 600;">Pune</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹4.15L</td>
+                                        <td style="font-weight: 800;">Pune</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹4.15L</td>
                                         <td>2</td>
                                         <td>1</td>
                                         <td>30%</td>
-                                        <td><span style="color: var(--success);">●0.0%</span></td>
+                                        <td><span style="color: var(--success); font-weight: 600;">●0.0%</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1335,7 +1342,7 @@
                             <p>Chennai, Kolkata, Jaipur, Indore, Coimbatore show COD rates above 50%</p>
                         </div>
                         
-                        <p style="font-size: 12px; color: var(--text-light); margin-top: 15px;">
+                        <p style="font-size: 14px; color: var(--text-light); margin-top: 20px; font-weight: 500;">
                             AI automatically flags high-risk cities for immediate attention
                         </p>
                     </div>
@@ -1348,7 +1355,7 @@
                         Customer Intelligence
                     </div>
                     <div class="screenshot-content">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
                             <div class="metric-box">
                                 <div class="metric-value">5</div>
                                 <div class="metric-label">REPEAT BUYERS</div>
@@ -1365,23 +1372,23 @@
                         
                         <div class="opportunity-card">
                             <div class="opportunity-title">Customer Retention Opportunity</div>
-                            <p style="color: var(--text); font-size: 13px; line-height: 1.6; margin-bottom: 15px;">
+                            <p style="color: var(--text); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
                                 Only 29.4% of customers make repeat purchases. Industry average is 35-40%.
                             </p>
-                            <div style="display: flex; gap: 10px;">
+                            <div style="display: flex; gap: 16px;">
                                 <div style="flex: 1;">
-                                    <div style="font-size: 11px; color: var(--text-light); margin-bottom: 5px;">Impact</div>
-                                    <div style="font-size: 13px; color: var(--dark); font-weight: 600;">Untapped Revenue Potential</div>
+                                    <div style="font-size: 13px; color: var(--text-light); margin-bottom: 8px; font-weight: 600;">Impact</div>
+                                    <div style="font-size: 15px; color: var(--dark); font-weight: 800;">Untapped Revenue Potential</div>
                                 </div>
-                                <button style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                <button style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;" onclick="showModal('Customer Retention', 'Our team will help you implement a proven customer retention strategy. Contact us to get started.')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(99, 102, 241, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                                     Take Action
                                 </button>
                             </div>
                         </div>
                         
-                        <div style="background: #f0fdf4; padding: 16px; border-radius: 12px; margin-top: 20px;">
-                            <div style="font-weight: 700; color: var(--success); margin-bottom: 8px;">High Value Customers Identified</div>
-                            <p style="color: var(--text); font-size: 13px; margin-bottom: 10px;">
+                        <div style="background: #f0fdf4; padding: 20px; border-radius: 16px; margin-top: 24px;">
+                            <div style="font-weight: 800; color: var(--success); margin-bottom: 12px; font-size: 18px;">High Value Customers Identified</div>
+                            <p style="color: var(--text); font-size: 15px; margin-bottom: 12px;">
                                 13 customers spending over ₹1L each. Opportunity for premium offerings.
                             </p>
                         </div>
@@ -1396,37 +1403,37 @@
                     </div>
                     <div class="screenshot-content">
                         <div class="screenshot-title">Flowlytics AI</div>
-                        <div style="margin: 30px 0;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 20px; font-size: 16px;">References</div>
+                        <div style="margin: 32px 0;">
+                            <div style="font-weight: 800; color: var(--dark); margin-bottom: 24px; font-size: 18px;">References</div>
                             <ul style="list-style: none; padding: 0;">
-                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Unified Data Ingestion</span>
+                                <li style="padding: 16px 0; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Unified Data Ingestion</span>
                                 </li>
-                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Real-Time Business Metrics</span>
+                                <li style="padding: 16px 0; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Real-Time Business Metrics</span>
                                 </li>
-                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Customer Intelligence</span>
+                                <li style="padding: 16px 0; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Customer Intelligence</span>
                                 </li>
-                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Product Performance Analytics</span>
+                                <li style="padding: 16px 0; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Product Performance Analytics</span>
                                 </li>
-                                <li style="padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Location & Risk Analysis</span>
+                                <li style="padding: 16px 0; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Location & Risk Analysis</span>
                                 </li>
-                                <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                    <span>Payment Method Intelligence</span>
+                                <li style="padding: 16px 0; display: flex; align-items: center; gap: 16px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.color='var(--primary)'" onmouseout="this.style.transform='translateX(0)'; this.style.color='inherit'">
+                                    <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+                                    <span style="font-weight: 600; font-size: 16px;">Payment Method Intelligence</span>
                                 </li>
                             </ul>
                         </div>
-                        <p style="text-align: center; color: var(--text-light); font-size: 12px; margin-top: 20px;">
-                            All features available in Enterprise plan
+                        <p style="text-align: center; color: var(--text-light); font-size: 14px; margin-top: 24px; font-weight: 500;">
+                            All features available in our platform
                         </p>
                     </div>
                 </div>
@@ -1438,9 +1445,9 @@
                         Top Customers by Revenue
                     </div>
                     <div class="screenshot-content">
-                        <div style="margin-bottom: 25px;">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 15px;">Customer Metrics</div>
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div style="margin-bottom: 32px;">
+                            <div style="font-weight: 800; color: var(--dark); margin-bottom: 20px; font-size: 20px;">Customer Metrics</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px;">
                                 <div class="metric-box">
                                     <div class="metric-value">5</div>
                                     <div class="metric-label">REPEAT BUYERS</div>
@@ -1457,7 +1464,7 @@
                         </div>
                         
                         <div class="table-container">
-                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 15px;">Top Customers by Revenue</div>
+                            <div style="font-weight: 800; color: var(--dark); margin-bottom: 20px; font-size: 20px;">Top Customers by Revenue</div>
                             <table class="data-table">
                                 <thead>
                                     <tr>
@@ -1469,20 +1476,20 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="font-weight: 600;">CUST_001</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹2.1L</td>
+                                        <td style="font-weight: 800;">CUST_001</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹2.1L</td>
                                         <td>3</td>
                                         <td>₹70K</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: 600;">CUST_002</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹1.8L</td>
+                                        <td style="font-weight: 800;">CUST_002</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹1.8L</td>
                                         <td>2</td>
                                         <td>₹90K</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: 600;">CUST_003</td>
-                                        <td style="color: var(--success); font-weight: 600;">₹1.5L</td>
+                                        <td style="font-weight: 800;">CUST_003</td>
+                                        <td style="color: var(--success); font-weight: 800;">₹1.5L</td>
                                         <td>2</td>
                                         <td>₹75K</td>
                                     </tr>
@@ -1490,9 +1497,9 @@
                             </table>
                         </div>
                         
-                        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 15px; border-radius: 8px; margin-top: 20px;">
-                            <div style="font-weight: 700; color: var(--primary); font-size: 13px; margin-bottom: 5px;">OPPORTUNITY</div>
-                            <div style="font-size: 12px; color: var(--text);">Clear execution path for customer retention strategy</div>
+                        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 20px; border-radius: 16px; margin-top: 24px; border: 2px solid #bae6fd;">
+                            <div style="font-weight: 800; color: var(--primary); font-size: 16px; margin-bottom: 8px;">OPPORTUNITY</div>
+                            <div style="font-size: 14px; color: var(--text); font-weight: 600;">Clear execution path for customer retention strategy</div>
                         </div>
                     </div>
                 </div>
@@ -1504,7 +1511,7 @@
     <section class="section" id="features">
         <div class="container">
             <h2 class="section-title">How Flowlytics AI Works</h2>
-            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 20px; line-height: 1.7;">
+            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px; font-size: 22px; line-height: 1.7;">
                 From raw data to actionable insights in minutes. No coding required.
             </p>
             
@@ -1560,6 +1567,48 @@
         </div>
     </section>
 
+    <!-- Info Cards Section -->
+    <section class="section" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
+        <div class="container">
+            <h2 class="section-title">Why Choose Flowlytics AI</h2>
+            
+            <div class="card-grid">
+                <div class="info-card animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title">Proven Results</h3>
+                    <p class="card-text">Our customers see an average 23% increase in revenue and 35% reduction in operational costs within the first 90 days.</p>
+                    <button class="btn btn-secondary" onclick="showModal('Proven Results', 'See detailed case studies and ROI analysis from our satisfied customers.')" style="margin-top: 24px; width: 100%; padding: 16px 32px; font-size: 16px;">
+                        <i class="fas fa-chart-bar"></i> See Case Studies
+                    </button>
+                </div>
+                
+                <div class="info-card animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="card-title">Enterprise Security</h3>
+                    <p class="card-text">Bank-grade encryption, SOC 2 compliance, and GDPR-ready infrastructure to protect your most sensitive business data.</p>
+                    <button class="btn btn-secondary" onclick="showModal('Security Details', 'Learn about our security protocols, compliance certifications, and data protection measures.')" style="margin-top: 24px; width: 100%; padding: 16px 32px; font-size: 16px;">
+                        <i class="fas fa-shield-alt"></i> Security Details
+                    </button>
+                </div>
+                
+                <div class="info-card animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="card-title">Dedicated Support</h3>
+                    <p class="card-text">24/7 expert support, dedicated account managers, and comprehensive onboarding to ensure your success.</p>
+                    <button class="btn btn-secondary" onclick="showModal('Support Options', 'Choose from email, chat, or phone support with guaranteed response times.')" style="margin-top: 24px; width: 100%; padding: 16px 32px; font-size: 16px;">
+                        <i class="fas fa-headset"></i> Support Options
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- API Test Section -->
     <section class="section" id="demo" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
         <div class="container">
@@ -1568,7 +1617,7 @@
                 <h3 class="section-subtitle">Live API Integration</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">Production API Endpoint</div>
+                        <div style="color: #94a3b8; font-size: 16px; font-weight: 600;">Production API Endpoint</div>
                         <button class="copy-btn" onclick="copyText('webhook-url')">
                             <i class="fas fa-copy"></i> Copy Endpoint
                         </button>
@@ -1579,7 +1628,7 @@
                 <h3 class="section-subtitle" style="margin-top: 48px;">Sample Request</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">JSON Payload</div>
+                        <div style="color: #94a3b8; font-size: 16px; font-weight: 600;">JSON Payload</div>
                         <button class="copy-btn" onclick="copyText('sample-data')">
                             <i class="fas fa-copy"></i> Copy Data
                         </button>
@@ -1600,7 +1649,7 @@
                 <h3 class="section-subtitle" style="margin-top: 48px;">Test Command</h3>
                 <div class="code-block">
                     <div class="code-header">
-                        <div style="color: #94a3b8; font-size: 15px; font-weight: 500;">CURL Command</div>
+                        <div style="color: #94a3b8; font-size: 16px; font-weight: 600;">CURL Command</div>
                         <button class="copy-btn" onclick="copyText('curl-command')">
                             <i class="fas fa-copy"></i> Copy Command
                         </button>
@@ -1611,106 +1660,28 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 56px;">
-                    <button class="btn btn-primary" onclick="runLiveTest()" style="padding: 20px 48px; font-size: 18px; background: var(--gradient); border: none;">
+                    <button class="btn btn-primary" onclick="runLiveTest()" style="padding: 24px 56px; font-size: 20px; background: var(--gradient); border: none;">
                         <i class="fas fa-bolt"></i> Run Live Test
                     </button>
-                    <p style="margin-top: 24px; color: var(--text-light); font-size: 16px;">
-                        Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">flowlyticsai46@gmail.com</a>
+                    <p style="margin-top: 32px; color: var(--text-light); font-size: 18px;">
+                        Or email your data to: <a href="mailto:flowlyticsai46@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 700;">flowlyticsai46@gmail.com</a>
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing -->
-    <section class="section" id="pricing">
+    <!-- Trial Section -->
+    <section class="section">
         <div class="container">
-            <h2 class="section-title">Start Getting Insights Today</h2>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card animate-on-scroll">
-                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Starter</h3>
-                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">Perfect for small businesses</p>
-                    <div class="price">$99<span>/month</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Up to 1,000 orders/month</li>
-                        <li><i class="fas fa-check"></i> Basic dashboard</li>
-                        <li><i class="fas fa-check"></i> Email support</li>
-                        <li><i class="fas fa-check"></i> 7-day data retention</li>
-                        <li><i class="fas fa-check"></i> Basic analytics</li>
-                    </ul>
-                    <button class="btn btn-secondary" onclick="selectPlan('starter')" style="width: 100%; justify-content: center; margin-top: 24px;">
-                        <i class="fas fa-rocket"></i> Get Started
-                    </button>
-                </div>
-                
-                <div class="pricing-card popular animate-on-scroll">
-                    <div class="popular-badge">MOST POPULAR</div>
-                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Business</h3>
-                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">For growing companies</p>
-                    <div class="price">$299<span>/month</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Up to 10,000 orders/month</li>
-                        <li><i class="fas fa-check"></i> Advanced dashboard</li>
-                        <li><i class="fas fa-check"></i> Priority support</li>
-                        <li><i class="fas fa-check"></i> 30-day data retention</li>
-                        <li><i class="fas fa-check"></i> AI recommendations</li>
-                        <li><i class="fas fa-check"></i> API access</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="selectPlan('business')" style="width: 100%; justify-content: center; margin-top: 24px; background: var(--gradient);">
-                        <i class="fas fa-star"></i> Choose Business
-                    </button>
-                </div>
-                
-                <div class="pricing-card animate-on-scroll">
-                    <h3 style="color: var(--dark); margin-bottom: 16px; font-size: 28px;">Enterprise</h3>
-                    <p style="color: var(--text-light); margin-bottom: 24px; font-size: 16px;">For large organizations</p>
-                    <div class="price">$999<span>/month</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Unlimited orders</li>
-                        <li><i class="fas fa-check"></i> Custom dashboard</li>
-                        <li><i class="fas fa-check"></i> 24/7 support</li>
-                        <li><i class="fas fa-check"></i> 90-day data retention</li>
-                        <li><i class="fas fa-check"></i> Advanced AI insights</li>
-                        <li><i class="fas fa-check"></i> Custom integrations</li>
-                    </ul>
-                    <button class="btn btn-secondary" onclick="selectPlan('enterprise')" style="width: 100%; justify-content: center; margin-top: 24px;">
-                        <i class="fas fa-crown"></i> Contact Sales
-                    </button>
-                </div>
-            </div>
-            
             <div class="trial-section">
-                <h3 style="color: white; margin-bottom: 20px; font-size: 32px;">Free 14-Day Trial</h3>
-                <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 32px; font-size: 20px; line-height: 1.6;">
-                    Experience the full power of Flowlytics AI with 1,000 free orders. See real insights from your data.
+                <h3 style="color: white; margin-bottom: 24px; font-size: 40px; font-weight: 900;">Get Started with Flowlytics AI</h3>
+                <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 40px; font-size: 22px; line-height: 1.6;">
+                    Contact us for a personalized demo and pricing based on your business needs.
                 </p>
-                <button class="btn btn-primary" onclick="startFreeTrial()" style="padding: 20px 48px; font-size: 18px; background: white; color: var(--primary-dark); border: none;">
-                    <i class="fas fa-play-circle"></i> Start Free Trial
+                <button class="btn btn-primary" onclick="startFreeTrial()" style="padding: 24px 56px; font-size: 20px; background: white; color: var(--primary-dark); border: none;">
+                    <i class="fas fa-play-circle"></i> Contact Sales
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="founder-section">
-        <div class="container">
-            <div class="founder-content">
-                <h2 class="section-title" style="color: white;">See the Difference</h2>
-                
-                <div class="founder-quote">
-                    "Most businesses are drowning in data but starving for insights. Flowlytics AI bridges that gap. The dashboards you see here are real examples of how businesses transform raw numbers into clear, actionable strategies."
-                </div>
-                
-                <div class="founder-info">
-                    <div class="founder-avatar">
-                        AA
-                    </div>
-                    <div class="founder-details">
-                        <div class="founder-name">Ather Assadullah</div>
-                        <div class="founder-title">Founder & CEO, Flowlytics AI</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1731,15 +1702,15 @@
                     <a href="#screenshots" onclick="scrollToScreenshots()">See Dashboards</a>
                     <a href="#features" onclick="scrollToFeatures()">How It Works</a>
                     <a href="#demo" onclick="scrollToDemo()">API Demo</a>
-                    <a href="#pricing" onclick="scrollToPricing()">Pricing</a>
+                    <a href="#" onclick="showModal('Contact Sales', 'Get personalized pricing and a custom demo based on your business needs.')">Contact Sales</a>
                 </div>
                 
                 <div class="footer-links">
                     <h4>Resources</h4>
-                    <a href="#" onclick="showCaseStudies()">Case Studies</a>
-                    <a href="#" onclick="showDocumentation()">Documentation</a>
-                    <a href="#" onclick="showAPI()">API Reference</a>
-                    <a href="#" onclick="showSupport()">Support</a>
+                    <a href="#" onclick="showModal('Case Studies', 'See how businesses like yours achieved results with Flowlytics AI.')">Case Studies</a>
+                    <a href="#" onclick="showModal('Documentation', 'Access comprehensive guides and API documentation.')">Documentation</a>
+                    <a href="#" onclick="showModal('API Reference', 'Detailed API documentation and integration guides.')">API Reference</a>
+                    <a href="#" onclick="showModal('Support', 'Get help from our expert support team.')">Support</a>
                 </div>
                 
                 <div>
@@ -1776,10 +1747,6 @@
             document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function scrollToPricing() {
-            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-        }
-        
         // Copy text function
         function copyText(elementId) {
             const element = document.getElementById(elementId);
@@ -1801,28 +1768,12 @@
             });
         }
         
-        // Plan selection
-        function selectPlan(plan) {
-            const plans = {
-                'starter': { price: '$99/month', name: 'Starter Plan' },
-                'business': { price: '$299/month', name: 'Business Plan' },
-                'enterprise': { price: '$999/month', name: 'Enterprise Plan' }
-            };
-            
-            const selected = plans[plan];
-            showModal(
-                `Select ${selected.name}`,
-                `You've selected the ${selected.name} at ${selected.price}. You'll be redirected to the secure checkout.`,
-                selected.name
-            );
-        }
-        
         // Free trial
         function startFreeTrial() {
             showModal(
-                'Start Free Trial',
-                'Get 14 days of full access with 1,000 free orders. No credit card required.',
-                'Free Trial'
+                'Contact Sales',
+                'Get in touch with our sales team for a personalized demo and pricing tailored to your business needs.',
+                'Contact Sales'
             );
         }
         
@@ -1836,7 +1787,7 @@
         }
         
         // Modal function
-        function showModal(title, message, action) {
+        function showModal(title, message, action = 'Contact Us') {
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -1844,7 +1795,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(15, 23, 42, 0.95);
+                background: rgba(15, 23, 42, 0.98);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -1855,46 +1806,46 @@
             modal.innerHTML = `
                 <div style="
                     background: white;
-                    padding: 48px;
-                    border-radius: 24px;
-                    max-width: 500px;
+                    padding: 56px;
+                    border-radius: 32px;
+                    max-width: 600px;
                     width: 90%;
                     text-align: center;
-                    animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                    animation: modalIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3), 0 0 50px rgba(99, 102, 241, 0.5);
                 ">
-                    <div style="width: 64px; height: 64px; background: var(--gradient); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px;">
-                        <i class="fas fa-rocket" style="color: white; font-size: 24px;"></i>
+                    <div style="width: 80px; height: 80px; background: var(--gradient); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; animation: logoGlow 2s ease-in-out infinite;">
+                        <i class="fas fa-rocket" style="color: white; font-size: 32px;"></i>
                     </div>
-                    <h3 style="color: var(--primary-dark); margin-bottom: 20px; font-size: 28px; font-weight: 800;">${title}</h3>
-                    <p style="margin-bottom: 40px; color: var(--text); font-size: 17px; line-height: 1.6;">${message}</p>
-                    <div style="display: flex; gap: 16px; justify-content: center;">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 24px; font-size: 32px; font-weight: 900;">${title}</h3>
+                    <p style="margin-bottom: 48px; color: var(--text); font-size: 18px; line-height: 1.7;">${message}</p>
+                    <div style="display: flex; gap: 20px; justify-content: center;">
                         <button onclick="this.parentElement.parentElement.remove()" style="
-                            padding: 16px 32px;
+                            padding: 18px 36px;
                             background: var(--light);
                             color: var(--text);
                             border: none;
-                            border-radius: 12px;
+                            border-radius: 16px;
                             cursor: pointer;
-                            font-weight: 600;
+                            font-weight: 700;
                             font-size: 16px;
                             transition: all 0.3s;
-                        " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='var(--light)'">
+                        " onmouseover="this.style.background='#e2e8f0'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--light)'; this.style.transform='translateY(0)'">
                             Close
                         </button>
-                        <button onclick="window.location.href='mailto:flowlyticsai46@gmail.com?subject=${encodeURIComponent('Interested in ' + action)}'" style="
-                            padding: 16px 32px;
+                        <button onclick="window.location.href='mailto:flowlyticsai46@gmail.com?subject=${encodeURIComponent('Interested in ' + (action || title))}'" style="
+                            padding: 18px 36px;
                             background: var(--gradient);
                             color: white;
                             border: none;
-                            border-radius: 12px;
+                            border-radius: 16px;
                             cursor: pointer;
-                            font-weight: 600;
+                            font-weight: 700;
                             font-size: 16px;
                             transition: all 0.3s;
-                            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
-                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(30, 64, 175, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(30, 64, 175, 0.3)'">
-                            <i class="fas fa-envelope"></i> Contact Us
+                            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+                        " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(99, 102, 241, 0.6)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 35px rgba(99, 102, 241, 0.4)'">
+                            <i class="fas fa-envelope"></i> ${action}
                         </button>
                     </div>
                 </div>
@@ -1916,7 +1867,7 @@
                     @keyframes modalIn {
                         from {
                             opacity: 0;
-                            transform: scale(0.9) translateY(20px);
+                            transform: scale(0.8) translateY(40px);
                         }
                         to {
                             opacity: 1;
@@ -1941,7 +1892,7 @@
         // Initialize animations on scroll
         document.addEventListener('DOMContentLoaded', function() {
             // Add animation classes to elements
-            const elements = document.querySelectorAll('.screenshot-card, .feature-card, .pricing-card, .section-title');
+            const elements = document.querySelectorAll('.screenshot-card, .feature-card, .info-card, .section-title');
             elements.forEach(el => {
                 el.classList.add('animate-on-scroll');
             });
@@ -1983,11 +1934,11 @@
             const buttons = document.querySelectorAll('.btn');
             buttons.forEach(button => {
                 button.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-3px)';
+                    this.style.transform = 'translateY(-3px) scale(1.05)';
                 });
                 
                 button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+                    this.style.transform = 'translateY(0) scale(1)';
                 });
             });
             
@@ -2039,19 +1990,31 @@
                     floatingSection.style.transform = 'translateY(0)';
                 }
             }, 1000);
+            
+            // Card hover animations
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
         });
         
         // Resource functions
         function showCaseStudies() {
-            alert('Case studies page coming soon!');
+            showModal('Case Studies', 'See detailed case studies showing how businesses achieved results with Flowlytics AI.');
         }
         
         function showDocumentation() {
-            alert('Documentation available upon request.');
+            showModal('Documentation', 'Access comprehensive guides and tutorials for using Flowlytics AI.');
         }
         
         function showAPI() {
-            alert('API documentation will be provided after signup.');
+            showModal('API Reference', 'Detailed API documentation and integration guides available upon request.');
         }
         
         function showSupport() {
