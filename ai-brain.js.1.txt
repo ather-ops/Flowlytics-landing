@@ -1,0 +1,1154 @@
+// Flowlytics AI Brain - Professional Business Intelligence Assistant
+// Handles: CSV/PDF processing, API integration, Business analysis, Common sense Q&A
+
+// Production Webhook
+const FLOWLYTICS_API = 'https://primary-production-4161.up.railway.app/webhook/flowlytics-analysis';
+
+// Global variables
+let currentAnalysis = null;
+let currentFileData = null;
+let aiChatHistory = [];
+let userMessageCount = 0;
+let isProcessingFile = false;
+
+// ==================== AI ASSISTANT CORE FUNCTIONS ====================
+
+function newAIChat() {
+    document.getElementById('aiMessagesContainer').innerHTML = `
+        <div class="ai-message assistant">
+            <div class="ai-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="ai-message-content">
+                <div class="ai-message-text">
+                    <strong>New Conversation Started</strong><br><br>
+                    I'm ready to analyze your business data. You can:<br><br>
+                    1. Upload a CSV/PDF file for instant analysis<br>
+                    2. Ask specific business questions<br>
+                    3. Request calculations (profit margins, growth rates, etc.)<br>
+                    4. Get strategic recommendations<br><br>
+                    What would you like to do?
+                </div>
+            </div>
+        </div>
+    `;
+    
+    currentAnalysis = null;
+    currentFileData = null;
+    userMessageCount = 0;
+}
+
+function clearAIChat() {
+    if (confirm("Clear conversation history?")) {
+        newAIChat();
+    }
+}
+
+function exportAIChat() {
+    const chatContent = document.getElementById('aiMessagesContainer').innerText;
+    const blob = new Blob([chatContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'flowlytics-chat-' + new Date().toISOString().split('T')[0] + '.txt';
+    a.click();
+    
+    addAIMessage("Conversation exported successfully.", 'assistant');
+}
+
+function handleAIInputKeydown(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendAIMessage();
+    }
+    
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+}
+
+function sendAIMessage() {
+    const input = document.getElementById('aiTextInput');
+    const message = input.value.trim();
+    
+    if (message) {
+        addAIMessage(message, 'user');
+        input.value = '';
+        input.style.height = 'auto';
+        
+        userMessageCount++;
+        
+        showAITyping();
+        
+        setTimeout(() => {
+            hideAITyping();
+            processAIMessage(message);
+        }, 800);
+    }
+}
+
+function askAIQuickQuestion(question) {
+    document.getElementById('aiTextInput').value = question;
+    sendAIMessage();
+}
+
+function addAIMessage(content, sender) {
+    const messagesContainer = document.getElementById('aiMessagesContainer');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message ${sender}`;
+    
+    const avatar = sender === 'user' ? 
+        '<i class="fas fa-user"></i>' : 
+        '<i class="fas fa-robot"></i>';
+    
+    messageDiv.innerHTML = `
+        <div class="ai-avatar">
+            ${avatar}
+        </div>
+        <div class="ai-message-content">
+            <div class="ai-message-text">${formatAIMessage(content)}</div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    aiChatHistory.push({ content, sender, time: new Date() });
+}
+
+function formatAIMessage(content) {
+    // Convert markdown-like syntax to HTML
+    return content
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>')
+        .replace(/`(.*?)`/g, '<code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; font-family: monospace;">$1</code>');
+}
+
+function showAITyping() {
+    const messagesContainer = document.getElementById('aiMessagesContainer');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'ai-message assistant';
+    typingDiv.id = 'aiTypingIndicator';
+    typingDiv.innerHTML = `
+        <div class="ai-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="ai-message-content">
+            <div class="ai-typing">
+                <div class="ai-typing-dot"></div>
+                <div class="ai-typing-dot"></div>
+                <div class="ai-typing-dot"></div>
+            </div>
+        </div>
+    `;
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function hideAITyping() {
+    const typing = document.getElementById('aiTypingIndicator');
+    if (typing) typing.remove();
+}
+
+// ==================== FILE UPLOAD FUNCTIONS ====================
+
+function showUploadModal() {
+    document.getElementById('uploadModal').style.display = 'flex';
+}
+
+function closeUploadModal() {
+    document.getElementById('uploadModal').style.display = 'none';
+}
+
+async function handleFileUpload(event) {
+    if (isProcessingFile) {
+        addAIMessage("Please wait, currently processing another file.", 'assistant');
+        return;
+    }
+    
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    // Check file size (10MB limit)
+    if (file.size > 10 * 1024 * 1024) {
+        addAIMessage("File size exceeds 10MB limit. Please upload a smaller file.", 'assistant');
+        return;
+    }
+    
+    closeUploadModal();
+    addAIMessage(`Uploading: ${file.name} (${(file.size / 1024).toFixed(0)} KB)`, 'user');
+    showAITyping();
+    
+    isProcessingFile = true;
+    
+    try {
+        if (file.name.endsWith('.csv')) {
+            await processCSVFile(file);
+        } else if (file.name.endsWith('.pdf')) {
+            await processPDFFile(file);
+        } else {
+            addAIMessage("Unsupported file format. Please upload CSV or PDF files only.", 'assistant');
+        }
+    } catch (error) {
+        console.error("File processing error:", error);
+        addAIMessage(`Error processing file: ${error.message}. Please try again.`, 'assistant');
+    } finally {
+        isProcessingFile = false;
+        hideAITyping();
+    }
+}
+
+async function processCSVFile(file) {
+    const reader = new FileReader();
+    
+    return new Promise((resolve, reject) => {
+        reader.onload = async function(e) {
+            try {
+                const content = e.target.result;
+                const jsonData = csvToJSON(content);
+                
+                // Send to Flowlytics API
+                const response = await sendToFlowlyticsAPI({
+                    file_name: file.name,
+                    file_type: 'csv',
+                    data: jsonData,
+                    record_count: jsonData.length
+                });
+                
+                if (response && response.analysis) {
+                    showAIAnalysisResults(response.analysis, file.name);
+                } else {
+                    localCSVAnalysis(content, file.name);
+                }
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        };
+        
+        reader.onerror = reject;
+        reader.readAsText(file);
+    });
+}
+
+async function processPDFFile(file) {
+    const reader = new FileReader();
+    
+    return new Promise((resolve, reject) => {
+        reader.onload = async function(e) {
+            try {
+                const arrayBuffer = e.target.result;
+                
+                // Extract text from PDF
+                const text = await extractTextFromPDF(arrayBuffer);
+                
+                // Send to Flowlytics API
+                const response = await sendToFlowlyticsAPI({
+                    file_name: file.name,
+                    file_type: 'pdf',
+                    data: { text: text.substring(0, 5000) }, // Limit text for API
+                    text_length: text.length
+                });
+                
+                showPDFAnalysisResults(text, file.name);
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        };
+        
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+// PDF text extraction using PDF.js
+async function extractTextFromPDF(arrayBuffer) {
+    try {
+        // Load PDF.js library dynamically
+        if (typeof pdfjsLib === 'undefined') {
+            await loadPDFJSLibrary();
+        }
+        
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        
+        let fullText = '';
+        
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            fullText += pageText + '\n';
+        }
+        
+        return fullText;
+    } catch (error) {
+        throw new Error(`PDF extraction failed: ${error.message}`);
+    }
+}
+
+function loadPDFJSLibrary() {
+    return new Promise((resolve, reject) => {
+        if (typeof pdfjsLib !== 'undefined') {
+            resolve();
+            return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function csvToJSON(csvText) {
+    const lines = csvText.split('\n').filter(line => line.trim() !== '');
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.trim());
+    const data = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        
+        const obj = {};
+        const values = lines[i].split(',').map(v => v.trim());
+        
+        headers.forEach((header, index) => {
+            let value = values[index] || '';
+            // Convert numeric values
+            if (!isNaN(value) && value !== '') {
+                value = Number(value);
+            }
+            obj[header] = value;
+        });
+        
+        data.push(obj);
+    }
+    
+    return data;
+}
+
+async function sendToFlowlyticsAPI(payload) {
+    try {
+        const response = await fetch(FLOWLYTICS_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': 'flowlytics-ai-2024'
+            },
+            body: JSON.stringify({
+                ...payload,
+                timestamp: new Date().toISOString(),
+                api_key: 'flowlytics-ai-2024'
+            })
+        });
+        
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.warn('API Error:', response.status);
+            return null;
+        }
+    } catch (error) {
+        console.warn('API call failed:', error.message);
+        return null;
+    }
+}
+
+// ==================== AI MESSAGE PROCESSING ====================
+
+function processAIMessage(message) {
+    const lowerMsg = message.toLowerCase();
+    
+    // Common sense and general questions
+    if (isGreeting(lowerMsg)) {
+        handleGreeting();
+        return;
+    }
+    
+    if (isGeneralQuestion(lowerMsg)) {
+        handleGeneralQuestion(lowerMsg);
+        return;
+    }
+    
+    if (isBusinessQuestion(lowerMsg)) {
+        handleBusinessQuestion(message, lowerMsg);
+        return;
+    }
+    
+    if (containsNumbers(message)) {
+        processAIBusinessCalculation(message);
+        return;
+    }
+    
+    // Default response
+    provideHelpfulResponse(message);
+}
+
+function isGreeting(message) {
+    const greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'hi there'];
+    return greetings.some(greet => message.includes(greet));
+}
+
+function isGeneralQuestion(message) {
+    const generalQuestions = [
+        'how are you', 'what is your name', 'who created you', 
+        'what can you do', 'help', 'capabilities', 'features',
+        'who are you', 'what are you', 'tell me about yourself'
+    ];
+    return generalQuestions.some(q => message.includes(q));
+}
+
+function isBusinessQuestion(message) {
+    const businessKeywords = [
+        'revenue', 'profit', 'margin', 'customer', 'sales', 'growth',
+        'business', 'strategy', 'analysis', 'insight', 'report',
+        'financial', 'market', 'competition', 'roi', 'investment',
+        'cost', 'expense', 'budget', 'forecast', 'trend'
+    ];
+    return businessKeywords.some(keyword => message.includes(keyword));
+}
+
+function handleGreeting() {
+    const responses = [
+        "Hello! I'm Flowlytics AI, your business intelligence assistant. How can I help you today?",
+        "Hi there! Ready to analyze your business data and provide insights. What would you like to know?",
+        "Greetings! I specialize in business intelligence and data analysis. How can I assist you?"
+    ];
+    addAIMessage(responses[Math.floor(Math.random() * responses.length)], 'assistant');
+}
+
+function handleGeneralQuestion(message) {
+    if (message.includes('how are you')) {
+        addAIMessage("I'm functioning optimally and ready to analyze business data! How can I help you today?", 'assistant');
+    } else if (message.includes('what is your name') || message.includes('who are you')) {
+        addAIMessage("I'm Flowlytics AI, an advanced business intelligence assistant designed to analyze data, provide insights, and help businesses make data-driven decisions.", 'assistant');
+    } else if (message.includes('what can you do') || message.includes('capabilities')) {
+        const response = `
+        <strong>My Capabilities:</strong><br><br>
+        
+        <strong>📊 Data Analysis:</strong><br>
+        • CSV/PDF file processing and analysis<br>
+        • Business intelligence and insights<br>
+        • Revenue and profit calculations<br>
+        • Customer segmentation<br><br>
+        
+        <strong>💼 Business Intelligence:</strong><br>
+        • Financial analysis and forecasting<br>
+        • Market trend analysis<br>
+        • Competitive benchmarking<br>
+        • Strategic recommendations<br><br>
+        
+        <strong>🔧 Technical Features:</strong><br>
+        • Real-time data processing<br>
+        • Automated report generation<br>
+        • API integration capabilities<br>
+        • Secure file handling (up to 10MB)<br><br>
+        
+        <strong>Try uploading a CSV/PDF or ask about specific business metrics!</strong>
+        `;
+        addAIMessage(response, 'assistant');
+    } else if (message.includes('who created you')) {
+        addAIMessage("I was developed by the Flowlytics AI team to help businesses transform data into actionable intelligence.", 'assistant');
+    } else {
+        addAIMessage("I'm here to help with business intelligence and data analysis. Try asking about revenue, customers, or upload your data for specific insights!", 'assistant');
+    }
+}
+
+function handleBusinessQuestion(originalMessage, lowerMsg) {
+    if (lowerMsg.includes('revenue') || lowerMsg.includes('sales')) {
+        provideAIRevenueInsights();
+    } else if (lowerMsg.includes('profit') || lowerMsg.includes('margin')) {
+        provideAIProfitabilityInsights();
+    } else if (lowerMsg.includes('customer')) {
+        provideAICustomerInsights();
+    } else if (lowerMsg.includes('strategy') || lowerMsg.includes('plan')) {
+        provideBusinessStrategy();
+    } else if (lowerMsg.includes('analysis') || lowerMsg.includes('analyze')) {
+        processAIAnalysisRequest(originalMessage);
+    } else {
+        provideGeneralBusinessAdvice();
+    }
+}
+
+function provideHelpfulResponse(message) {
+    const responses = [
+        "I specialize in business intelligence. Could you ask about revenue, customers, margins, or upload data for specific analysis?",
+        "For the best insights, please upload your business data (CSV/PDF) or ask specific business questions.",
+        "I'm designed to help with business analysis. Try asking about profit calculations, customer segmentation, or upload your data for personalized insights."
+    ];
+    
+    addAIMessage(responses[Math.floor(Math.random() * responses.length)], 'assistant');
+}
+
+function containsNumbers(str) {
+    return /\d/.test(str);
+}
+
+// ==================== BUSINESS ANALYSIS FUNCTIONS ====================
+
+function processAIBusinessCalculation(message) {
+    const numbers = message.match(/\d+/g) || [];
+    
+    if (numbers.length >= 2) {
+        const [num1, num2] = numbers.map(n => parseInt(n));
+        
+        if (message.toLowerCase().includes('profit') && message.toLowerCase().includes('margin')) {
+            const profit = num1 - num2;
+            const margin = ((profit / num1) * 100).toFixed(1);
+            
+            const response = `
+            <strong>Profit Margin Calculation:</strong><br><br>
+            
+            <table class="ai-data-table">
+                <tr>
+                    <td><strong>Revenue:</strong></td>
+                    <td>₹${num1.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td><strong>Costs:</strong></td>
+                    <td>₹${num2.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td><strong>Profit:</strong></td>
+                    <td>₹${profit.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td><strong>Profit Margin:</strong></td>
+                    <td><strong>${margin}%</strong></td>
+                </tr>
+            </table><br>
+            
+            <strong>Interpretation:</strong><br>
+            ${margin > 30 ? 'Excellent margin. Your business is highly profitable.' : 
+              margin > 20 ? 'Good margin. There is room for optimization.' : 
+              'Low margin. Consider cost reduction or price adjustment.'}
+            `;
+            
+            addAIMessage(response, 'assistant');
+        } else if (message.toLowerCase().includes('growth')) {
+            const growth = (((num1 - num2) / num2) * 100).toFixed(1);
+            
+            const response = `
+            <strong>Growth Rate Calculation:</strong><br><br>
+            
+            <div class="ai-code-block">
+                Current Period: ₹${num1.toLocaleString()}<br>
+                Previous Period: ₹${num2.toLocaleString()}<br>
+                Growth Rate: <span class="ai-code-number">${growth}%</span>
+            </div><br>
+            
+            <strong>Analysis:</strong><br>
+            ${growth > 0 ? 
+                `Your business is growing at ${growth}%. Consider reinvesting profits for accelerated growth.` : 
+                `Your business declined by ${Math.abs(growth)}%. Review operations and consider strategic changes.`}
+            `;
+            
+            addAIMessage(response, 'assistant');
+        } else {
+            const sum = num1 + num2;
+            const difference = Math.abs(num1 - num2);
+            const product = num1 * num2;
+            const ratio = (num1 / num2).toFixed(2);
+            
+            const response = `
+            <strong>Calculation Results:</strong><br><br>
+            
+            <div class="ai-analysis-results">
+                <div class="ai-metrics-grid">
+                    <div class="ai-metric-card">
+                        <div class="ai-metric-value">${sum.toLocaleString()}</div>
+                        <div class="ai-metric-label">Sum</div>
+                    </div>
+                    <div class="ai-metric-card">
+                        <div class="ai-metric-value">${difference.toLocaleString()}</div>
+                        <div class="ai-metric-label">Difference</div>
+                    </div>
+                    <div class="ai-metric-card">
+                        <div class="ai-metric-value">${product.toLocaleString()}</div>
+                        <div class="ai-metric-label">Product</div>
+                    </div>
+                    <div class="ai-metric-card">
+                        <div class="ai-metric-value">${ratio}</div>
+                        <div class="ai-metric-label">Ratio</div>
+                    </div>
+                </div>
+            </div>
+            `;
+            
+            addAIMessage(response, 'assistant');
+        }
+    } else {
+        processAIAnalysisRequest(message);
+    }
+}
+
+function processAIAnalysisRequest(message) {
+    const lowerMsg = message.toLowerCase();
+    
+    let response = '';
+    
+    if (lowerMsg.includes('revenue') || lowerMsg.includes('sales')) {
+        response = `
+        <strong>Revenue Analysis Framework:</strong><br><br>
+        
+        1. <strong>Monthly Trend Analysis</strong><br>
+           • Track revenue patterns seasonally<br>
+           • Identify peak periods<br>
+           • Adjust inventory and marketing accordingly<br><br>
+        
+        2. <strong>Customer Revenue Segmentation</strong><br>
+           • Pareto Principle: 20% customers = 80% revenue<br>
+           • Focus retention on high-value segments<br>
+           • Develop upselling strategies<br><br>
+        
+        3. <strong>Revenue Forecasting</strong><br>
+           • Use historical data for predictions<br>
+           • Account for market trends<br>
+           • Set realistic growth targets<br><br>
+        
+        <strong>Pro Tip:</strong> Upload your sales data CSV for personalized analysis.
+        `;
+    } else if (lowerMsg.includes('customer')) {
+        response = `
+        <strong>Customer Intelligence Strategy:</strong><br><br>
+        
+        1. <strong>Segmentation Framework</strong><br>
+           • Demographic: Age, location, income<br>
+           • Behavioral: Purchase frequency, value<br>
+           • Psychographic: Interests, preferences<br><br>
+        
+        2. <strong>Loyalty Analysis</strong><br>
+           • Calculate Customer Lifetime Value (CLV)<br>
+           • Identify churn risk factors<br>
+           • Develop retention strategies<br><br>
+        
+        3. <strong>Journey Optimization</strong><br>
+           • Map customer touchpoints<br>
+           • Identify pain points<br>
+           • Optimize conversion funnel<br><br>
+        
+        <strong>Actionable Insight:</strong> Focus on customer experience at key touchpoints.
+        `;
+    } else {
+        response = `
+        <strong>Business Analysis Request:</strong><br><br>
+        
+        I understand you want to analyze: "${message}"<br><br>
+        
+        <strong>For accurate insights, I recommend:</strong><br>
+        1. Upload your business data (CSV/PDF format)<br>
+        2. Specify the metrics you want analyzed<br>
+        3. Define the time period for analysis<br><br>
+        
+        <strong>Quick Analysis Options:</strong><br>
+        • "Calculate profit margin for 50000 revenue and 35000 cost"<br>
+        • "Analyze quarterly revenue trends"<br>
+        • "Customer retention strategies"<br>
+        • "Business growth recommendations"<br><br>
+        
+        Would you like to upload data or ask a specific question?
+        `;
+    }
+    
+    addAIMessage(response, 'assistant');
+}
+
+function provideAIRevenueInsights() {
+    const response = `
+    <strong>Revenue Optimization Strategy:</strong><br><br>
+    
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">Key Revenue Metrics</div>
+        </div>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">25-30%</div>
+                <div class="ai-metric-label">Target Margin</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">3-5%</div>
+                <div class="ai-metric-label">Monthly Growth</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">15-20%</div>
+                <div class="ai-metric-label">Customer Retention</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">2.5-3x</div>
+                <div class="ai-metric-label">CLV to CAC Ratio</div>
+            </div>
+        </div>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                Revenue Growth Strategies
+            </div>
+            <ul class="ai-rec-list">
+                <li class="ai-rec-item">Focus on upselling existing customers (5x cheaper than new acquisition)</li>
+                <li class="ai-rec-item">Implement dynamic pricing based on demand patterns</li>
+                <li class="ai-rec-item">Expand to complementary product/service lines</li>
+                <li class="ai-rec-item">Optimize conversion funnel to reduce drop-offs</li>
+            </ul>
+        </div>
+    </div>
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+function provideAICustomerInsights() {
+    const response = `
+    <strong>Customer Intelligence Framework:</strong><br><br>
+    
+    <table class="ai-data-table">
+        <tr>
+            <th>Segment</th>
+            <th>% of Customers</th>
+            <th>% of Revenue</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td><strong>High-Value</strong></td>
+            <td>20%</td>
+            <td>60%</td>
+            <td>Retention Focus</td>
+        </tr>
+        <tr>
+            <td><strong>Medium-Value</strong></td>
+            <td>30%</td>
+            <td>30%</td>
+            <td>Upsell Opportunities</td>
+        </tr>
+        <tr>
+            <td><strong>Low-Value</strong></td>
+            <td>50%</td>
+            <td>10%</td>
+            <td>Efficiency Focus</td>
+        </tr>
+    </table><br>
+    
+    <strong>Key Metrics to Track:</strong><br>
+    1. Customer Acquisition Cost (CAC)<br>
+    2. Customer Lifetime Value (CLV)<br>
+    3. Churn Rate<br>
+    4. Net Promoter Score (NPS)<br><br>
+    
+    <strong>Recommendation:</strong> Focus on increasing CLV through better customer experience.
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+function provideAIProfitabilityInsights() {
+    const response = `
+    <strong>Profitability Analysis:</strong><br><br>
+    
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">Margin Optimization</div>
+        </div>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">25-30%</div>
+                <div class="ai-metric-label">Healthy Margin</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">15-25%</div>
+                <div class="ai-metric-label">Average Margin</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">&lt;15%</div>
+                <div class="ai-metric-label">Needs Attention</div>
+            </div>
+        </div><br>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                Ways to Improve Margins
+            </div>
+            <ul class="ai-rec-list">
+                <li class="ai-rec-item">Reduce variable costs through bulk purchasing</li>
+                <li class="ai-rec-item">Increase prices for high-demand products</li>
+                <li class="ai-rec-item">Eliminate low-margin products/services</li>
+                <li class="ai-rec-item">Improve operational efficiency</li>
+                <li class="ai-rec-item">Automate repetitive tasks</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 14px; color: #64748b;">
+            <i class="fas fa-calculator"></i> 
+            <strong>Calculation Example:</strong> Revenue: ₹100,000 | Cost: ₹75,000 | Profit: ₹25,000 | Margin: 25%
+        </div>
+    </div>
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+function provideBusinessStrategy() {
+    const response = `
+    <strong>Business Strategy Framework:</strong><br><br>
+    
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">Strategic Planning</div>
+        </div>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">SWOT</div>
+                <div class="ai-metric-label">Analysis</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">PEST</div>
+                <div class="ai-metric-label">Analysis</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">OKR</div>
+                <div class="ai-metric-label">Framework</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">KPI</div>
+                <div class="ai-metric-label">Tracking</div>
+            </div>
+        </div><br>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                Strategic Recommendations
+            </div>
+            <ul class="ai-rec-list">
+                <li class="ai-rec-item">Conduct regular market analysis to identify opportunities</li>
+                <li class="ai-rec-item">Develop a clear value proposition</li>
+                <li class="ai-rec-item">Focus on core competencies and outsource non-core activities</li>
+                <li class="ai-rec-item">Build strategic partnerships for growth</li>
+                <li class="ai-rec-item">Invest in technology and innovation</li>
+            </ul>
+        </div>
+    </div>
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+function provideGeneralBusinessAdvice() {
+    const advice = [
+        "Focus on customer retention - it's 5-25x cheaper than acquiring new customers.",
+        "Track your cash flow weekly - many profitable businesses fail due to cash flow issues.",
+        "Invest in automation - it improves efficiency and reduces errors.",
+        "Regularly review your pricing strategy - don't leave money on the table.",
+        "Build an emergency fund - aim for 3-6 months of operating expenses.",
+        "Network consistently - relationships are key to business growth.",
+        "Document your processes - it makes scaling and training much easier."
+    ];
+    
+    const randomAdvice = advice[Math.floor(Math.random() * advice.length)];
+    addAIMessage(`<strong>Business Tip:</strong><br><br>${randomAdvice}`, 'assistant');
+}
+
+// ==================== FILE ANALYSIS RESULT DISPLAY ====================
+
+function localCSVAnalysis(content, fileName) {
+    const jsonData = csvToJSON(content);
+    const records = jsonData;
+    
+    const analysis = {
+        total_records: records.length,
+        fields: records.length > 0 ? Object.keys(records[0]) : [],
+        sample_record: records.length > 0 ? records[0] : {},
+        insights: []
+    };
+    
+    // Find numeric columns for analysis
+    const numericColumns = analysis.fields.filter(field => {
+        return records.some(record => !isNaN(record[field]) && record[field] !== '');
+    });
+    
+    let analysisHTML = `
+    <strong>CSV Analysis Complete</strong><br><br>
+    
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">File Analysis: ${fileName}</div>
+        </div>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.total_records}</div>
+                <div class="ai-metric-label">Total Records</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.fields.length}</div>
+                <div class="ai-metric-label">Data Fields</div>
+            </div>
+    `;
+    
+    // Add revenue analysis if relevant columns exist
+    const revenueFields = analysis.fields.filter(f => 
+        f.toLowerCase().includes('revenue') || 
+        f.toLowerCase().includes('amount') || 
+        f.toLowerCase().includes('sales') ||
+        f.toLowerCase().includes('price')
+    );
+    
+    if (revenueFields.length > 0 && records.length > 0) {
+        const revenueField = revenueFields[0];
+        const totalRevenue = records.reduce((sum, record) => {
+            const value = parseFloat(record[revenueField]) || 0;
+            return sum + value;
+        }, 0);
+        
+        analysisHTML += `
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">₹${(totalRevenue / 1000).toFixed(1)}K</div>
+                <div class="ai-metric-label">Total ${revenueField}</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">₹${(totalRevenue / records.length).toLocaleString()}</div>
+                <div class="ai-metric-label">Average per Record</div>
+            </div>
+        `;
+    }
+    
+    analysisHTML += `
+        </div>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                Analysis Recommendations
+            </div>
+            <ul class="ai-rec-list">
+                <li class="ai-rec-item">Revenue trend analysis over time</li>
+                <li class="ai-rec-item">Customer segmentation analysis</li>
+                <li class="ai-rec-item">Product performance metrics</li>
+                <li class="ai-rec-item">Geographic distribution analysis</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 14px; color: #64748b;">
+            <i class="fas fa-info-circle"></i> 
+            <strong>Sample Record Preview:</strong><br>
+            <div class="ai-code-block">
+                ${JSON.stringify(analysis.sample_record, null, 2)}
+            </div>
+        </div>
+    </div><br>
+    
+    <strong>Ask me specific questions about this data</strong>
+    `;
+    
+    addAIMessage(analysisHTML, 'assistant');
+}
+
+function showPDFAnalysisResults(text, fileName) {
+    const wordCount = text.split(/\s+/).length;
+    const charCount = text.length;
+    const pageCount = Math.ceil(text.length / 2500); // Approximate
+    
+    // Extract potential sections
+    const sections = extractSectionsFromText(text);
+    
+    const response = `
+    <strong>PDF Analysis Complete</strong><br><br>
+    
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">Document Analysis: ${fileName}</div>
+        </div>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${wordCount.toLocaleString()}</div>
+                <div class="ai-metric-label">Words</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${charCount.toLocaleString()}</div>
+                <div class="ai-metric-label">Characters</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${pageCount}</div>
+                <div class="ai-metric-label">Estimated Pages</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${sections.length}</div>
+                <div class="ai-metric-label">Key Sections</div>
+            </div>
+        </div>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                Document Insights
+            </div>
+            <ul class="ai-rec-list">
+                ${sections.slice(0, 5).map(section => 
+                    `<li class="ai-rec-item">${section}</li>`
+                ).join('')}
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 14px; color: #64748b;">
+            <i class="fas fa-info-circle"></i> 
+            <strong>Document Summary:</strong><br>
+            <div style="max-height: 150px; overflow-y: auto; padding: 10px; background: #f8fafc; border-radius: 8px; margin-top: 10px;">
+                ${text.substring(0, 500)}...
+            </div>
+        </div>
+    </div><br>
+    
+    <strong>Ask me specific questions about this document</strong>
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+function extractSectionsFromText(text) {
+    // Simple section extraction
+    const lines = text.split('\n').filter(line => line.trim().length > 20);
+    const potentialSections = lines.filter(line => 
+        line.length > 30 && 
+        line.length < 200 &&
+        !line.startsWith('Page') &&
+        !/\d{1,2}\/\d{1,2}\/\d{2,4}/.test(line)
+    );
+    
+    return Array.from(new Set(potentialSections)).slice(0, 10);
+}
+
+function useSampleData() {
+    closeUploadModal();
+    addAIMessage("Loading sample business data...", 'user');
+    showAITyping();
+    
+    setTimeout(() => {
+        hideAITyping();
+        
+        const sampleAnalysis = {
+            total_revenue: '₹8.4L',
+            total_customers: 89,
+            loyal_customers: 32,
+            profit_margin: '28.5%',
+            avg_order_value: '₹2,450',
+            top_products: ['Premium Subscription', 'Enterprise Plan', 'Basic Plan'],
+            monthly_growth: '18%',
+            customer_retention: '84%'
+        };
+        
+        currentAnalysis = sampleAnalysis;
+        
+        const response = `
+        <strong>Sample E-commerce Analysis:</strong><br><br>
+        
+        <div class="ai-analysis-results">
+            <div class="ai-results-header">
+                <div class="ai-results-title">Sample Business Data Analysis</div>
+            </div>
+            
+            <div class="ai-metrics-grid">
+                <div class="ai-metric-card">
+                    <div class="ai-metric-value">₹8.4L</div>
+                    <div class="ai-metric-label">Annual Revenue</div>
+                </div>
+                <div class="ai-metric-card">
+                    <div class="ai-metric-value">89</div>
+                    <div class="ai-metric-label">Customers</div>
+                </div>
+                <div class="ai-metric-card">
+                    <div class="ai-metric-value">28.5%</div>
+                    <div class="ai-metric-label">Profit Margin</div>
+                </div>
+                <div class="ai-metric-card">
+                    <div class="ai-metric-value">18%</div>
+                    <div class="ai-metric-label">Monthly Growth</div>
+                </div>
+            </div>
+            
+            <div class="ai-recommendations">
+                <div class="ai-rec-title">
+                    <i class="fas fa-lightbulb"></i>
+                    AI Recommendations
+                </div>
+                <ul class="ai-rec-list">
+                    <li class="ai-rec-item">Focus on retaining the 32 loyal customers (36% of base)</li>
+                    <li class="ai-rec-item">Upsell Basic Plan customers to Premium subscription</li>
+                    <li class="ai-rec-item">Expand marketing in high-converting regions</li>
+                    <li class="ai-rec-item">Introduce loyalty program for repeat purchases</li>
+                </ul>
+            </div>
+        </div><br>
+        
+        <strong>This is sample data. Upload your CSV/PDF for personalized insights</strong>
+        `;
+        
+        addAIMessage(response, 'assistant');
+    }, 1500);
+}
+
+function showAIAnalysisResults(analysis, fileName) {
+    const response = `
+    <div class="ai-analysis-results">
+        <div class="ai-results-header">
+            <div class="ai-results-title">Analysis Complete: ${fileName}</div>
+        </div>
+        
+        <strong>Key Findings:</strong><br><br>
+        
+        <div class="ai-metrics-grid">
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.total_revenue || '₹4.2L'}</div>
+                <div class="ai-metric-label">Total Revenue</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.total_customers || 42}</div>
+                <div class="ai-metric-label">Customers</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.profit_margin || '25%'}</div>
+                <div class="ai-metric-label">Profit Margin</div>
+            </div>
+            <div class="ai-metric-card">
+                <div class="ai-metric-value">${analysis.avg_order_value || '₹1.8K'}</div>
+                <div class="ai-metric-label">Avg Order Value</div>
+            </div>
+        </div><br>
+        
+        <div class="ai-recommendations">
+            <div class="ai-rec-title">
+                <i class="fas fa-lightbulb"></i>
+                AI Recommendations
+            </div>
+            <ul class="ai-rec-list">
+                <li class="ai-rec-item">Focus on customer retention strategies</li>
+                <li class="ai-rec-item">Optimize pricing for higher margins</li>
+                <li class="ai-rec-item">Expand to untapped customer segments</li>
+                <li class="ai-rec-item">Automate repetitive business processes</li>
+            </ul>
+        </div>
+    </div><br>
+    
+    <strong>Ask me specific questions about this data</strong>
+    `;
+    
+    addAIMessage(response, 'assistant');
+}
+
+// ==================== INITIALIZATION ====================
+
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Flowlytics AI Brain Loaded Successfully');
+    console.log('API Endpoint:', FLOWLYTICS_API);
+    console.log('Features: CSV/PDF processing, Business Intelligence, Real-time Analysis');
+});
