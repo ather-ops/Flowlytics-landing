@@ -2102,6 +2102,575 @@
         [contenteditable="true"]:hover {
             background: rgba(99, 102, 241, 0.05);
         }
+
+        /* AI Assistant Section - Liquid Theme */
+        .ai-chat-section {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-chat-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .ai-chat-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .liquid-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: liquidMove 15s ease-in-out infinite;
+        }
+
+        .liquid-blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.3));
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .liquid-blob-2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(59, 130, 246, 0.3));
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .liquid-blob-3 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.3));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes liquidMove {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                border-radius: 50%;
+            }
+            25% { 
+                transform: translate(30px, -30px) scale(1.1) rotate(90deg);
+                border-radius: 40% 60% 60% 40%;
+            }
+            50% { 
+                transform: translate(-20px, 20px) scale(0.9) rotate(180deg);
+                border-radius: 60% 40% 40% 60%;
+            }
+            75% { 
+                transform: translate(20px, 30px) scale(1.05) rotate(270deg);
+                border-radius: 40% 60% 50% 50%;
+            }
+        }
+
+        /* Chat Interface */
+        .ai-chat-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 80px rgba(168, 85, 247, 0.15),
+                0 10px 40px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        [data-theme="dark"] .ai-chat-box {
+            background: rgba(22, 22, 31, 0.9);
+            box-shadow: 
+                0 25px 80px rgba(168, 85, 247, 0.2),
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ai-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: avatarPulse 3s ease-in-out infinite;
+        }
+
+        .ai-avatar::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 24px;
+            opacity: 0.3;
+            animation: avatarGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .ai-avatar svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chat-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-action-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .chat-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            height: 420px;
+            overflow-y: auto;
+            padding: 24px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--gradient-start);
+            border-radius: 3px;
+        }
+
+        .message {
+            display: flex;
+            gap: 16px;
+            animation: messageSlide 0.4s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .message.user .message-avatar {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+        }
+
+        .message-avatar svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .message.ai .message-avatar svg {
+            stroke: white;
+        }
+
+        .message.user .message-avatar svg {
+            stroke: var(--text-secondary);
+        }
+
+        .message-content {
+            max-width: 75%;
+            padding: 16px 20px;
+            border-radius: 20px;
+            line-height: 1.6;
+        }
+
+        .message.ai .message-content {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 6px;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .message.user .message-time {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: right;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 16px 20px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            border-bottom-left-radius: 6px;
+            width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gradient-start);
+            border-radius: 50%;
+            animation: typingBounce 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            padding: 24px 32px;
+            border-top: 1px solid var(--border-color);
+            background: linear-gradient(180deg, transparent, rgba(168, 85, 247, 0.03));
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input-box {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-box:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+        }
+
+        .chat-input-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .chat-input-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-action-btn {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .input-action-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
+        .send-btn {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .send-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .send-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            padding: 10px 18px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-action:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(168, 85, 247, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .quick-action svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* AI Capabilities */
+        .ai-capabilities {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .capability-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+        }
+
+        .capability-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .capability-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--accent);
+        }
+
+        .capability-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .capability-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .ai-capabilities {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .chat-messages {
+                height: 350px;
+                padding: 16px 20px;
+            }
+            
+            .chat-header, .chat-input-area {
+                padding: 16px 20px;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .quick-actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ai-capabilities {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-actions {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body data-theme="light">
@@ -2125,6 +2694,11 @@
                 <div class="color-option" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);" data-primary="#8b5cf6" data-secondary="#6366f1"></div>
                 <div class="color-option" style="background: linear-gradient(135deg, #10b981, #22c55e);" data-primary="#10b981" data-secondary="#22c55e"></div>
                 <div class="color-option" style="background: linear-gradient(135deg, #f59e0b, #f97316);" data-primary="#f59e0b" data-secondary="#f97316"></div>
+                <div class="color-option" style="background: linear-gradient(135deg, #06b6d4, #0ea5e9);" data-primary="#06b6d4" data-secondary="#0ea5e9"></div>
+                <div class="color-option" style="background: linear-gradient(135deg, #ef4444, #dc2626);" data-primary="#ef4444" data-secondary="#dc2626"></div>
+                <div class="color-option" style="background: linear-gradient(135deg, #14b8a6, #10b981);" data-primary="#14b8a6" data-secondary="#10b981"></div>
+                <div class="color-option" style="background: linear-gradient(135deg, #f472b6, #e879f9);" data-primary="#f472b6" data-secondary="#e879f9"></div>
+                <div class="color-option" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);" data-primary="#fbbf24" data-secondary="#f59e0b"></div>
             </div>
         </div>
 
@@ -2164,10 +2738,10 @@
             </div>
 
             <ul class="nav-links">
+                <li><a href="#ai-assistant">AI Assistant</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -2330,6 +2904,179 @@
                             <path d="M12 6v6l4 2"/>
                         </svg>
                         <span style="font-size: 13px;">Real-time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Chat Section -->
+    <section class="section ai-chat-section" id="ai-assistant">
+        <div class="liquid-bg">
+            <div class="liquid-blob liquid-blob-1"></div>
+            <div class="liquid-blob liquid-blob-2"></div>
+            <div class="liquid-blob liquid-blob-3"></div>
+        </div>
+        
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">AI Assistant</span>
+                <h2 class="section-title editable">Your Intelligent Data Companion</h2>
+                <p class="section-desc editable">Ask questions, upload files, analyze images, and get instant insights. Our AI assistant understands context and delivers precise answers.</p>
+            </div>
+
+            <div class="ai-chat-container">
+                <div class="ai-chat-box reveal">
+                    <div class="chat-header">
+                        <div class="chat-header-left">
+                            <div class="ai-avatar">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="chat-title">AI Data Assistant</div>
+                                <div class="chat-status">
+                                    <span class="status-dot"></span>
+                                    <span>Always ready to help</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="chat-action-btn" title="New Chat" id="newChatBtn">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 5v14M5 12h14"/>
+                                </svg>
+                            </button>
+                            <button class="chat-action-btn" title="Settings">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai">
+                            <div class="message-avatar">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="message-content">
+                                    Hello! I'm your AI Data Assistant. I can help you with data analysis, answer questions, process files, and analyze images. How can I assist you today?
+                                </div>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="chat-input-wrapper">
+                            <div class="chat-input-box">
+                                <input type="text" id="chatInput" placeholder="Ask me anything about your data...">
+                                <div class="input-actions">
+                                    <button class="input-action-btn" title="Upload File" id="chatFileBtn">
+                                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+                                        </svg>
+                                    </button>
+                                    <button class="input-action-btn" title="Upload Image" id="chatImageBtn">
+                                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                                            <polyline points="21,15 16,10 5,21"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="send-btn" id="sendBtn">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action" data-prompt="Analyze my sales data">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M3 3v18h18"/>
+                                    <path d="M7 14l4-4 4 4 5-5"/>
+                                </svg>
+                                Analyze data
+                            </button>
+                            <button class="quick-action" data-prompt="Create a pivot table">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <path d="M3 9h18M9 21V9"/>
+                                </svg>
+                                Create pivot
+                            </button>
+                            <button class="quick-action" data-prompt="What trends do you see?">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                                Find trends
+                            </button>
+                            <button class="quick-action" data-prompt="Clean my dataset">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                    <path d="M12 18v-6M9 15l3 3 3-3"/>
+                                </svg>
+                                Clean data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-capabilities reveal">
+                    <div class="capability-card">
+                        <div class="capability-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                <polyline points="17,8 12,3 7,8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <div class="capability-title">File Analysis</div>
+                        <div class="capability-desc">Upload CSV, Excel, JSON files for instant analysis</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                        </div>
+                        <div class="capability-title">Image Processing</div>
+                        <div class="capability-desc">Extract data from charts, tables & screenshots</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4"/>
+                                <path d="M12 8h.01"/>
+                            </svg>
+                        </div>
+                        <div class="capability-title">Smart Answers</div>
+                        <div class="capability-desc">Get intelligent responses to any question</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="capability-title">Context Aware</div>
+                        <div class="capability-desc">Remembers conversation for better insights</div>
                     </div>
                 </div>
             </div>
@@ -3180,6 +3927,215 @@
 
         console.log('AI Data Analyst - Ready for production');
         console.log('Press Ctrl+U to open upload modal');
+
+        // AI Assistant Chat Functionality
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const quickActions = document.querySelectorAll('.quick-action');
+        const chatFileBtn = document.getElementById('chatFileBtn');
+        const chatImageBtn = document.getElementById('chatImageBtn');
+
+        // AI Responses Database
+        const aiResponses = {
+            'hello': "Hello! Great to meet you. I'm here to help with any data analysis questions. What would you like to explore today?",
+            'hi': "Hi there! Ready to dive into some data? Tell me what you're working on.",
+            'help': "I can help you with:\n\n• Analyzing CSV, Excel, or JSON files\n• Creating pivot tables automatically\n• Finding trends and patterns in your data\n• Cleaning messy datasets\n• Generating visualizations\n• Answering questions about your data\n\nJust upload a file or ask me anything!",
+            'analyze': "I'd love to analyze your data! Please upload a file (CSV, Excel, or JSON) using the attachment button, or describe the data you'd like me to work with.",
+            'pivot': "Pivot tables are my specialty! Upload your data file and I'll automatically identify the best rows, columns, and aggregations for insightful pivot tables.",
+            'trend': "To find trends, I'll need to see your data first. Upload a file and I'll identify patterns, seasonality, growth rates, and anomalies in your dataset.",
+            'clean': "Data cleaning is essential! When you upload a file, I automatically:\n\n• Remove duplicate rows\n• Handle missing values\n• Fix formatting issues\n• Detect and flag outliers\n• Standardize data types\n\nUpload your file to get started!",
+            'default': [
+                "That's an interesting question! Let me think about that... Based on common data patterns, I'd suggest looking at the correlation between your key metrics.",
+                "Great question! In my experience analyzing similar datasets, the most valuable insights often come from segmenting your data by time periods or categories.",
+                "I understand what you're looking for. To give you the most accurate answer, could you share more details about your specific dataset or use case?",
+                "Excellent thinking! Data analysis is all about asking the right questions. Your approach sounds solid - shall I help you dive deeper?",
+                "That's exactly the kind of analysis I love helping with! Upload your data and I'll provide specific insights tailored to your situation."
+            ]
+        };
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+            
+            const avatarSvg = isUser 
+                ? '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+                : '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg>';
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatarSvg}</div>
+                <div>
+                    <div class="message-content">${content}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check for specific keywords
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return aiResponses['hello'];
+            }
+            if (lowerMessage.includes('help') || lowerMessage.includes('what can you do')) {
+                return aiResponses['help'];
+            }
+            if (lowerMessage.includes('analyze') || lowerMessage.includes('analysis')) {
+                return aiResponses['analyze'];
+            }
+            if (lowerMessage.includes('pivot')) {
+                return aiResponses['pivot'];
+            }
+            if (lowerMessage.includes('trend') || lowerMessage.includes('pattern')) {
+                return aiResponses['trend'];
+            }
+            if (lowerMessage.includes('clean') || lowerMessage.includes('cleaning')) {
+                return aiResponses['clean'];
+            }
+            if (lowerMessage.includes('thank')) {
+                return "You're welcome! I'm always here to help with your data analysis needs. Feel free to ask anything else!";
+            }
+            if (lowerMessage.includes('weather')) {
+                return "I'm focused on data analysis, but I can tell you that analyzing weather data is fascinating! If you have weather datasets, I can help find patterns and trends.";
+            }
+            if (lowerMessage.includes('who are you') || lowerMessage.includes('what are you')) {
+                return "I'm an AI Data Assistant designed to help you understand and analyze your data. I can process files, create visualizations, find insights, and answer your questions about data analysis!";
+            }
+            
+            // Return a random default response
+            const defaults = aiResponses['default'];
+            return defaults[Math.floor(Math.random() * defaults.length)];
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            // Show typing indicator
+            addTypingIndicator();
+            
+            // Simulate AI response after delay
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = getAIResponse(message);
+                addMessage(response);
+            }, 1000 + Math.random() * 1000);
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Quick actions
+        quickActions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const prompt = btn.dataset.prompt;
+                chatInput.value = prompt;
+                sendMessage();
+            });
+        });
+
+        // New chat
+        newChatBtn.addEventListener('click', () => {
+            chatMessages.innerHTML = `
+                <div class="message ai">
+                    <div class="message-avatar">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="message-content">
+                            New conversation started! How can I help you analyze your data today?
+                        </div>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // File upload in chat
+        chatFileBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.csv,.xlsx,.xls,.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    addMessage(`Uploaded file: ${file.name}`, true);
+                    addTypingIndicator();
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        addMessage(`Great! I've received your file "${file.name}" (${(file.size / 1024).toFixed(1)} KB). I'm now analyzing the structure and content...\n\nInitial findings:\n• File type detected: ${file.name.split('.').pop().toUpperCase()}\n• Ready for analysis\n\nWhat would you like me to do with this data? I can create pivot tables, find trends, clean the data, or generate insights.`);
+                    }, 1500);
+                }
+            };
+            input.click();
+        });
+
+        // Image upload in chat
+        chatImageBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    addMessage(`Uploaded image: ${file.name}`, true);
+                    addTypingIndicator();
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        addMessage(`I've received your image "${file.name}". I'm analyzing the visual content...\n\nI can extract:\n• Data from charts and graphs\n• Tables and spreadsheet screenshots\n• Text and numbers from images\n\nWhat information would you like me to extract from this image?`);
+                    }, 2000);
+                }
+            };
+            input.click();
+        });
     </script>
 </body>
 </html>
